@@ -1,5 +1,7 @@
 # Non-soficity of OpenAI's torsion-free hyperbolic group
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23202475.svg)](https://doi.org/10.5281/zenodo.23202475)
+
 Seth Douglas and Nidhal Mghirbi
 
 Is every word-hyperbolic group sofic? OpenAI recently constructed a torsion-free word-hyperbolic group that is not
@@ -46,5 +48,6 @@ residually finite" (OpenAI Math Release, 23 September 2026) and its Lean develop
 `adc7f1241b42e322a6451854ab7e4b4c146bf78a`. Their sources are not redistributed here.
 
 The paper and documentation are licensed CC BY 4.0, the scripts MIT, and the Lean files Apache 2.0, since they
-adapt parts of OpenAI's Apache-2.0 development; see [RIGHTS.md](RIGHTS.md) and [NOTICE](NOTICE). To cite this work,
-see [CITATION.cff](CITATION.cff).
+adapt parts of OpenAI's Apache-2.0 development; see [RIGHTS.md](RIGHTS.md) and [NOTICE](NOTICE). To cite this work, use
+the DOI [10.5281/zenodo.23202475](https://doi.org/10.5281/zenodo.23202475) (version 1.0.0; all versions: [10.5281/zenodo.23202474](https://doi.org/10.5281/zenodo.23202474))
+or see [CITATION.cff](CITATION.cff).
