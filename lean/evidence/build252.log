@@ -1,0 +1,31 @@
+﻿LEAN_PATH=L:\oai-math\lean\.lake\packages\mathlib\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\batteries\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\aesop\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\Qq\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\proofwidgets\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\plausible\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\LeanSearchClient\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\importGraph\.lake\build\lib\lean;L:\obj
+Model already built (no messages)
+MatrixRank         exit=0 time=22.3s peakMB=3,590
+Incidence          exit=0 time=25.2s peakMB=3,619
+Presentation       exit=0 time=21.1s peakMB=3,506
+WordPaths          exit=0 time=18.6s peakMB=3,493
+PermutationCycles  exit=0 time=18.5s peakMB=3,511
+Planarity          exit=0 time=18.5s peakMB=3,286
+RePairing          exit=0 time=19.0s peakMB=3,517
+TriangleFilling    exit=0 time=19.0s peakMB=3,537
+Words              exit=0 time=17.6s peakMB=3,523
+Dipoles            exit=0 time=17.2s peakMB=3,346
+Ribbons            exit=0 time=18.3s peakMB=3,494
+Links              exit=0 time=17.0s peakMB=3,495
+Rectangles         exit=0 time=17.1s peakMB=3,480
+LiftedFilling      exit=0 time=19.8s peakMB=3,505
+Spheres            exit=0 time=28.8s peakMB=3,491
+FullFilling        exit=0 time=28.1s peakMB=3,486
+FullGluing         exit=0 time=26.0s peakMB=3,497
+Chains             exit=0 time=24.0s peakMB=3,495
+CyclicAction       exit=0 time=23.5s peakMB=3,377
+FullChains         exit=0 time=17.9s peakMB=3,498
+BasedWords         exit=0 time=26.0s peakMB=3,502
+Torsion            exit=0 time=18.0s peakMB=3,402
+DiscreteMetric     exit=0 time=23.2s peakMB=3,540
+ThinTriangles      exit=0 time=22.6s peakMB=3,587
+CayleyMetric       exit=0 time=16.4s peakMB=3,466
+CayleyPaths        exit=0 time=18.1s peakMB=3,462
+Hyperbolicity      exit=0 time=20.0s peakMB=3,337
+Main               exit=0 time=19.6s peakMB=3,222
+DONE

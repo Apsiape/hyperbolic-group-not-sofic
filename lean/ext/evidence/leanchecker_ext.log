@@ -1,0 +1,6 @@
+﻿PermModel          exit=0 time=13.0s peakMB=2,605 killed=False
+Sofic              exit=0 time=13.2s peakMB=2,623 killed=False
+NonSofic           exit=0 time=12.9s peakMB=2,632 killed=False
+PermModel          exit=0 time=13.0s peakMB=2,626 killed=False
+Sofic              exit=0 time=12.9s peakMB=2,558 killed=False
+NonSofic           exit=0 time=12.9s peakMB=2,568 killed=False

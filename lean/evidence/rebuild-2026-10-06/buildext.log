@@ -1,0 +1,11 @@
+RUN 2026-10-07T03:35:37.8042009Z
+SOURCE=adc7f1241b42e322a6451854ab7e4b4c146bf78a
+MATHLIB=d13f23b723b8a846827a245b89c10fc7d3f11612
+TOOLCHAIN=Lean (version 4.34.1, x86_64-w64-windows-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+MODULE_ORDER_SHA256=542BCDCA5DB0F46D895A0979852A8668533786FE65D75D25E11154F26AB9C92E
+LEAN_PATH=L:\rb\ext-obj;L:\rb\obj;L:\oai-math\lean\.lake\packages\mathlib\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\batteries\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\aesop\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\Qq\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\proofwidgets\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\plausible\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\LeanSearchClient\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\importGraph\.lake\build\lib\lean
+ext_PermModel exit=0 time=20.9s peakMiB=3,561 stop=
+ext_Sofic exit=0 time=18.4s peakMiB=3,487 stop=
+ext_NonSofic exit=0 time=21.0s peakMiB=3,496 stop=
+ext_Check exit=0 time=16.1s peakMiB=3,240 stop=
+SUCCESS: 4 extension modules compiled; 8 axiom reports standard.

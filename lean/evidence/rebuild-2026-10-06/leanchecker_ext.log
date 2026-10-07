@@ -1,0 +1,10 @@
+RUN 2026-10-07T03:36:54.4926407Z
+SOURCE=adc7f1241b42e322a6451854ab7e4b4c146bf78a
+MATHLIB=d13f23b723b8a846827a245b89c10fc7d3f11612
+TOOLCHAIN=Lean (version 4.34.1, x86_64-w64-windows-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+MODULE_ORDER_SHA256=542BCDCA5DB0F46D895A0979852A8668533786FE65D75D25E11154F26AB9C92E
+LEAN_PATH=L:\rb\ext-obj;L:\rb\obj;L:\oai-math\lean\.lake\packages\mathlib\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\batteries\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\aesop\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\Qq\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\proofwidgets\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\plausible\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\LeanSearchClient\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\importGraph\.lake\build\lib\lean
+kernel_ext_PermModel exit=0 time=15.1s peakMiB=2,630 stop=
+kernel_ext_Sofic exit=0 time=14.7s peakMiB=2,624 stop=
+kernel_ext_NonSofic exit=0 time=14.5s peakMiB=2,640 stop=
+SUCCESS: 3 extension module(s) replayed individually.

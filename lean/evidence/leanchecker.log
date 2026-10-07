@@ -1,0 +1,35 @@
+﻿Main               exit=0 time=203.3s peakMB=2,564 killed=False
+DONE
+ALL                exit=-1 time=170.6s peakMB=7,047 killed=True
+STOPPED (memory guard) at ALL
+DONE
+MatrixRank         exit=0 time=13.6s peakMB=2,628 killed=False
+Incidence          exit=0 time=13.2s peakMB=2,629 killed=False
+Presentation       exit=0 time=12.6s peakMB=2,623 killed=False
+Rectangles         exit=0 time=13.3s peakMB=2,563 killed=False
+Torsion            exit=0 time=13.2s peakMB=2,565 killed=False
+Hyperbolicity      exit=0 time=11.9s peakMB=2,626 killed=False
+DONE
+Model              exit=0 time=12.3s peakMB=2,557 killed=False
+WordPaths          exit=0 time=12.3s peakMB=2,624 killed=False
+PermutationCycles  exit=0 time=11.7s peakMB=2,625 killed=False
+Planarity          exit=0 time=11.3s peakMB=2,627 killed=False
+RePairing          exit=0 time=11.3s peakMB=2,627 killed=False
+TriangleFilling    exit=0 time=11.3s peakMB=2,628 killed=False
+Words              exit=0 time=11.3s peakMB=2,592 killed=False
+Dipoles            exit=0 time=11.6s peakMB=2,563 killed=False
+Ribbons            exit=0 time=12.6s peakMB=2,628 killed=False
+Links              exit=0 time=12.3s peakMB=2,627 killed=False
+LiftedFilling      exit=0 time=12.3s peakMB=2,598 killed=False
+Spheres            exit=0 time=12.3s peakMB=2,628 killed=False
+FullFilling        exit=0 time=12.3s peakMB=2,629 killed=False
+FullGluing         exit=0 time=12.0s peakMB=2,593 killed=False
+Chains             exit=0 time=11.0s peakMB=2,581 killed=False
+CyclicAction       exit=0 time=11.3s peakMB=2,633 killed=False
+FullChains         exit=0 time=11.3s peakMB=2,632 killed=False
+BasedWords         exit=0 time=11.7s peakMB=2,566 killed=False
+DiscreteMetric     exit=0 time=12.9s peakMB=2,637 killed=False
+ThinTriangles      exit=0 time=13.5s peakMB=2,665 killed=False
+CayleyMetric       exit=0 time=12.3s peakMB=2,581 killed=False
+CayleyPaths        exit=0 time=12.3s peakMB=2,565 killed=False
+DONE

@@ -1,0 +1,37 @@
+RUN 2026-10-07T03:18:23.6046669Z
+SOURCE=adc7f1241b42e322a6451854ab7e4b4c146bf78a
+MATHLIB=d13f23b723b8a846827a245b89c10fc7d3f11612
+TOOLCHAIN=Lean (version 4.34.1, x86_64-w64-windows-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+MODULE_ORDER_SHA256=542BCDCA5DB0F46D895A0979852A8668533786FE65D75D25E11154F26AB9C92E
+LEAN_PATH=L:\rb\obj;L:\oai-math\lean\.lake\packages\mathlib\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\batteries\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\aesop\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\Qq\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\proofwidgets\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\plausible\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\LeanSearchClient\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\importGraph\.lake\build\lib\lean
+Model exit=0 time=17.1s peakMiB=3,230 stop=
+MatrixRank exit=0 time=23.8s peakMiB=3,595 stop=
+Incidence exit=0 time=27.8s peakMiB=3,624 stop=
+Presentation exit=0 time=20.4s peakMiB=3,508 stop=
+WordPaths exit=0 time=19.5s peakMiB=3,495 stop=
+PermutationCycles exit=0 time=18.1s peakMiB=3,514 stop=
+Planarity exit=0 time=17.9s peakMiB=3,496 stop=
+RePairing exit=0 time=21.1s peakMiB=3,517 stop=
+TriangleFilling exit=0 time=21.4s peakMiB=3,535 stop=
+Words exit=0 time=20.1s peakMiB=3,523 stop=
+Dipoles exit=0 time=17.8s peakMiB=3,501 stop=
+Ribbons exit=0 time=19.1s peakMiB=3,544 stop=
+Links exit=0 time=18.5s peakMiB=3,494 stop=
+Rectangles exit=0 time=22.1s peakMiB=3,480 stop=
+LiftedFilling exit=0 time=18.4s peakMiB=3,504 stop=
+Spheres exit=0 time=21.6s peakMiB=3,525 stop=
+FullFilling exit=0 time=21.7s peakMiB=3,488 stop=
+FullGluing exit=0 time=21.3s peakMiB=3,494 stop=
+Chains exit=0 time=18.2s peakMiB=3,494 stop=
+CyclicAction exit=0 time=21.5s peakMiB=3,501 stop=
+FullChains exit=0 time=21.9s peakMiB=3,497 stop=
+BasedWords exit=0 time=24.0s peakMiB=3,500 stop=
+Torsion exit=0 time=19.6s peakMiB=3,459 stop=
+DiscreteMetric exit=0 time=22.0s peakMiB=3,539 stop=
+ThinTriangles exit=0 time=20.9s peakMiB=3,600 stop=
+CayleyMetric exit=0 time=18.5s peakMiB=3,479 stop=
+CayleyPaths exit=0 time=21.8s peakMiB=3,478 stop=
+Hyperbolicity exit=0 time=18.9s peakMiB=3,459 stop=
+Main exit=0 time=18.8s peakMiB=3,456 stop=
+Check252 exit=0 time=18.9s peakMiB=3,466 stop=
+SUCCESS: all 29 upstream modules and Check252 compiled.

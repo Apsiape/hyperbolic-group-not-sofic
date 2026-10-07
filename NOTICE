@@ -1,0 +1,17 @@
+Non-soficity of OpenAI's torsion-free hyperbolic group
+Copyright 2026 Seth Douglas and Nidhal Mghirbi
+
+This repository contains Lean files (lean/Check252.lean and lean/ext/Approx252/) that import, reuse and adapt
+parts of OpenAI's Lean development for "A torsion-free hyperbolic group that is not residually finite" (item 252
+of OpenAI's mathematics release), in https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, licensed under the
+Apache License, Version 2.0. In particular:
+
+- lean/Check252.lean re-enters the definitions of TorsionFree and WordHyperbolic from OpenAI's comparator challenge
+  file (lean/ComparatorChallenges/TorsionFreeHyperbolic.lean) in order to compare them with the development's own;
+- lean/ext/Approx252/PermModel.lean adapts the structure of OpenAI's finite-quotient rank obstruction
+  (OAI.Release075.finite_quotient_rank_obstruction and not_residuallyFinite_of_line_blocks) from the regular
+  representation of a finite group to approximate permutation models;
+- lean/ext/Approx252/NonSofic.lean follows the structure of OpenAI's main theorem (OAI.Release075.main).
+
+The group, its construction and all imported theorems are OpenAI's work. OpenAI's sources are not redistributed
+in this repository; they are referenced by commit and must be obtained from the repository above.

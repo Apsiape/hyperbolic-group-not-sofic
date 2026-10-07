@@ -1,0 +1,6 @@
+paper/build/
+lean/build/
+__pycache__/
+*.aux
+*.log
+!lean/evidence/*.log

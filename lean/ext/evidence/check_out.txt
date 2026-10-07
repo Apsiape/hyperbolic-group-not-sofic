@@ -1,0 +1,79 @@
+﻿'Approx252.approx_rank_obstruction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Approx252.no_model_of_line_blocks' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Approx252.no_model_of_line_blocks_threshold' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Approx252.no_model_of_line_blocks_threshold : ∀ {Ω : Type u_1} [inst : Fintype Ω] [inst_1 : DecidableEq Ω]
+  {T : Type u_2} {I : Type u_3} [inst_2 : Fintype T] [inst_3 : Fintype I] [inst_4 : DecidableEq T]
+  [inst_5 : DecidableEq I] (r q : ℕ) [inst_6 : Fact (Nat.Prime q)],
+  r < q →
+    ∀ (S : Finset (ZMod q)) (a v : I → T → ZMod q),
+      (∀ (i : I) (t : T), a i t ∈ S) →
+        Function.Injective a →
+          (∀ (i : I), v i ≠ 0) →
+            2 * (Fintype.card T * (S.card - 1)) < q - 1 →
+              ∀ (E : Finset (T → ZMod q)),
+                4 * (2 * Fintype.card (T → ZMod q) + r * E.card) < Fintype.card I * r →
+                  ∀ (x : I → Fin r → Fin r → Equiv.Perm Ω),
+                    0 < Fintype.card Ω →
+                      ∀ ε ≤ 1 / (8 * ↑r ^ 2 * ↑(Fintype.card I) * ↑q),
+                        ∀ (e k : ℕ),
+                          (∀ (i : I), Approx252.RectanglesAlmostFree (x i) e) →
+                            ↑e ≤ ε * ↑(Fintype.card Ω) →
+                              ↑k ≤ ε * ↑(Fintype.card Ω) →
+                                (∀ z ∉ E,
+                                    ∃ b₀ b₁,
+                                      Disjoint b₀.labels b₁.labels ∧
+                                        b₀.labels ∪ b₁.labels = OAI.Release075.lineIncidence a v z ∧
+                                          Approx252.ApproxRelations b₀ x k ∧ Approx252.ApproxRelations b₁ x k) →
+                                  False
+'Approx252.IsSofic.exists_approx' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Approx252.relator_support_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Approx252.rectangle_fixCount_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Approx252.presentation_not_sofic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Approx252.exists_torsionFree_wordHyperbolic_not_sofic' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Approx252.no_model_of_line_blocks : ∀ {Ω : Type u_1} [inst : Fintype Ω] [inst_1 : DecidableEq Ω] {T : Type u_2}
+  {I : Type u_3} [inst_2 : Fintype T] [inst_3 : Fintype I] [inst_4 : DecidableEq T] [inst_5 : DecidableEq I] (r q : ℕ)
+  [inst_6 : Fact (Nat.Prime q)],
+  r < q →
+    ∀ (S : Finset (ZMod q)) (a v : I → T → ZMod q),
+      (∀ (i : I) (t : T), a i t ∈ S) →
+        Function.Injective a →
+          (∀ (i : I), v i ≠ 0) →
+            2 * (Fintype.card T * (S.card - 1)) < q - 1 →
+              ∀ (E : Finset (T → ZMod q)) (x : I → Fin r → Fin r → Equiv.Perm Ω) (e k : ℕ),
+                (∀ (i : I), Approx252.RectanglesAlmostFree (x i) e) →
+                  r ^ 2 * e ≤ Fintype.card Ω →
+                    (∀ z ∉ E,
+                        ∃ b₀ b₁,
+                          Disjoint b₀.labels b₁.labels ∧
+                            b₀.labels ∪ b₁.labels = OAI.Release075.lineIncidence a v z ∧
+                              Approx252.ApproxRelations b₀ x k ∧ Approx252.ApproxRelations b₁ x k) →
+                      4 * (2 * Fintype.card (T → ZMod q) + r * E.card) * Fintype.card Ω +
+                            4 * ((∑ z, (OAI.Release075.lineIncidence a v z).card) * (r * r * k)) <
+                          Fintype.card I * r * Fintype.card Ω →
+                        False
+Approx252.IsSofic : (G : Type u_1) → [Group G] → Prop
+Approx252.exists_torsionFree_wordHyperbolic_not_sofic : ∃ G x,
+  OAI.Release075.TorsionFree G ∧ OAI.Release075.WordHyperbolic G ∧ ¬Approx252.IsSofic G
+def Approx252.IsSofic.{u_1} : (G : Type u_1) → [Group G] → Prop :=
+fun G [Group G] =>
+  ∀ (F : Finset G) (ε : ℝ),
+    0 < ε →
+      ∃ n φ,
+        (∀ g ∈ F, ∀ h ∈ F, Approx252.hammingDist (φ (g * h)) (φ g * φ h) ≤ ε) ∧
+          ∀ g ∈ F, g ≠ 1 → 1 - ε ≤ Approx252.hammingDist (φ g) 1
+def Approx252.hammingDist : {n : ℕ} → Equiv.Perm (Fin n) → Equiv.Perm (Fin n) → ℝ :=
+fun {n} σ τ => ↑(Approx252.dis σ τ) / ↑n
+def Approx252.dis.{u_1} : {Ω : Type u_1} → [Fintype Ω] → [DecidableEq Ω] → Equiv.Perm Ω → Equiv.Perm Ω → ℕ :=
+fun {Ω} [Fintype Ω] [DecidableEq Ω] σ τ => (σ⁻¹ * τ).support.card
+def Approx252.RectanglesAlmostFree.{u_1, u_2} : {Ω : Type u_1} →
+  [Fintype Ω] → [DecidableEq Ω] → {ι : Type u_2} → (ι → ι → Equiv.Perm Ω) → ℕ → Prop :=
+fun {Ω} [Fintype Ω] [DecidableEq Ω] {ι} x e =>
+  ∀ (u u' v v' : ι), u ≠ u' → v ≠ v' → Approx252.fixCount (x u v * (x u' v)⁻¹ * x u' v' * (x u v')⁻¹) ≤ e
+def Approx252.ApproxRelations.{u_1, u_2} : {Ω : Type u_1} →
+  [Fintype Ω] →
+    [DecidableEq Ω] →
+      {I : Type u_2} → {r : ℕ} → OAI.Release075.CartesianBlock I r → (I → Fin r → Fin r → Equiv.Perm Ω) → ℕ → Prop :=
+fun {Ω} [Fintype Ω] [DecidableEq Ω] {I} {r} b x k =>
+  ∃ L R,
+    ∀ (i : ↥b.labels) (u v : Fin r),
+      (L u ((b.coordinates i).1 + ↑↑v) * x (↑i) u v * (R v ((b.coordinates i).2 + ↑↑u))⁻¹).support.card ≤ k

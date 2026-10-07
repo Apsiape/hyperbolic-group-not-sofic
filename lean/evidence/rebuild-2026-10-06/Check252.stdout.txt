@@ -1,0 +1,106 @@
+main : ∃ G x, TorsionFree G ∧ WordHyperbolic G ∧ ¬Group.ResiduallyFinite G
+TorsionFree : (G : Type u_1) → [Group G] → Prop
+WordHyperbolic : (G : Type u_1) → [Group G] → Prop
+@BlockPresentation.relators : {I : Type u_1} →
+  {B : Type u_2} → {r : ℕ} → (d : BlockPresentation I B r) → Set (FreeGroup d.Edge)
+@BlockPresentation.triangleWord : {I : Type u_1} →
+  {B : Type u_2} →
+    {r : ℕ} → (d : BlockPresentation I B r) → (b : B) → ↥(d.block b).labels → Fin r → Fin r → FreeGroup d.Edge
+@BlockPresentation.triangle_relation : ∀ {I : Type u_1} {B : Type u_2} {r : ℕ} (d : BlockPresentation I B r) (b : B)
+  (i : ↥(d.block b).labels) (u v : Fin r),
+  d.x (↑i) u v = (d.l b u (((d.block b).coordinates i).1 + ↑↑v))⁻¹ * d.rr b v (((d.block b).coordinates i).2 + ↑↑u)
+@MarkedLineData.RectangularNontriviality : {q r : ℕ} → [inst : Fact (Nat.Prime q)] → MarkedLineData q r → 0 < r → Prop
+@MarkedLineData.rectangular_nontriviality : ∀ {q r : ℕ} [inst : Fact (Nat.Prime q)] (d : MarkedLineData q r)
+  (hr : 0 < r), d.RectangularNontriviality hr
+@RectanglesSurvive : {ι : Type u_1} → {F : Type u_2} → [Group F] → (ι → ι → F) → Prop
+@MarkedLineData.budget : ∀ {q r : ℕ} [inst : Fact (Nat.Prime q)] (self : MarkedLineData q r),
+  4 * (2 * q ^ 20 + r * self.exceptional.card) < Fintype.card self.Label * r
+exists_markedLineData : ∃ q r,
+  ∃ (hq : Nat.Prime q),
+    have x := ⋯;
+    0 < r ∧ r < q ∧ 100 * 100 ^ 20 ≤ r ∧ Nonempty (MarkedLineData q r)
+@grid_line_certificate : ∀ {T : Type u_1} {I : Type u_2} {K : Type u_3} [inst : Fintype T] [inst_1 : Fintype I]
+  [inst_2 : DecidableEq T] [inst_3 : DecidableEq I] [inst_4 : Field K] [inst_5 : Fintype K] [inst_6 : DecidableEq K]
+  (S : Finset K) (a v : I → T → K),
+  (∀ (i : I) (t : T), a i t ∈ S) →
+    Function.Injective a →
+      (∀ (i : I), v i ≠ 0) →
+        2 * (Fintype.card T * (S.card - 1)) < Fintype.card K - 1 →
+          ∀ (i j k : I),
+            (∑ z, if i ∈ lineIncidence a v z then gridLagrange S (a j) z * gridLagrange S (a k) z else 0) =
+              -if j = i ∧ k = i then 1 else 0
+@rank_budget_of_line_certificate : ∀ {P : Type u_1} {I : Type u_2} {ι : Type u_3} {κ : Type u_4} {K : Type u_5}
+  [inst : Fintype P] [inst_1 : Fintype I] [Fintype ι] [inst_3 : Fintype κ] [inst_4 : DecidableEq I] [inst_5 : Field K]
+  (inc : P → Finset I) (f : P → I → K) (Y : I → Matrix ι κ K),
+  (∀ (i j k : I), (∑ z, if i ∈ inc z then f z j * f z k else 0) = -if j = i ∧ k = i then 1 else 0) →
+    ∑ i, (Y i).rank ≤ ∑ z, (∑ i ∈ inc z, Y i).rank
+@rank_reduction_half : ∀ {ι : Type u_1} {κ : Type u_2} [Fintype ι] [inst : Fintype κ] (M : Matrix ι κ ℤ) (r : ℝ),
+  1 ≤ r →
+    (∀ (i : ι), ∑ j, ↑(M i j) ^ 2 ≤ r) →
+      ∀ (q : ℕ) [inst_1 : Fact (Nat.Prime q)], r < ↑q → (M.map Int.cast).rank ≤ 2 * (M.map Int.cast).rank
+@finite_quotient_rank_obstruction : ∀ {P : Type u_1} {I : Type u_2} {F : Type u_3} [inst : Fintype P]
+  [inst_1 : Fintype I] [inst_2 : DecidableEq I] [inst_3 : Group F] [inst_4 : Fintype F] [inst_5 : DecidableEq F]
+  (r q : ℕ) [inst_6 : Fact (Nat.Prime q)],
+  r < q →
+    ∀ (inc : P → Finset I) (f : P → I → ZMod q) (E : Finset P) (g : I → Fin r → Fin r → F),
+      (∀ (i : I), RectanglesSurvive (g i)) →
+        (∀ (i j k : I), (∑ z, if i ∈ inc z then f z j * f z k else 0) = -if j = i ∧ k = i then 1 else 0) →
+          (∀ z ∉ E, (∑ i ∈ inc z, quotientMatrix (g i)).rank ≤ 2 * Fintype.card F) →
+            4 * (2 * Fintype.card P + r * E.card) < Fintype.card I * r → False
+@not_residuallyFinite_of_line_blocks : ∀ {T : Type u_1} {I : Type u_2} {G : Type u_3} [inst : Fintype T]
+  [inst_1 : Fintype I] [inst_2 : DecidableEq T] [inst_3 : DecidableEq I] [inst_4 : Group G] (r q : ℕ)
+  [inst_5 : Fact (Nat.Prime q)],
+  r < q →
+    ∀ (S : Finset (ZMod q)) (a v : I → T → ZMod q),
+      (∀ (i : I) (t : T), a i t ∈ S) →
+        Function.Injective a →
+          (∀ (i : I), v i ≠ 0) →
+            2 * (Fintype.card T * (S.card - 1)) < q - 1 →
+              ∀ (E : Finset (T → ZMod q)) (g : I → Fin r → Fin r → G),
+                (∀ (i : I), RectanglesSurvive (g i)) →
+                  (∀ z ∉ E,
+                      ∃ b₀ b₁,
+                        Disjoint b₀.labels b₁.labels ∧
+                          b₀.labels ∪ b₁.labels = lineIncidence a v z ∧ b₀.Relations g ∧ b₁.Relations g) →
+                    4 * (2 * Fintype.card (T → ZMod q) + r * E.card) < Fintype.card I * r → ¬Group.ResiduallyFinite G
+@MarkedLineData.presentation_torsionFree : ∀ {q r : ℕ} [inst : Fact (Nat.Prime q)] (d : MarkedLineData q r)
+  (hr : 0 < r), TorsionFree (d.presentation hr).GroupType
+@MarkedLineData.presentation_finiteOrder_eq_one : ∀ {q r : ℕ} [inst : Fact (Nat.Prime q)] (d : MarkedLineData q r)
+  (hr : 0 < r) (g : (d.presentation hr).GroupType), IsOfFinOrder g → g = 1
+@MarkedLineData.presentation_wordHyperbolic : ∀ {q r : ℕ} [inst : Fact (Nat.Prime q)] (d : MarkedLineData q r)
+  (hr : 0 < r), WordHyperbolic (d.presentation hr).GroupType
+@MarkedLineData.presentation_cochainBound : ∀ {q r : ℕ} [inst : Fact (Nat.Prime q)] (d : MarkedLineData q r)
+  (hr : 0 < r), Discrete.CochainBound (d.presentation hr).cayleyMetric 114
+@MarkedLineData.actual_presentation_not_residuallyFinite : ∀ {q r : ℕ} [inst : Fact (Nat.Prime q)]
+  (d : MarkedLineData q r) (hr : 0 < r), r < q → 200 ≤ q → ¬Group.ResiduallyFinite (d.presentation hr).GroupType
+@MarkedLineData.presentation_not_residuallyFinite : ∀ {q r : ℕ} [inst : Fact (Nat.Prime q)] (d : MarkedLineData q r)
+  (hr : 0 < r), r < q → 200 ≤ q → d.RectangularNontriviality hr → ¬Group.ResiduallyFinite (d.presentation hr).GroupType
+'OAI.Release075.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.BlockPresentation.triangle_relation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.MarkedLineData.rectangular_nontriviality' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.MarkedLineData.budget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.exists_markedLineData' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.large_prime_grid_outcome' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.incidence_numeric_budget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.grid_line_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.rank_budget_of_line_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.rank_reduction_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.nonsingular_rank_reduction_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.finite_quotient_rank_obstruction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.not_residuallyFinite_of_line_blocks' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.quotientMatrix_rank_mod_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.two_block_quotient_rank_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.MarkedLineData.presentation_torsionFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.MarkedLineData.presentation_finiteOrder_eq_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.Release075.MarkedLineData.presentation_wordHyperbolic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.MarkedLineData.presentation_cochainBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'OAI.Release075.MarkedLineData.actual_presentation_not_residuallyFinite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'OAI.Release075.MarkedLineData.presentation_not_residuallyFinite' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Challenge252.main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'zeroOne_rank_reduction' depends on axioms: [propext, Classical.choice, Quot.sound]

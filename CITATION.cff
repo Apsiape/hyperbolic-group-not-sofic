@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "Please cite the note; this repository supplies its source, reproduction scripts and Lean formalization."
+type: software
+title: "Non-soficity of OpenAI's torsion-free hyperbolic group"
+version: 1.0.0
+license:
+  - CC-BY-4.0
+  - MIT
+  - Apache-2.0
+authors:
+  - family-names: Douglas
+    given-names: Seth
+  - family-names: Mghirbi
+    given-names: Nidhal
+repository-code: "https://github.com/Apsiape/nonsofic-hyperbolic-group"
+keywords:
+  - sofic groups
+  - hyperbolic groups
+  - residual finiteness
+  - Lean
+  - formal verification
+references:
+  - type: generic
+    authors:
+      - name: OpenAI
+    title: "A torsion-free hyperbolic group that is not residually finite"
+    year: 2026
+    url: "https://github.com/openai/math"
+    notes: "OpenAI Math Release preprint, 23 September 2026; Lean development at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a. The group and every imported theorem are OpenAI's."
+preferred-citation:
+  type: generic
+  title: "Non-soficity of OpenAI's torsion-free hyperbolic group"
+  authors:
+    - family-names: Douglas
+      given-names: Seth
+    - family-names: Mghirbi
+      given-names: Nidhal
+  year: 2026
+  version: 1.0.0
+  notes: "Preprint with accompanying Lean formalization; see RIGHTS.md for license scope."

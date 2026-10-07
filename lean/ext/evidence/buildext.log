@@ -1,0 +1,136 @@
+﻿PermModel          exit=1 time=27.8s peakMB=3,281
+Approx252/PermModel.lean:33:2: error: unsolved goals
+case neg
+Î© : Type u_1
+R : Type u_2
+instâœÂ² : Fintype Î©
+instâœÂ¹ : DecidableEq Î©
+instâœ : Semiring R
+Ïƒ : Equiv.Perm Î©
+a b : Î©
+h : Â¬a = Ïƒ b
+h' : b â‰  Ïƒâ»Â¹ a
+âŠ¢ (Equiv.symm Ïƒ) a = b â†’ 1 = 0
+Approx252/PermModel.lean:35:13: warning: This simp argument is unused:
+  h'
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Approx252/PermModel.lean:43:2: error: unsolved goals
+case neg
+Î© : Type u_1
+R : Type u_2
+instâœÂ² : Fintype Î©
+instâœÂ¹ : DecidableEq Î©
+instâœ : Semiring R
+Ïƒ : Equiv.Perm Î©
+a b : Î©
+h : Â¬b = Ïƒ a
+h' : a â‰  Ïƒâ»Â¹ b
+âŠ¢ a = (Equiv.symm Ïƒ) b â†’ 0 = 1
+Approx252/PermModel.lean:45:13: warning: This simp argument is unused:
+  h'
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Approx252/PermModel.lean:56:28: error(lean.unknownIdentifier): Unknown constant `Finset.filter_card_add_filter_neg_card_eq_card`
+Approx252/PermModel.lean:54:52: error: unsolved goals
+Î© : Type u_1
+instâœÂ¹ : Fintype Î©
+instâœ : DecidableEq Î©
+Ïƒ : Equiv.Perm Î©
+âŠ¢ {c | Ïƒ c = c}.card + Ïƒ.support.card = Finset.univ.card
+Approx252/PermModel.lean:138:21: warning: `if_false` has been deprecated: Use `ite_false` instead
+Approx252/PermModel.lean:138:31: warning: `if_true` has been deprecated: Use `ite_true` instead
+Approx252/PermModel.lean:141:25: warning: `if_false` has been deprecated: Use `ite_false` instead
+Approx252/PermModel.lean:187:20: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Nonempty Î©
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+PermModel          exit=1 time=22.0s peakMB=3,277
+Approx252/PermModel.lean:58:2: error: No applicable extensionality theorem found for type
+  â„•
+
+Note: Extensionality theorems can be registered by marking them with the `[ext]` attribute
+PermModel          exit=1 time=18.8s peakMB=3,325
+Approx252/PermModel.lean:277:0: warning: automatically included section variable(s) unused in theorem `Approx252.flattenMatrix_eq_sum_singleBlock`:
+  [Fintype Î©]
+  [DecidableEq Î©]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype Î©] [DecidableEq Î©] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+Approx252/PermModel.lean:444:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+Approx252/PermModel.lean:448:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Approx252/PermModel.lean:467:9: error: synthesized type class instance is not definitionally equal to expression inferred by typing rules, synthesized
+  fun a b => @Fintype.decidablePiFintype T (fun a => ZMod q) (fun a => ZMod.decidableEq q) instâœÂ¹ a b
+inferred
+  fun a b =>
+    @Fintype.decidablePiFintype T (fun a => ZMod q) (fun a a_1 b => Classical.propDecidable (a_1 = b)) instâœÂ¹ a b
+Approx252/PermModel.lean:468:6: error: synthesized type class instance is not definitionally equal to expression inferred by typing rules, synthesized
+  ZMod.decidableEq q
+inferred
+  fun a b => Classical.propDecidable (a = b)
+Approx252/PermModel.lean:473:7: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Fintype (T â†’ ZMod q)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Approx252/PermModel.lean:478:25: warning: Possibly looping simp theorem: `Finset.card_filter`
+
+Note: Possibly caused by: `Finset.sum_boole`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+Approx252/PermModel.lean:478:4: error: Tactic `simp` failed with a nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+Approx252/PermModel.lean:480:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  âˆ‘ x âˆˆ ?m.77, âˆ‘ y âˆˆ ?m.78, ?m.79 x y
+in the target expression
+  (âˆ‘ z, âˆ‘ i, if z âˆˆ puncturedLine (a i) (v i) then 1 else 0) â‰¤ Fintype.card I * (q - 1)
+
+T : Type u_2
+I : Type u_3
+instâœÂ² : Fintype T
+instâœÂ¹ : Fintype I
+q : â„•
+instâœ : Fact (Nat.Prime q)
+a v : I â†’ T â†’ ZMod q
+h1 : âˆ€ (z : T â†’ ZMod q), (lineIncidence a v z).card = âˆ‘ i, if z âˆˆ puncturedLine (a i) (v i) then 1 else 0
+âŠ¢ (âˆ‘ z, âˆ‘ i, if z âˆˆ puncturedLine (a i) (v i) then 1 else 0) â‰¤ Fintype.card I * (q - 1)
+PermModel          exit=0 time=23.6s peakMB=3,546
+Sofic              exit=1 time=24.3s peakMB=3,263
+Approx252/Sofic.lean:69:8: error(lean.unknownIdentifier): Unknown constant `Equiv.Perm.apply_inv_self`
+Sofic              exit=0 time=18.4s peakMB=3,265
+NonSofic           exit=1 time=32.7s peakMB=3,275
+Approx252/NonSofic.lean:34:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+Approx252/NonSofic.lean:47:54: error: Tactic `simp` failed with a nested error:
+(deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Approx252/NonSofic.lean:20:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Approx252/NonSofic.lean:190:6: error(lean.invalidField): Invalid field `presentation_not_sofic`: The environment does not contain `OAI.Release075.MarkedLineData.presentation_not_sofic`, so it is not possible to project the field `presentation_not_sofic` from an expression
+  d
+of type `MarkedLineData q r`
+NonSofic           exit=0 time=20.9s peakMB=3,304
+PermModel          exit=1 time=20.7s peakMB=3,335
+Approx252/PermModel.lean:560:64: error(lean.unknownIdentifier): Unknown identifier `lt_of_not_le`
+PermModel          exit=0 time=21.4s peakMB=3,525
+Sofic              exit=0 time=17.7s peakMB=3,341
+NonSofic           exit=0 time=20.6s peakMB=3,497

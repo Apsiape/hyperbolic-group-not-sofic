@@ -1,0 +1,292 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem,booktabs,microtype}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\hypersetup{pdftitle={Non-soficity of OpenAI's torsion-free hyperbolic group},
+ pdfauthor={Seth Douglas and Nidhal Mghirbi},
+ pdfsubject={An obstruction to approximate permutation models}}
+\setlength{\emergencystretch}{1em}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\fix}{fix}
+\DeclareMathOperator{\mov}{mov}
+\newcommand{\F}{\mathbb F}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\cR}{\mathcal R}
+\makeatletter\g@addto@macro\UrlBreaks{\do\_\do\.\do\-}\makeatother
+\newcommand{\lean}[1]{\nolinkurl{#1}}
+
+\title{Non-soficity of OpenAI's torsion-free hyperbolic group}
+\author{Seth Douglas \and Nidhal Mghirbi}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Is every word-hyperbolic group sofic? This was an open question. OpenAI recently constructed a torsion-free word-hyperbolic group $G$ that is not residually finite, and formalized that theorem in Lean. We show that $G$ is not sofic. Their rank argument against finite quotients uses a finite quotient only through its permutation matrices, and it survives approximation: a relation that holds on all but a small fraction of points costs a small rank error, and a word with few fixed points costs a small trace error. The argument therefore excludes approximate permutation models at a fixed positive accuracy, while soficity would provide such models at every accuracy. Moreover, one fixed nonidentity element of $G$ dies under every homomorphism from $G$ to a sofic group, and $G$ is neither LEF nor residually amenable. The group and every input to the argument are OpenAI's. Our contribution is the approximate rank argument, with explicit constants, and a Lean formalization of its conclusion on top of OpenAI's development: some torsion-free word-hyperbolic group is not sofic.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+A group is \emph{sofic} if every finite piece of its multiplication table can be modelled by permutations of a nonempty finite set, with nonidentity elements moving almost every point \cite{Gromov1999,Weiss2000,ElekSzabo2005}. Residually finite groups and amenable groups are sofic. Non-sofic groups were first constructed in 2026 \cite{OpenAI26}; further examples followed \cite{FournierFacio26,KunThom26}. These works do not establish a non-sofic word-hyperbolic group. The hyperbolic group admitting a nonsofic probability-measure-preserving action noted in \cite[Section~1]{KunThom26} is a different assertion: nonsoficity of an action does not establish nonsoficity of its acting group. Whether every word-hyperbolic group is sofic remained open. Arzhantseva conjectured that all hyperbolic groups are residually finite if and only if all hyperbolic groups are sofic \cite[Conjecture~2.8]{Arzhantseva2014}; see also \cite[Conjecture~6.6]{ArzhantsevaCherix2024}.
+
+OpenAI then constructed a torsion-free word-hyperbolic group $G$ that is not residually finite \cite[Theorem~1.1]{OAI252}, with a Lean formalization of that theorem \cite{OAImath}. We show that the same group is not sofic.
+
+\begin{theorem}\label{thm:main}
+The torsion-free word-hyperbolic group $G$ of \cite{OAI252} is not sofic.
+\end{theorem}
+
+The proof in \cite{OAI252} assumes a finite quotient $Q$ in which a finite set $\cR$ of \emph{rectangular words} survives. It then compares two ranks of matrices built from the regular representation of $Q$: a lower bound from traces, and an upper bound from the defining relations and a finite-field interpolation identity. The comparison contradicts a fixed numerical budget. That argument never uses subgroups, kernels, orders of elements or any other structure of $Q$. It uses only that the regular representation is a homomorphism into permutation matrices, and that the rectangular words act without fixed points. Both facts have approximate versions, and every step of the comparison degrades by an amount we control. Theorem~\ref{thm:quant} states the result with explicit constants.
+
+Write $\mov(\alpha)$ for the fraction of points moved by a permutation $\alpha$ of a finite set, and $\fix(\alpha)=1-\mov(\alpha)$. The group $G$ has a finite presentation whose relators are \emph{triangle relators} $\theta_t$ together with two relators that the argument never uses (Section~\ref{sec:group}). The construction depends on a prime $q$ and an integer $r<q$.
+
+\begin{theorem}\label{thm:quant}
+Assign a permutation of a nonempty finite set $\Omega$ to every generator of $G$, and extend the assignment to words. If every rectangular word fixes at most a fraction $1/(r-1)^2$ of $\Omega$, then some triangle relator moves at least a fraction $\eps_0$ of $\Omega$. Here $\eps_0=1/(4r^2N(q-1))$ for any data satisfying the budget~\eqref{eq:budget}, where $N$ is the number of line labels, and $\eps_0=1/(6rq)$ for the data of \cite[Lemma~2.2]{OAI252}.
+\end{theorem}
+
+Theorem~\ref{thm:main} follows because soficity supplies such assignments with both defects arbitrarily small (Lemma~\ref{lem:models}). The same argument applied to a sofic image of $G$ gives a stronger conclusion.
+
+\begin{corollary}\label{cor:residual}
+Some fixed rectangular word $w_0\ne1$ of $G$ lies in the kernel of every homomorphism from $G$ to a sofic group. In particular every quotient of $G$ in which all rectangular words survive is non-sofic, and $G$ is not LEF, not residually amenable, and not initially subamenable.
+\end{corollary}
+
+Corollary~\ref{cor:residual} extends a consequence drawn in \cite[Corollary~1.2]{OAI252}: there, one fixed nonidentity element of $G$ is killed by every finite-dimensional linear representation over a commutative field. Finitely generated linear groups are residually finite \cite{Malcev1940}, hence sofic, so they are among the targets here.
+
+\paragraph{What is ours.} The group, its construction, its hyperbolicity and torsion-freeness, the nontriviality of the rectangular words, the interpolation certificate and the rank-reduction lemma are all from \cite{OAI252}, and all are theorems of the Lean development \cite{OAImath}. We contribute the approximate version of the rank comparison (Section~\ref{sec:transfer}), the passage from soficity (Section~\ref{sec:sofic}), the explicit constants, and a Lean formalization of the headline statement. Section~\ref{sec:verification} records exactly what was checked, and how.
+
+\section{The group and the facts we use}\label{sec:group}
+
+We recall the data of \cite[Section~2]{OAI252}, in the form of the Lean structure \lean{MarkedLineData}.
+
+\paragraph{Data.} A prime $q$, the integer $h=20$, and an integer $r$ with $r<q$. A subset $S\subset\F_q$ of size $\lfloor q/100\rfloor$. The point set $P=\F_q^h$ has $m=q^h$ points. A set $I$ of $N$ line labels: label $i$ has a mark $a_i\in S^h$, with distinct labels having distinct marks, and a nonzero direction; its punctured line is $\ell_i^\circ=\{a_i+tv_i:t\in\F_q^\times\}$, with $q-1$ points. For $z\in P$ put $I(z)=\{i:z\in\ell_i^\circ\}$. An exceptional set $E\subset P$. At each regular point $z\notin E$, the set $I(z)$ is split into two disjoint blocks, and each block $b$ carries a bijection $i\mapsto(\alpha_b(i),\beta_b(i))$ from $I_b$ onto $\Z/s_b\times\Z/t_b$ with $s_b,t_b\ge r$. The data satisfy the strict budget \cite[(2.2)]{OAI252}
+\begin{equation}\label{eq:budget}
+ q>r,\qquad \frac{Nr}{4}>2m+r|E|.
+\end{equation}
+We write $\Gamma=Nr-4(2m+r|E|)$, a positive integer.
+
+\paragraph{Presentation.} Let $[r]=\{0,\dots,r-1\}$. The generators are $x_{iuv}$ for $i\in I$ and $u,v\in[r]$; $L_{b,u,j}$ for $j\in\Z/s_b$; and $R_{b,v,k}$ for $k\in\Z/t_b$, over all blocks $b$. For every block $b$, label $i\in I_b$ and $u,v\in[r]$ there is a triangle relator
+\begin{equation}\label{eq:triangle}
+ \theta_{b,i,u,v}=L_{b,u,\alpha_b(i)+v}\;x_{iuv}\;R_{b,v,\beta_b(i)+u}^{-1}.
+\end{equation}
+Two further relators kill the edges of a spanning tree of the three-vertex graph underlying the triangle complex of \cite{OAI252}; the argument below never uses them. The group $G$ is the group of this presentation, which is $\pi_1$ of that complex. We index triangle relators by $t=(b,i,u,v)$; their number is
+\begin{equation}\label{eq:T}
+ T=r^2\sum_{z\notin E}|I(z)|\le r^2N(q-1).
+\end{equation}
+
+\paragraph{Rectangular words.} For $i\in I$, $u\ne u'$ and $v\ne v'$ in $[r]$,
+\[
+ w_{i,u,u',v,v'}=x_{iuv}\,x_{iu'v}^{-1}\,x_{iu'v'}\,x_{iuv'}^{-1}.
+\]
+Let $\cR$ be the finite set of these words.
+
+\paragraph{Facts from \cite{OAI252}.} Each is a theorem of the Lean development; Lean names are in the namespace \lean{OAI.Release075}.
+\begin{enumerate}[label=(F\arabic*),leftmargin=*]
+\item\label{F:rect} Every rectangular word is nontrivial in $G$ \cite[(2.6)]{OAI252} (\lean{MarkedLineData.rectangular_nontriviality}).
+\item\label{F:cert} \emph{Line certificate.} For arbitrary matrices $Y_i$ ($i\in I$) over $\F_q$, all of one size,
+\[
+ \sum_{i\in I}\rank Y_i\le\sum_{z\in P}\rank\Bigl(\sum_{i\in I(z)}Y_i\Bigr).
+\]
+This is \cite[(2.13)--(2.14)]{OAI252}: product Lagrange interpolation on $S^h$ gives rank-one matrices $H(z)$ with $\sum_{z\in\ell_i^\circ}H(z)=-E_{ii}$, because entries restricted to a line have degree below $q-1$; hence $-\bigoplus_iY_i=\sum_zH(z)\otimes\sum_{i\in I(z)}Y_i$ (\lean{grid_line_certificate}, \lean{rank_budget_of_line_certificate}). No group is involved.
+\item\label{F:red} \emph{Rank under reduction} \cite[Lemma~2.4]{OAI252}. If $M$ is an integer matrix whose rows have Euclidean norm at most $\sqrt r$ and $q>r$ is prime, then $\rank_{\F_q}M\ge\frac12\rank_\R M$ (\lean{rank_reduction_half}).
+\item\label{F:geo} $G$ is torsion-free and word-hyperbolic \cite[Theorem~2.1, Lemma~2.3]{OAI252} (\lean{presentation_torsionFree}, \lean{presentation_wordHyperbolic}).
+\end{enumerate}
+
+\section{Approximate permutation models}\label{sec:transfer}
+
+For a permutation $\pi$ of a nonempty finite set $\Omega$ with $|\Omega|=D$, let $P(\pi)$ be its permutation matrix, $P(\pi)e_c=e_{\pi(c)}$. Then $P(\pi\rho)=P(\pi)P(\rho)$, $P(\pi)^{\mathsf T}=P(\pi^{-1})$, and $\tr P(\pi)=D\fix(\pi)$.
+
+A \emph{model} assigns a permutation $\sigma(s)$ of $\Omega$ to each generator $s$. It extends to words by $\sigma(s^{-1})=\sigma(s)^{-1}$ and multiplication; this extension is a homomorphism from the free group. A model has \emph{relator defects} $\delta_t=\mov\sigma(\theta_t)$ and \emph{rectangle defect} $\eta=\max_{w\in\cR}\fix\sigma(w)$.
+
+\begin{theorem}\label{thm:ineq}
+Every model with $\eta\le1/(r-1)^2$ satisfies
+\[
+ \sum_t\delta_t\ \ge\ \frac{Nr}{4}-2m-r|E|\ =\ \frac{\Gamma}{4}.
+\]
+\end{theorem}
+
+\begin{proof}
+For each label $i$ let $Y_i$ be the $rD\times rD$ matrix of $D\times D$ blocks $P(\sigma(x_{iuv}))$, $u,v\in[r]$. It has entries $0$ and $1$, and each row has exactly $r$ ones.
+
+\emph{Step 1: traces.} Put $A_i=Y_iY_i^{\mathsf T}$. Then $\tr A_i=\sum_{u,v}\tr\bigl(P P^{\mathsf T}\bigr)=r^2D$, and
+\[
+ \tr A_i^2=\sum_{u,u',v,v'}\tr P\bigl(\sigma(x_{iuv}x_{iu'v}^{-1}x_{iu'v'}x_{iuv'}^{-1})\bigr).
+\]
+If $u=u'$ or $v=v'$ the word cancels freely, so the term is exactly $D$; there are $2r^3-r^2$ such index choices. The other $r^2(r-1)^2$ terms are $D\fix\sigma(w)$ for rectangular words $w$, each at most $\eta D$. So $\tr A_i^2\le(2r^3-r^2)D+r^2(r-1)^2\eta D$.
+
+\emph{Step 2: real rank.} Since $A_i$ is positive semidefinite, Cauchy--Schwarz on its eigenvalues gives $\rank A_i\ge(\tr A_i)^2/\tr A_i^2$, so
+\[
+ \rank_\R Y_i\ \ge\ \frac{r^2D}{2r-1+(r-1)^2\eta}\ \ge\ \frac{rD}{2}\qquad\text{when }(r-1)^2\eta\le1.
+\]
+
+\emph{Step 3: rank over $\F_q$.} The rows of $Y_i$ have norm $\sqrt r$ and $q>r$, so \ref{F:red} gives $\rank_{\F_q}Y_i\ge rD/4$.
+
+\emph{Step 4: local factorization with errors.} Fix a block $b$ at a regular point $z$ and a triangle $t=(b,i,u,v)$, and abbreviate $L=L_{b,u,\alpha_b(i)+v}$, $x=x_{iuv}$, $R=R_{b,v,\beta_b(i)+u}$. A point $p$ is fixed by $\sigma(\theta_t)=\sigma(L)\sigma(x)\sigma(R)^{-1}$ exactly when the column $c=\sigma(R)^{-1}(p)$ of $P(\sigma(x))$ agrees with that of $P(\sigma(L))^{-1}P(\sigma(R))$. Hence
+\[
+ P(\sigma(x))=P(\sigma(L))^{-1}P(\sigma(R))+\Delta_t,\qquad \rank\Delta_t\le\delta_tD,
+\]
+since $\Delta_t$ has at most $\delta_tD$ nonzero columns. For fixed $u,v$, as $i$ runs over $I_b$ the pair $(\alpha_b(i)+v,\beta_b(i)+u)$ runs over $\Z/s_b\times\Z/t_b$ exactly once. Therefore
+\[
+ \sum_{i\in I_b}Y_i=\Bigl(\sum_{j}P(\sigma(L_{b,u,j}))^{-1}\Bigr)_{u\in[r]}\Bigl(\sum_kP(\sigma(R_{b,v,k}))\Bigr)_{v\in[r]}+\Delta_b,
+\]
+a block column times a block row, with inner dimension $D$, plus a matrix $\Delta_b$ whose $(u,v)$ block is $\sum_{i\in I_b}\Delta_{(b,i,u,v)}$. This is the factorization \cite[(2.11)]{OAI252} with error $\Delta_b$, and $\rank\Delta_b\le D\sum_{t\in b}\delta_t$. Each regular point has two blocks, so $Z(z)=\sum_{i\in I(z)}Y_i$ satisfies
+\[
+ \rank Z(z)\le 2D+D\sum_{t\text{ at }z}\delta_t\quad(z\notin E),\qquad \rank Z(z)\le rD\quad(z\in E),
+\]
+where the second bound is the size of the matrix.
+
+\emph{Step 5: certificate.} By \ref{F:cert} over $\F_q$, $\sum_i\rank Y_i\le\sum_z\rank Z(z)$. With Steps 3 and 4,
+\[
+ \frac{NrD}{4}\le 2(m-|E|)D+r|E|D+D\sum_t\delta_t.
+\]
+Divide by $D$.
+\end{proof}
+
+When every $\delta_t=0$ and $\eta=0$, which is the case of the regular representation of a finite quotient in which $\cR$ survives, Theorem~\ref{thm:ineq} contradicts~\eqref{eq:budget}; this is the argument of \cite[Section~2]{OAI252}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:quant}]
+Suppose $\eta\le1/(r-1)^2$ and every $\delta_t<\eps_0$. Theorem~\ref{thm:ineq} gives $\Gamma/4\le\sum_t\delta_t<T\eps_0$.
+
+For general data, $\Gamma\ge1$ and $T\le r^2N(q-1)$ by~\eqref{eq:T}, so $T\eps_0\le1/4$ when $\eps_0=1/(4r^2N(q-1))$, a contradiction.
+
+For the data of \cite[Lemma~2.2]{OAI252}, its proof gives $N\ge cm/2$ and $r|E|\le m$, where $c=100^{-20}$ and $cr\ge100$. Then $3m\le6N/c\le0.06\,Nr$, so $\Gamma/4\ge Nr/4-3m\ge0.19\,Nr$. With $\eps_0=1/(6rq)$, $T\eps_0\le r^2N(q-1)/(6rq)<Nr/6<0.19\,Nr$, again a contradiction.
+\end{proof}
+
+The threshold is astronomically small, since $r\ge100^{21}$ and $q$ is a much larger prime, but it is fixed and positive, and it does not depend on $|\Omega|$.
+
+\section{From soficity to models}\label{sec:sofic}
+
+Let $d(\alpha,\beta)=\mov(\alpha^{-1}\beta)$ be the normalized Hamming distance on $\Sym(\Omega)$; it is bi-invariant. We use the standard definition: a group $H$ is sofic if for every finite $F\subset H$ and every $\eps>0$ there are a nonempty finite set $\Omega$ and a map $\varphi:H\to\Sym(\Omega)$ with
+\[
+ d\bigl(\varphi(gh),\varphi(g)\varphi(h)\bigr)\le\eps\quad(g,h\in F),\qquad d\bigl(\varphi(g),1\bigr)\ge1-\eps\quad(g\in F\setminus\{1\}).
+\]
+This form, with separation close to $1$, is equivalent to the other common forms \cite{ElekSzabo2005}; see also \cite[Section~3]{Pestov2008}. Equivalently, for a presentation $H=F/K$, soficity says that finitely many words in $K$ can be made to fix almost every point while finitely many words outside $K$ fix almost none, by permutations assigned to the generators; Lemma~\ref{lem:models} is the instance we need, with explicit constants.
+
+\begin{lemma}\label{lem:models}
+Let $\pi:G\to H$ be a homomorphism to a sofic group such that $\pi(w)\ne1$ for every $w\in\cR$. Then for every $\eps>0$ there is a model with every $\delta_t\le5\eps$ and $\eta\le8\eps$.
+\end{lemma}
+
+\begin{proof}
+Let $F\subset H$ consist of $1$, the images of the generators and their inverses, and the images of all prefixes of the triangle relators and the rectangular words. Take $\varphi$ as in the definition for $F$ and $\eps$, and set $\sigma(s)=\varphi(\pi(s))$ for each generator $s$.
+
+From $\varphi(1)\varphi(1)\approx_\eps\varphi(1)$ we get $d(\varphi(1),1)\le\eps$, and then $d(\varphi(\pi s^{-1}),\varphi(\pi s)^{-1})\le2\eps$. For a word $w=s_1^{e_1}\cdots s_k^{e_k}$ whose prefixes map into $F$, telescoping over prefixes and bi-invariance give
+\[
+ d\bigl(\varphi(\pi w),\sigma(w)\bigr)\le(k-1)\eps+2k_-\eps,
+\]
+where $k_-$ is the number of inverse letters. A triangle relator has $k=3$ and $k_-=1$, and $\pi(\theta_t)=1$, so $\delta_t=d(\sigma(\theta_t),1)\le4\eps+d(\varphi(1),1)\le5\eps$. A rectangular word has $k=4$ and $k_-=2$, and $d(\varphi(\pi w),1)\ge1-\eps$ because $\pi(w)\ne1$; so $\fix\sigma(w)\le\eps+7\eps=8\eps$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+If $G$ were sofic, Lemma~\ref{lem:models} with $H=G$, $\pi=\mathrm{id}$ and \ref{F:rect} would give models with every $\delta_t\le5\eps$ and $\eta\le8\eps$ for every $\eps>0$. Taking $\eps$ with $8\eps\le1/(r-1)^2$ and $5\eps<\eps_0$ contradicts Theorem~\ref{thm:quant}.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:residual}]
+Suppose each $w\in\cR$ survives under some homomorphism $\pi_w$ to a sofic group $H_w$. Finite direct products and subgroups of sofic groups are sofic \cite{Pestov2008}, so the image $H$ of $G$ in $\prod_{w\in\cR}H_w$ is sofic, and every $w\in\cR$ survives in $H$. Lemma~\ref{lem:models} and Theorem~\ref{thm:quant} give a contradiction. So some $w_0\in\cR$ dies under every homomorphism to a sofic group, and $w_0\ne1$ by \ref{F:rect}. LEF, residually amenable and initially subamenable groups are sofic \cite{Pestov2008}, so $G$ is none of these.
+\end{proof}
+
+\section{What does not transfer}\label{sec:remarks}
+
+\paragraph{Hyperlinearity.} The argument does not show that $G$ fails to be hyperlinear, and it breaks in three places. The rank reduction \ref{F:red} needs integer matrices; the certificate \ref{F:cert} needs a finite field; and in unitary models a relator that holds approximately in normalized Hilbert--Schmidt norm need not hold off a low-rank error, so Step~4 fails. The present argument does not determine whether $G$ is hyperlinear. If it is, $G$ separates soficity from hyperlinearity.
+
+\paragraph{Linear soficity.} In models by invertible matrices over $\F_q$ with the rank metric, Steps 4 and 5 survive but Steps 1--3 do not: there are no $0/1$ entries and no real traces. So the argument says nothing about linear or weak soficity.
+
+\paragraph{Where approximation is needed.} The argument needs the rectangle defect $\eta$ below $1/(r-1)^2$. A sofic approximation with separation bounded away from $1$ but not close to $1$ would not suffice directly; the standard definition, with separation $1-\eps$, is what Lemma~\ref{lem:models} uses.
+
+\section{Verification}\label{sec:verification}
+
+\paragraph{The inputs.} We rebuilt OpenAI's Lean development \url{https://github.com/openai/math} at commit
+\[
+ \texttt{adc7f1241b42e322a6451854ab7e4b4c146bf78a},
+\]
+with Lean~4.34.1 and Mathlib at tag \texttt{v4.34.1} (commit \texttt{d13f23b}). All 29 modules of \lean{OAI/GroupTheory/Hyperbolic} compile without errors, warnings or \lean{sorry}, and all 29 passed Lean's kernel checker. (The first build did not capture the exit code of \lean{Model}; a later recompile of that module exits $0$ with no output.) A second, complete rebuild from scratch with the repository's scripts repeated every compilation and kernel check, including those of the formalization described below; all $66$ steps exit $0$. The main theorem \lean{OAI.Release075.main} and each declaration cited in \ref{F:rect}--\ref{F:geo}, together with \lean{BlockPresentation.triangle_relation} and the budget field of \lean{MarkedLineData}, depend only on the axioms \lean{propext}, \lean{Classical.choice} and \lean{Quot.sound}. The definitions of torsion-free and word-hyperbolic (the latter by thin geodesic triangles in a Cayley graph) agree with the repository's challenge statement by definitional equality. The Lean group is the presented group of Section~\ref{sec:group}; the identification with $\pi_1$ of the triangle complex and the general criterion \cite[Theorem~2.1]{OAI252} are not formalized, and neither is \cite[Corollary~1.2]{OAI252}. None of these is used here. Build instructions are in the accompanying repository.
+
+\paragraph{The transfer.} Sections~\ref{sec:transfer} and~\ref{sec:sofic} give complete written proofs. They were derived twice, independently: once from the paper and the Lean source, and once by a separate derivation that had no access to the first. Both reach Theorem~\ref{thm:main} by the same mechanism.
+
+\paragraph{The formalized headline.} The transfer is also formalized in Lean on top of OpenAI's development, in the folder \lean{lean/ext} of the accompanying repository. The formal theorem is
+\begin{center}
+\lean{exists_torsionFree_wordHyperbolic_not_sofic} :\quad $\exists\,G$,\ \ \lean{TorsionFree}\,$G$ $\wedge$ \lean{WordHyperbolic}\,$G$ $\wedge$ $\neg$\,\lean{IsSofic}\,$G$,
+\end{center}
+with OpenAI's definitions of the first two properties. Mathlib has no definition of soficity, so \lean{IsSofic} is defined there exactly as in Section~\ref{sec:sofic}: maps to permutations of $\{0,\dots,n-1\}$, normalized Hamming distance, multiplicativity error at most $\eps$ and separation at least $1-\eps$. The theorem depends only on the axioms \lean{propext}, \lean{Classical.choice} and \lean{Quot.sound}, and Lean's kernel checker re-checked the three new modules. The formal proof follows Sections~\ref{sec:transfer} and~\ref{sec:sofic}: it proves Lemma~\ref{lem:models} with the same constants $5$ and $8$, and an obstruction of the form of Theorem~\ref{thm:ineq} with cruder constants, a rectangle fraction of $1/r^2$ and a single threshold $1/(8r^2Nq)$.
+
+What is machine-checked is therefore the headline statement, not every statement of this note. The sharper constants of Theorem~\ref{thm:quant}, Corollary~\ref{cor:residual} and its consequences, and the equivalence of this definition of soficity with other common forms~\cite{ElekSzabo2005} are proved here in writing only.
+
+\paragraph{Use of AI.} The group and all inputs are AI-generated work of OpenAI \cite{OAI252}. AI systems also assisted us with the transfer, the checks, the Lean builds and the manuscript. The authors take responsibility for the content.
+
+\begin{thebibliography}{99}
+
+\bibitem{Arzhantseva2014}
+G.~Arzhantseva,
+Asymptotic approximations of finitely generated groups,
+in \emph{Research Perspectives CRM Barcelona, Fall 2012}, Trends in Mathematics, vol.~1, Birkh\"auser, 2014, pp.~7--16.
+
+\bibitem{ArzhantsevaCherix2024}
+G.~Arzhantseva and P.-A.~Cherix,
+Quantifying metric approximations of discrete groups,
+\emph{Ann. Fac. Sci. Toulouse Math. (6)} \textbf{33} (2024), no.~3, 831--877.
+
+\bibitem{ElekSzabo2005}
+G.~Elek and E.~Szab\'o,
+Hyperlinearity, essentially free actions and $L^2$-invariants. The sofic property,
+\emph{Math. Ann.} \textbf{332} (2005), 421--441.
+
+\bibitem{FournierFacio26}
+F.~Fournier-Facio,
+A torsion-free non-sofic group,
+arXiv:2608.02025v2 (2026).
+
+\bibitem{Gromov1999}
+M.~Gromov,
+Endomorphisms of symbolic algebraic varieties,
+\emph{J. Eur. Math. Soc.} \textbf{1} (1999), 109--197.
+
+\bibitem{KunThom26}
+G.~Kun and A.~Thom,
+Nonsofic wreath products of residually finite groups,
+arXiv:2608.06222v3 (2026).
+
+\bibitem{Malcev1940}
+A.~I.~Mal'cev,
+On isomorphic matrix representations of infinite groups,
+\emph{Mat. Sb.} \textbf{8(50)} (1940), 405--422.
+
+\bibitem{OAI252}
+OpenAI,
+A torsion-free hyperbolic group that is not residually finite,
+OpenAI Math Release preprint, 23 September 2026, \url{https://github.com/openai/math/tree/main/preprints/a-torsion-free-hyperbolic-group-that-is-not-residually-finite-September-23-2026}.
+
+\bibitem{OAImath}
+OpenAI,
+Mathematics release, Lean development \texttt{lean/OAI/GroupTheory/Hyperbolic}, commit \texttt{adc7f12}, 6 October 2026, \url{https://github.com/openai/math}.
+
+\bibitem{OpenAI26}
+OpenAI,
+Nonsofic groups exist,
+Chapter~3 of \emph{Ten Advances in Mathematics and Theoretical Computer Science} (2026), pp.~78--95, \url{https://cdn.openai.com/pdf/ten-proofs-oai.pdf}.
+
+\bibitem{Pestov2008}
+V.~G.~Pestov,
+Hyperlinear and sofic groups: a brief guide,
+\emph{Bull. Symbolic Logic} \textbf{14} (2008), 449--480.
+
+\bibitem{Weiss2000}
+B.~Weiss,
+Sofic groups and dynamical systems,
+\emph{Sankhy\=a Ser.~A} \textbf{62} (2000), 350--359.
+
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,44 @@
+{
+  "title": "Non-soficity of OpenAI's torsion-free hyperbolic group",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "version": "1.0.0",
+  "creators": [
+    {
+      "name": "Douglas, Seth"
+    },
+    {
+      "name": "Mghirbi, Nidhal"
+    }
+  ],
+  "description": "<p>Is every word-hyperbolic group sofic? This was an open question. OpenAI recently constructed a torsion-free word-hyperbolic group G that is not residually finite, and formalized that theorem in Lean. We show that G is not sofic. Their rank argument against finite quotients uses a finite quotient only through its permutation matrices, and it survives approximation: a relation that holds on all but a small fraction of points costs a small rank error, and a word with few fixed points costs a small trace error. The argument therefore excludes approximate permutation models at a fixed positive accuracy, while soficity would provide such models at every accuracy. Moreover, one fixed nonidentity element of G dies under every homomorphism from G to a sofic group, and G is neither LEF nor residually amenable. The group and every input to the argument are OpenAI's. Our contribution is the approximate rank argument, with explicit constants, and a Lean formalization of its conclusion on top of OpenAI's development: some torsion-free word-hyperbolic group is not sofic.</p>",
+  "keywords": [
+    "sofic groups",
+    "hyperbolic groups",
+    "residual finiteness",
+    "approximate permutation models",
+    "Lean",
+    "formal verification"
+  ],
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "language": "eng",
+  "notes": "The paper and documentation are licensed CC BY 4.0; scripts are MIT; the Lean files adapt OpenAI's Apache-2.0 development and are licensed Apache-2.0 (see RIGHTS.md and NOTICE). The group and all imported theorems are OpenAI's. This is a preprint, not a claim of journal peer review.",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/openai/math/tree/main/preprints/a-torsion-free-hyperbolic-group-that-is-not-residually-finite-September-23-2026",
+      "relation": "references",
+      "resource_type": "publication-preprint"
+    },
+    {
+      "identifier": "https://github.com/openai/math",
+      "relation": "references",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "10.5802/afst.1788",
+      "relation": "references",
+      "scheme": "doi"
+    }
+  ]
+}

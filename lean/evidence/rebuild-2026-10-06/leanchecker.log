@@ -1,0 +1,36 @@
+RUN 2026-10-07T03:28:36.7661349Z
+SOURCE=adc7f1241b42e322a6451854ab7e4b4c146bf78a
+MATHLIB=d13f23b723b8a846827a245b89c10fc7d3f11612
+TOOLCHAIN=Lean (version 4.34.1, x86_64-w64-windows-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)
+MODULE_ORDER_SHA256=542BCDCA5DB0F46D895A0979852A8668533786FE65D75D25E11154F26AB9C92E
+LEAN_PATH=L:\rb\obj;L:\oai-math\lean\.lake\packages\mathlib\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\batteries\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\aesop\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\Qq\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\proofwidgets\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\plausible\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\LeanSearchClient\.lake\build\lib\lean;L:\oai-math\lean\.lake\packages\importGraph\.lake\build\lib\lean
+kernel_Model exit=0 time=16.0s peakMiB=2,622 stop=
+kernel_MatrixRank exit=0 time=16.9s peakMiB=2,634 stop=
+kernel_Incidence exit=0 time=15.2s peakMiB=2,635 stop=
+kernel_Presentation exit=0 time=15.8s peakMiB=2,627 stop=
+kernel_WordPaths exit=0 time=15.4s peakMiB=2,625 stop=
+kernel_PermutationCycles exit=0 time=16.0s peakMiB=2,626 stop=
+kernel_Planarity exit=0 time=15.4s peakMiB=2,631 stop=
+kernel_RePairing exit=0 time=14.8s peakMiB=2,633 stop=
+kernel_TriangleFilling exit=0 time=15.5s peakMiB=2,634 stop=
+kernel_Words exit=0 time=15.6s peakMiB=2,633 stop=
+kernel_Dipoles exit=0 time=15.2s peakMiB=2,630 stop=
+kernel_Ribbons exit=0 time=15.6s peakMiB=2,632 stop=
+kernel_Links exit=0 time=14.2s peakMiB=2,630 stop=
+kernel_Rectangles exit=0 time=15.5s peakMiB=2,630 stop=
+kernel_LiftedFilling exit=0 time=15.2s peakMiB=2,631 stop=
+kernel_Spheres exit=0 time=15.1s peakMiB=2,632 stop=
+kernel_FullFilling exit=0 time=15.3s peakMiB=2,632 stop=
+kernel_FullGluing exit=0 time=14.0s peakMiB=2,631 stop=
+kernel_Chains exit=0 time=15.1s peakMiB=2,632 stop=
+kernel_CyclicAction exit=0 time=13.4s peakMiB=2,636 stop=
+kernel_FullChains exit=0 time=13.7s peakMiB=2,632 stop=
+kernel_BasedWords exit=0 time=14.3s peakMiB=2,633 stop=
+kernel_Torsion exit=0 time=12.4s peakMiB=2,632 stop=
+kernel_DiscreteMetric exit=0 time=12.6s peakMiB=2,639 stop=
+kernel_ThinTriangles exit=0 time=13.7s peakMiB=2,667 stop=
+kernel_CayleyMetric exit=0 time=12.1s peakMiB=2,633 stop=
+kernel_CayleyPaths exit=0 time=12.1s peakMiB=2,632 stop=
+kernel_Hyperbolicity exit=0 time=12.1s peakMiB=2,632 stop=
+kernel_Main exit=0 time=12.1s peakMiB=2,632 stop=
+SUCCESS: 29 upstream module(s) replayed individually.
