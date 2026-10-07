@@ -12,7 +12,7 @@ authors:
     given-names: Seth
   - family-names: Mghirbi
     given-names: Nidhal
-repository-code: "https://github.com/Apsiape/nonsofic-hyperbolic-group"
+repository-code: "https://github.com/Apsiape/hyperbolic-group-not-sofic"
 keywords:
   - sofic groups
   - hyperbolic groups
