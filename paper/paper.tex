@@ -33,7 +33,7 @@
 
 \title{Non-soficity of OpenAI's torsion-free hyperbolic group}
 \author{Seth Douglas \and Nidhal Mghirbi}
-\date{October 2026}
+\date{October 2026 (version 1.0.1)}
 
 \begin{document}
 \maketitle
@@ -44,7 +44,7 @@ Is every word-hyperbolic group sofic? This was an open question. OpenAI recently
 
 \section{Introduction}\label{sec:intro}
 
-A group is \emph{sofic} if every finite piece of its multiplication table can be modelled by permutations of a nonempty finite set, with nonidentity elements moving almost every point \cite{Gromov1999,Weiss2000,ElekSzabo2005}. Residually finite groups and amenable groups are sofic. Non-sofic groups were first constructed in 2026 \cite{OpenAI26}; further examples followed \cite{FournierFacio26,KunThom26}. These works do not establish a non-sofic word-hyperbolic group. The hyperbolic group admitting a nonsofic probability-measure-preserving action noted in \cite[Section~1]{KunThom26} is a different assertion: nonsoficity of an action does not establish nonsoficity of its acting group. Whether every word-hyperbolic group is sofic remained open. Arzhantseva conjectured that all hyperbolic groups are residually finite if and only if all hyperbolic groups are sofic \cite[Conjecture~2.8]{Arzhantseva2014}; see also \cite[Conjecture~6.6]{ArzhantsevaCherix2024}.
+A group is \emph{sofic} if every finite piece of its multiplication table can be modelled by permutations of a nonempty finite set, with nonidentity elements moving almost every point \cite{Gromov1999,Weiss2000,ElekSzabo2005}. Residually finite groups and amenable groups are sofic. Non-sofic groups were first constructed in 2026 \cite{OpenAI26}; further examples followed \cite{FournierFacio26,KunThom26}. These works do not establish a non-sofic word-hyperbolic group. Chapman and Peled showed that a non-sofic hyperbolic group exists if random two-dimensional Linial--Meshulam complexes in a middle range of triangle densities typically have linear cocycle stability in permutations \cite{ChapmanPeled25}. The hyperbolic group admitting a nonsofic probability-measure-preserving action noted in \cite[Section~1]{KunThom26} is a different assertion: nonsoficity of an action does not establish nonsoficity of its acting group. Whether every word-hyperbolic group is sofic remained open. Arzhantseva conjectured that all hyperbolic groups are residually finite if and only if all hyperbolic groups are sofic \cite[Conjecture~2.8]{Arzhantseva2014}; see also \cite[Conjecture~6.6]{ArzhantsevaCherix2024}.
 
 OpenAI then constructed a torsion-free word-hyperbolic group $G$ that is not residually finite \cite[Theorem~1.1]{OAI252}, with a Lean formalization of that theorem \cite{OAImath}. We show that the same group is not sofic.
 
@@ -67,6 +67,8 @@ Some fixed rectangular word $w_0\ne1$ of $G$ lies in the kernel of every homomor
 \end{corollary}
 
 Corollary~\ref{cor:residual} extends a consequence drawn in \cite[Corollary~1.2]{OAI252}: there, one fixed nonidentity element of $G$ is killed by every finite-dimensional linear representation over a commutative field. Finitely generated linear groups are residually finite \cite{Malcev1940}, hence sofic, so they are among the targets here.
+
+\paragraph{Independent work.} A note circulated by A.~Thom \cite{SandhuThom26}, based on an AI-generated construction obtained by H.~Sandhu, gives an explicit torsion-free word-hyperbolic group that is not sofic. It uses ingredients of \cite{OAI252}, with an explicit incidence graph in place of a random one and a different rank estimate. Through a theorem of Kapovich and Wise \cite{KapovichWise2000}, that note also obtains a nontrivial torsion-free word-hyperbolic group with no nontrivial sofic quotient \cite[Corollary~B]{SandhuThom26}, which goes further than Corollary~\ref{cor:residual}.
 
 \paragraph{What is ours.} The group, its construction, its hyperbolicity and torsion-freeness, the nontriviality of the rectangular words, the interpolation certificate and the rank-reduction lemma are all from \cite{OAI252}, and all are theorems of the Lean development \cite{OAImath}. We contribute the approximate version of the rank comparison (Section~\ref{sec:transfer}), the passage from soficity (Section~\ref{sec:sofic}), the explicit constants, and a Lean formalization of the headline statement. Section~\ref{sec:verification} records exactly what was checked, and how.
 
@@ -103,7 +105,7 @@ Let $\cR$ be the finite set of these words.
  \sum_{i\in I}\rank Y_i\le\sum_{z\in P}\rank\Bigl(\sum_{i\in I(z)}Y_i\Bigr).
 \]
 This is \cite[(2.13)--(2.14)]{OAI252}: product Lagrange interpolation on $S^h$ gives rank-one matrices $H(z)$ with $\sum_{z\in\ell_i^\circ}H(z)=-E_{ii}$, because entries restricted to a line have degree below $q-1$; hence $-\bigoplus_iY_i=\sum_zH(z)\otimes\sum_{i\in I(z)}Y_i$ (\lean{grid_line_certificate}, \lean{rank_budget_of_line_certificate}). No group is involved.
-\item\label{F:red} \emph{Rank under reduction} \cite[Lemma~2.4]{OAI252}. If $M$ is an integer matrix whose rows have Euclidean norm at most $\sqrt r$ and $q>r$ is prime, then $\rank_{\F_q}M\ge\frac12\rank_\R M$ (\lean{rank_reduction_half}).
+\item\label{F:red} \emph{Rank under reduction} \cite[Lemma~2.4]{OAI252}. If $M$ is an integer matrix whose rows have Euclidean norm at most $\sqrt r$ and $q>r$ is prime, then $\rank_{\F_q}M\ge\frac12\rank_\R M$ (\lean{rank_reduction_half}). The same bound follows from Soul\'e's bound on the torsion of a cokernel \cite[Lemma~1]{Soule1999}, part of an argument that Soul\'e credits to Gabber; see also \cite[Lemma~3.1]{Sauer2016}.
 \item\label{F:geo} $G$ is torsion-free and word-hyperbolic \cite[Theorem~2.1, Lemma~2.3]{OAI252} (\lean{presentation_torsionFree}, \lean{presentation_wordHyperbolic}).
 \end{enumerate}
 
@@ -227,6 +229,8 @@ What is machine-checked is therefore the headline statement, not every statement
 
 \paragraph{Use of AI.} The group and all inputs are AI-generated work of OpenAI \cite{OAI252}. AI systems also assisted us with the transfer, the checks, the Lean builds and the manuscript. The authors take responsibility for the content.
 
+\paragraph{Acknowledgments.} We thank Andreas Thom and Harjas Sandhu. The note \cite{SandhuThom26} drew our attention to \cite{ChapmanPeled25}, \cite{Sauer2016} and \cite{Soule1999}, which version~1.0.0 of this note did not cite.
+
 \begin{thebibliography}{99}
 
 \bibitem{Arzhantseva2014}
@@ -238,6 +242,11 @@ in \emph{Research Perspectives CRM Barcelona, Fall 2012}, Trends in Mathematics,
 G.~Arzhantseva and P.-A.~Cherix,
 Quantifying metric approximations of discrete groups,
 \emph{Ann. Fac. Sci. Toulouse Math. (6)} \textbf{33} (2024), no.~3, 831--877.
+
+\bibitem{ChapmanPeled25}
+M.~Chapman and Y.~Peled,
+Cocycle stability in permutations of random simplicial complexes,
+preprint, 2025, arXiv:2509.21566.
 
 \bibitem{ElekSzabo2005}
 G.~Elek and E.~Szab\'o,
@@ -253,6 +262,11 @@ arXiv:2608.02025v2 (2026).
 M.~Gromov,
 Endomorphisms of symbolic algebraic varieties,
 \emph{J. Eur. Math. Soc.} \textbf{1} (1999), 109--197.
+
+\bibitem{KapovichWise2000}
+I.~Kapovich and D.~T.~Wise,
+The equivalence of some residual properties of word-hyperbolic groups,
+\emph{J. Algebra} \textbf{223} (2000), no.~2, 562--583.
 
 \bibitem{KunThom26}
 G.~Kun and A.~Thom,
@@ -282,6 +296,20 @@ Chapter~3 of \emph{Ten Advances in Mathematics and Theoretical Computer Science}
 V.~G.~Pestov,
 Hyperlinear and sofic groups: a brief guide,
 \emph{Bull. Symbolic Logic} \textbf{14} (2008), 449--480.
+
+\bibitem{SandhuThom26}
+An example of a non-sofic hyperbolic group,
+note circulated by A.~Thom (TU Dresden), 13 October 2026, based on an AI-generated construction obtained by H.~Sandhu (University of Queensland) on 7 October 2026.
+
+\bibitem{Sauer2016}
+R.~Sauer,
+Volume and homology growth of aspherical manifolds,
+\emph{Geom. Topol.} \textbf{20} (2016), no.~2, 1035--1059.
+
+\bibitem{Soule1999}
+C.~Soul\'e,
+Perfect forms and the Vandiver conjecture,
+\emph{J. Reine Angew. Math.} \textbf{517} (1999), 209--221.
 
 \bibitem{Weiss2000}
 B.~Weiss,

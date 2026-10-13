@@ -2,7 +2,7 @@
   "title": "Non-soficity of OpenAI's torsion-free hyperbolic group",
   "upload_type": "publication",
   "publication_type": "preprint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "creators": [
     {
       "name": "Douglas, Seth"
@@ -39,6 +39,11 @@
       "identifier": "10.5802/afst.1788",
       "relation": "references",
       "scheme": "doi"
+    },
+    {
+      "identifier": "arXiv:2509.21566",
+      "relation": "references",
+      "resource_type": "publication-preprint"
     }
   ]
 }

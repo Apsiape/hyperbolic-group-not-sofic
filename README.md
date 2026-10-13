@@ -41,6 +41,13 @@ A complete rebuild from scratch with the scripts in this repository compiled and
 OpenAI's development and the formalization; every step exits 0
 ([`lean/evidence/rebuild-2026-10-06/`](lean/evidence/rebuild-2026-10-06/)).
 
+## Version 1.0.1
+
+Attribution update; no mathematical change. The note now cites Chapman and Peled's conditional construction of a
+non-sofic hyperbolic group (arXiv:2509.21566), Soulé's torsion bound (with Sauer's restatement) as a second source for
+the rank-reduction lemma, and the independent note circulated by Andreas Thom, based on Harjas Sandhu's construction,
+which gives an explicit non-sofic hyperbolic group and a torsion-free hyperbolic group with no nontrivial sofic quotient.
+
 ## Credit and license
 
 The group, its construction and all imported theorems are OpenAI's: "A torsion-free hyperbolic group that is not

@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "Please cite the note; this repository supplies its source, reproduction scripts and Lean formalization."
 type: software
 title: "Non-soficity of OpenAI's torsion-free hyperbolic group"
-version: 1.0.0
+version: 1.0.1
 doi: 10.5281/zenodo.23202475
 license:
   - CC-BY-4.0
@@ -37,7 +37,7 @@ preferred-citation:
     - family-names: Mghirbi
       given-names: Nidhal
   year: 2026
-  version: 1.0.0
+  version: 1.0.1
   doi: 10.5281/zenodo.23202475
   notes: "Preprint with accompanying Lean formalization; see RIGHTS.md for license scope. Concept DOI of all versions: 10.5281/zenodo.23202474."
   url: "https://doi.org/10.5281/zenodo.23202475"
