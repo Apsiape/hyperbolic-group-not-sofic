@@ -57,7 +57,7 @@ OpenAI's development and the formalization; every step exits 0
 - New section "Division rings": for every division ring K of characteristic q, the group ring over K of G, or of any
   group containing G, has no Linnell division ring, no strongly Hughes-free division ring, and no epic division ring
   satisfying condition (HF); every Sylvester matrix rank function makes the line matrices collapse. OpenAI's
-  characteristic-two refutations and the authors' companion note on zero divisors are credited up front.
+  characteristic-two refutations and the authors' companion note on Kaplansky's conjectures for torsion-free hyperbolic groups are credited up front.
 - New structural results: G is the free product of a free group and a finitely presented torsion-free hyperbolic
   group G♯ such that no group containing G♯ has a Linnell division ring in characteristic q; no group containing G is bi-orderable; G and G♯ embed in no fundamental group of
   a two-complex with nonpositive immersions.
