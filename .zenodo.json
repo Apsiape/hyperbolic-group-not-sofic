@@ -72,6 +72,12 @@
       "identifier": "https://andreasthom.github.io/pdf/hyperbolicnonsofic.pdf",
       "relation": "references",
       "resource_type": "publication-preprint"
+    },
+    {
+      "identifier": "10.5281/zenodo.23374263",
+      "relation": "references",
+      "scheme": "doi",
+      "resource_type": "publication-preprint"
     }
   ]
 }
