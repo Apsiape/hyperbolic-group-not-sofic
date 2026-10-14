@@ -2,8 +2,10 @@ cff-version: 1.2.0
 message: "Please cite the note; this repository supplies its source, reproduction scripts and Lean formalization."
 type: software
 title: "Non-soficity of OpenAI's torsion-free hyperbolic group"
-version: 1.0.1
-doi: 10.5281/zenodo.23345877
+version: 1.1.0
+# TODO-DOI: the version DOI of 1.1.0 is assigned at deposit; add it here and below.
+# Until then this is the concept DOI, which resolves to the latest version.
+doi: 10.5281/zenodo.23202474
 license:
   - CC-BY-4.0
   - MIT
@@ -18,6 +20,9 @@ keywords:
   - sofic groups
   - hyperbolic groups
   - residual finiteness
+  - Linnell division rings
+  - group rings
+  - hyperlinearity
   - Lean
   - formal verification
 references:
@@ -37,7 +42,8 @@ preferred-citation:
     - family-names: Mghirbi
       given-names: Nidhal
   year: 2026
-  version: 1.0.1
-  doi: 10.5281/zenodo.23345877
-  notes: "Preprint with accompanying Lean formalization; see RIGHTS.md for license scope. Concept DOI of all versions: 10.5281/zenodo.23202474."
-  url: "https://doi.org/10.5281/zenodo.23345877"
+  version: 1.1.0
+  # TODO-DOI: replace with the version DOI of 1.1.0 at deposit.
+  doi: 10.5281/zenodo.23202474
+  notes: "Preprint with accompanying Lean formalization; see RIGHTS.md for license scope. 10.5281/zenodo.23202474 is the concept DOI of all versions; version 1.0.1 is 10.5281/zenodo.23345877 and version 1.0.0 is 10.5281/zenodo.23202475."
+  url: "https://doi.org/10.5281/zenodo.23202474"

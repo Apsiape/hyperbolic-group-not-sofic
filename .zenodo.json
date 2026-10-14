@@ -2,7 +2,7 @@
   "title": "Non-soficity of OpenAI's torsion-free hyperbolic group",
   "upload_type": "publication",
   "publication_type": "preprint",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "creators": [
     {
       "name": "Douglas, Seth"
@@ -11,12 +11,15 @@
       "name": "Mghirbi, Nidhal"
     }
   ],
-  "description": "<p>Is every word-hyperbolic group sofic? This was an open question. OpenAI recently constructed a torsion-free word-hyperbolic group G that is not residually finite, and formalized that theorem in Lean. We show that G is not sofic. Their rank argument against finite quotients uses a finite quotient only through its permutation matrices, and it survives approximation: a relation that holds on all but a small fraction of points costs a small rank error, and a word with few fixed points costs a small trace error. The argument therefore excludes approximate permutation models at a fixed positive accuracy, while soficity would provide such models at every accuracy. Moreover, one fixed nonidentity element of G dies under every homomorphism from G to a sofic group, and G is neither LEF nor residually amenable. The group and every input to the argument are OpenAI's. Our contribution is the approximate rank argument, with explicit constants, and a Lean formalization of its conclusion on top of OpenAI's development: some torsion-free word-hyperbolic group is not sofic.</p>",
+  "description": "<p>Is every word-hyperbolic group sofic? This was an open question. OpenAI recently constructed a torsion-free word-hyperbolic group G that is not residually finite, and formalized that theorem in Lean. We show that G is not sofic. Their rank argument against finite quotients uses a finite quotient only through its permutation matrices, and it survives approximation: a relation that holds on all but a small fraction of points costs a small rank error, and a word with few fixed points costs a small trace error. The argument therefore excludes approximate permutation models at a fixed positive accuracy, while soficity would provide such models at every accuracy. Moreover, one fixed nonidentity element of G dies under every homomorphism from G to a sofic group, and G is neither LEF nor residually amenable.</p><p>The same rectangles and the same finite-field certificate also exclude Linnell division rings. Let q be the prime fixed by the construction. For every division ring K of characteristic q, the group ring K[G] has no Linnell division ring, and neither has the group ring over K of any group containing G. Freeness of certain line subgroups of G would force full rank, and the certificate forces the rank to collapse; no zero divisor is exhibited. OpenAI's torsion-free group with zero divisors over F_2 already shows that Linnell division rings need not exist in characteristic two; here the group is G itself. We also show that G is the free product of a free group and a finitely presented torsion-free hyperbolic group to which the same applies, that G is not bi-orderable, and that G embeds in no fundamental group of a two-complex with nonpositive immersions, and we make precise what the argument says about hyperlinearity.</p><p>The group and every input to the non-soficity argument are OpenAI's. Our contribution is the approximate rank argument, with explicit constants, its counterpart for division rings, and a Lean formalization of the non-soficity statement on top of OpenAI's development: some torsion-free word-hyperbolic group is not sofic.</p>",
   "keywords": [
     "sofic groups",
     "hyperbolic groups",
     "residual finiteness",
     "approximate permutation models",
+    "Linnell division rings",
+    "group rings",
+    "hyperlinearity",
     "Lean",
     "formal verification"
   ],
@@ -42,6 +45,31 @@
     },
     {
       "identifier": "arXiv:2509.21566",
+      "relation": "references",
+      "resource_type": "publication-preprint"
+    },
+    {
+      "identifier": "10.4007/annals.2025.201.3.4",
+      "relation": "references",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.4171/jca/89",
+      "relation": "references",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "https://github.com/openai/math/blob/main/preprints/A-Torsion-Free-Group-Algebra-with-Zero-Divisors-September-23-2026/paper.pdf",
+      "relation": "references",
+      "resource_type": "publication-preprint"
+    },
+    {
+      "identifier": "https://github.com/openai/math/blob/main/preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026/direct-finiteness.pdf",
+      "relation": "references",
+      "resource_type": "publication-preprint"
+    },
+    {
+      "identifier": "https://andreasthom.github.io/pdf/hyperbolicnonsofic.pdf",
       "relation": "references",
       "resource_type": "publication-preprint"
     }

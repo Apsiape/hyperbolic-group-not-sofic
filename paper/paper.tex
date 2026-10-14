@@ -2,11 +2,11 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,amsmath,amssymb,amsthm,mathtools}
 \usepackage[margin=1in]{geometry}
-\usepackage{enumitem,booktabs,microtype}
+\usepackage{enumitem,booktabs,microtype,array}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \hypersetup{pdftitle={Non-soficity of OpenAI's torsion-free hyperbolic group},
  pdfauthor={Seth Douglas and Nidhal Mghirbi},
- pdfsubject={An obstruction to approximate permutation models}}
+ pdfsubject={An obstruction to approximate permutation models and to Linnell division rings. October 2026 (version 1.1.0)}}
 \setlength{\emergencystretch}{1em}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -22,9 +22,12 @@
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\fix}{fix}
 \DeclareMathOperator{\mov}{mov}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\Tr}{Tr}
 \newcommand{\F}{\mathbb F}
 \newcommand{\R}{\mathbb R}
 \newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
 \newcommand{\N}{\mathbb N}
 \newcommand{\eps}{\varepsilon}
 \newcommand{\cR}{\mathcal R}
@@ -33,14 +36,20 @@
 
 \title{Non-soficity of OpenAI's torsion-free hyperbolic group}
 \author{Seth Douglas \and Nidhal Mghirbi}
-\date{October 2026 (version 1.0.1)}
+\date{October 2026 (version 1.1.0)}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Is every word-hyperbolic group sofic? This was an open question. OpenAI recently constructed a torsion-free word-hyperbolic group $G$ that is not residually finite, and formalized that theorem in Lean. We show that $G$ is not sofic. Their rank argument against finite quotients uses a finite quotient only through its permutation matrices, and it survives approximation: a relation that holds on all but a small fraction of points costs a small rank error, and a word with few fixed points costs a small trace error. The argument therefore excludes approximate permutation models at a fixed positive accuracy, while soficity would provide such models at every accuracy. Moreover, one fixed nonidentity element of $G$ dies under every homomorphism from $G$ to a sofic group, and $G$ is neither LEF nor residually amenable. The group and every input to the argument are OpenAI's. Our contribution is the approximate rank argument, with explicit constants, and a Lean formalization of its conclusion on top of OpenAI's development: some torsion-free word-hyperbolic group is not sofic.
+Is every word-hyperbolic group sofic? This was an open question. OpenAI recently constructed a torsion-free word-hyperbolic group $G$ that is not residually finite, and formalized that theorem in Lean. We show that $G$ is not sofic. Their rank argument against finite quotients uses a finite quotient only through its permutation matrices, and it survives approximation: a relation that holds on all but a small fraction of points costs a small rank error, and a word with few fixed points costs a small trace error. The argument therefore excludes approximate permutation models at a fixed positive accuracy, while soficity would provide such models at every accuracy. Moreover, one fixed nonidentity element of $G$ dies under every homomorphism from $G$ to a sofic group, and $G$ is neither LEF nor residually amenable.
+
+The same rectangles and the same finite-field certificate also exclude Linnell division rings. Let $q$ be the prime fixed by the construction. For every division ring $K$ of characteristic $q$, the group ring $K[G]$ has no Linnell division ring, and neither has the group ring over $K$ of any group containing $G$. Freeness of certain line subgroups of $G$ would force full rank, and the certificate forces the rank to collapse; no zero divisor is exhibited. OpenAI's torsion-free group with zero divisors over $\F_2$ already shows that Linnell division rings need not exist in characteristic two; here the group is $G$ itself. We also show that $G$ is the free product of a free group and a finitely presented torsion-free hyperbolic group to which the same applies, that $G$ is not bi-orderable, and that $G$ embeds in no fundamental group of a two-complex with nonpositive immersions, and we make precise what the argument says about hyperlinearity.
+
+The group and every input to the non-soficity argument are OpenAI's. Our contribution is the approximate rank argument, with explicit constants, its counterpart for division rings, and a Lean formalization of the non-soficity statement on top of OpenAI's development: some torsion-free word-hyperbolic group is not sofic.
 \end{abstract}
+
+\noindent\emph{The authors developed this work with AI models from more than one developer and take responsibility for every claim. How the work was done, and what is machine-checked, is described at the end of the note.}
 
 \section{Introduction}\label{sec:intro}
 
@@ -66,17 +75,31 @@ Theorem~\ref{thm:main} follows because soficity supplies such assignments with b
 Some fixed rectangular word $w_0\ne1$ of $G$ lies in the kernel of every homomorphism from $G$ to a sofic group. In particular every quotient of $G$ in which all rectangular words survive is non-sofic, and $G$ is not LEF, not residually amenable, and not initially subamenable.
 \end{corollary}
 
-Corollary~\ref{cor:residual} extends a consequence drawn in \cite[Corollary~1.2]{OAI252}: there, one fixed nonidentity element of $G$ is killed by every finite-dimensional linear representation over a commutative field. Finitely generated linear groups are residually finite \cite{Malcev1940}, hence sofic, so they are among the targets here.
+Corollary~\ref{cor:residual} extends a consequence drawn in \cite[Corollary~1.2]{OAI252}: there, one fixed nonidentity element of $G$ is killed by every finite-dimensional linear representation over a commutative field. Finitely generated linear groups are residually finite \cite{Malcev1940} (see also \cite[Introduction and \S3]{Nica2013}), hence sofic \cite[Example~4.2]{Pestov2008}, so they are among the targets here.
 
-\paragraph{Independent work.} A note circulated by A.~Thom \cite{SandhuThom26}, based on an AI-generated construction obtained by H.~Sandhu, gives an explicit torsion-free word-hyperbolic group that is not sofic. It uses ingredients of \cite{OAI252}, with an explicit incidence graph in place of a random one and a different rank estimate. Through a theorem of Kapovich and Wise \cite{KapovichWise2000}, that note also obtains a nontrivial torsion-free word-hyperbolic group with no nontrivial sofic quotient \cite[Corollary~B]{SandhuThom26}, which goes further than Corollary~\ref{cor:residual}.
+\paragraph{Division rings.} The rectangular words and the line certificate also obstruct division rings. Let $K$ be a division ring and $\Lambda$ a group. A \emph{Linnell division ring} for $K[\Lambda]$ is a division ring generated by a copy of $K[\Lambda]$ in which, for every subgroup $C\le\Lambda$, elements of $\Lambda$ in distinct right cosets of $C$ are left linearly independent over the division subring generated by $K[C]$ \cite[Section~2.3]{JZL2025}, \cite[Definition~2.2]{FSP2026}; Section~\ref{sec:linnell} recalls the definitions in full. Jaikin-Zapirain and Linton conjectured that for every field $K$ and every torsion-free group $\Lambda$, $K[\Lambda]$ has a Linnell division ring, unique up to isomorphism \cite[Conjecture~1]{JZL2025}. Fisher and S\'anchez-Peralta state the same conjecture for crossed products over division rings \cite[Conjecture~1.2]{FSP2026}.
 
-\paragraph{What is ours.} The group, its construction, its hyperbolicity and torsion-freeness, the nontriviality of the rectangular words, the interpolation certificate and the rank-reduction lemma are all from \cite{OAI252}, and all are theorems of the Lean development \cite{OAImath}. We contribute the approximate version of the rank comparison (Section~\ref{sec:transfer}), the passage from soficity (Section~\ref{sec:sofic}), the explicit constants, and a Lean formalization of the headline statement. Section~\ref{sec:verification} records exactly what was checked, and how.
+\begin{theorem}\label{thm:linnell}
+Let $K$ be a division ring of characteristic $q$, and let $\Lambda$ be a group containing $G$. Then $K[\Lambda]$ has no Linnell division ring. Moreover, no division $K[\Lambda]$-ring is strongly Hughes-free in the sense of \cite[Section~2.3]{JZL2025}, and no epic division $K[\Lambda]$-ring satisfies condition (HF) of \cite[Definition~2.2(1)]{FSP2026}.
+\end{theorem}
+
+Hughes-freeness itself is defined only for locally indicable groups, and we do not know whether $G$ is locally indicable; Theorem~\ref{thm:linnell} excludes the independence condition (HF) on which that notion rests. Since $G$ is torsion-free, and data as in Section~\ref{sec:group} exist for every sufficiently large prime $q$ \cite[Lemma~2.2]{OAI252}, the existence part of both conjectures fails in every sufficiently large prime characteristic.
+
+These conjectures were already refuted in characteristic two. A Linnell division ring contains $K[\Lambda]$, so $K[\Lambda]$ would have no zero divisors and would be directly finite. OpenAI constructed a finitely presented torsion-free group $\Lambda$ with nonzero $\alpha,\beta\in\F_2[\Lambda]$ such that $\alpha\beta=0$ \cite[Theorem~1.1]{OAI196}, and another for which $\F_2[\Lambda]$ is not directly finite \cite[Theorem~1.1]{OAI197}. Either one refutes the existence part of both conjectures over $\F_2$. In a companion note we give, for every prime $p$, torsion-free word-hyperbolic groups whose group algebras over $\F_p$ have zero divisors \cite{DMzd}; for the same reason they have no Linnell division ring in characteristic $p$. Those are different groups. Theorem~\ref{thm:linnell} concerns $G$ itself, which is not sofic by Theorem~\ref{thm:main}; its proof exhibits no zero divisor, and counts ranks instead; and it covers every group containing $G$.
+
+The proof (Section~\ref{sec:linnell}) uses the same matrices $Y_i=(x_{iuv})_{u,v\in[r]}$ as Theorem~\ref{thm:ineq} below, now with entries in $K[G]$. The $x$-edges of one label generate a free subgroup of $G$, a \emph{line subgroup}, and freeness relative to the line subgroups forces every $Y_i$ to have full rank $r$ over the division ring. The line certificate forces $\sum_i\rank Y_i<Nr/4$. Whether $K[G]$ embeds in some division ring is open, and either answer is informative: an embedding would give a group ring that embeds in a division ring but has no Linnell division ring, and a negative answer would make $G$ a counterexample to \cite[Conjecture~1.1]{FSP2026} as well.
+
+Section~\ref{sec:structure} shows that $G$ is the free product of a free group and a finitely presented torsion-free hyperbolic group $G^\sharp$ to which Theorem~\ref{thm:linnell} applies as well, that no group containing $G$ is bi-orderable, and that $G$ embeds in no fundamental group of a two-complex with nonpositive immersions. Section~\ref{sec:hyperlinear} makes precise what the argument says about hyperlinearity.
+
+\paragraph{Independent work.} Sandhu and Thom \cite{SandhuThom26}, based on an AI-generated construction obtained by H.~Sandhu, give an explicit torsion-free word-hyperbolic group that is not sofic. It uses ingredients of \cite{OAI252}, with an explicit incidence graph in place of a random one and a different rank estimate. Through a theorem of Kapovich and Wise \cite{KapovichWise2000}, they also obtain a nontrivial torsion-free word-hyperbolic group with no nontrivial sofic quotient \cite[Corollary~B]{SandhuThom26}, which goes further than Corollary~\ref{cor:residual}.
+
+\paragraph{What is ours.} The group, its construction, its hyperbolicity and torsion-freeness, the nontriviality of the rectangular words, the interpolation certificate and the rank-reduction lemma are all from \cite{OAI252}, and all are theorems of the Lean development \cite{OAImath}. We contribute the approximate version of the rank comparison (Section~\ref{sec:transfer}), the passage from soficity (Section~\ref{sec:sofic}), the explicit constants, and a Lean formalization of the headline statement. We also contribute Theorem~\ref{thm:linnell} and the other results of Sections~\ref{sec:hyperlinear} and~\ref{sec:linnell}. The freeness of the line subgroups follows from \cite[Theorem~2.1 and Lemma~2.3]{OAI252} by the argument that gives the nontriviality of the rectangular words there. Appendix~\ref{app:sources} lists earlier sources for the inputs taken from \cite{OAI252}. Section~\ref{sec:verification} records exactly what was checked, and how.
 
 \section{The group and the facts we use}\label{sec:group}
 
 We recall the data of \cite[Section~2]{OAI252}, in the form of the Lean structure \lean{MarkedLineData}.
 
-\paragraph{Data.} A prime $q$, the integer $h=20$, and an integer $r$ with $r<q$. A subset $S\subset\F_q$ of size $\lfloor q/100\rfloor$. The point set $P=\F_q^h$ has $m=q^h$ points. A set $I$ of $N$ line labels: label $i$ has a mark $a_i\in S^h$, with distinct labels having distinct marks, and a nonzero direction; its punctured line is $\ell_i^\circ=\{a_i+tv_i:t\in\F_q^\times\}$, with $q-1$ points. For $z\in P$ put $I(z)=\{i:z\in\ell_i^\circ\}$. An exceptional set $E\subset P$. At each regular point $z\notin E$, the set $I(z)$ is split into two disjoint blocks, and each block $b$ carries a bijection $i\mapsto(\alpha_b(i),\beta_b(i))$ from $I_b$ onto $\Z/s_b\times\Z/t_b$ with $s_b,t_b\ge r$. The data satisfy the strict budget \cite[(2.2)]{OAI252}
+\paragraph{Data.} A prime $q$, the integer $h=20$, and an integer $r$ with $r<q$. A subset $S\subset\F_q$ of size $\lfloor q/100\rfloor$. The point set $P=\F_q^h$ has $m=q^h$ points. A set $I$ of $N$ line labels: label $i$ has a mark $a_i\in S^h$, with distinct labels having distinct marks, and a nonzero direction; its punctured line is $\ell_i^\circ=\{a_i+tv_i:t\in\F_q^\times\}$, with $q-1$ points. For $z\in P$ put $I(z)=\{i:z\in\ell_i^\circ\}$. An exceptional set $E\subset P$. At each regular point $z\notin E$, the set $I(z)$ is split into two disjoint blocks, and each block $b$ carries a bijection $i\mapsto(\alpha_b(i),\beta_b(i))$ from $I_b$ onto $\Z/s_b\times\Z/t_b$ with $s_b,t_b\ge r$. Moreover $|I(z)|\ge4r^2$ for $z\notin E$, and the bipartite graph on $P\sqcup I$ with an edge $z\sim i$ whenever $z\in\ell_i^\circ$ has no cycle of length at most $12$ \cite[Lemma~2.2]{OAI252}; these two conditions are used only through \ref{F:rect}, \ref{F:geo} and \cite[Lemma~2.3]{OAI252}, and in Proposition~\ref{prop:euler}. The data satisfy the strict budget \cite[(2.2)]{OAI252}
 \begin{equation}\label{eq:budget}
  q>r,\qquad \frac{Nr}{4}>2m+r|E|.
 \end{equation}
@@ -104,7 +127,7 @@ Let $\cR$ be the finite set of these words.
 \[
  \sum_{i\in I}\rank Y_i\le\sum_{z\in P}\rank\Bigl(\sum_{i\in I(z)}Y_i\Bigr).
 \]
-This is \cite[(2.13)--(2.14)]{OAI252}: product Lagrange interpolation on $S^h$ gives rank-one matrices $H(z)$ with $\sum_{z\in\ell_i^\circ}H(z)=-E_{ii}$, because entries restricted to a line have degree below $q-1$; hence $-\bigoplus_iY_i=\sum_zH(z)\otimes\sum_{i\in I(z)}Y_i$ (\lean{grid_line_certificate}, \lean{rank_budget_of_line_certificate}). No group is involved.
+This is \cite[(2.13)--(2.14)]{OAI252}: product Lagrange interpolation on $S^h$ \cite[Lemma~1.3, Theorem~2.3]{Schauz2008} gives rank-one matrices $H(z)$ with $\sum_{z\in\ell_i^\circ}H(z)=-E_{ii}$, because entries restricted to a line have degree below $q-1$, and a polynomial of degree below $q-1$ sums to zero over $\F_q$ \cite[Chapter~I, \S2.1, Lemma]{Serre1973}, \cite[Theorem~3.3(i)]{Schauz2008}; hence $-\bigoplus_iY_i=\sum_zH(z)\otimes\sum_{i\in I(z)}Y_i$ (\lean{grid_line_certificate}, \lean{rank_budget_of_line_certificate}). No group is involved.
 \item\label{F:red} \emph{Rank under reduction} \cite[Lemma~2.4]{OAI252}. If $M$ is an integer matrix whose rows have Euclidean norm at most $\sqrt r$ and $q>r$ is prime, then $\rank_{\F_q}M\ge\frac12\rank_\R M$ (\lean{rank_reduction_half}). The same bound follows from Soul\'e's bound on the torsion of a cokernel \cite[Lemma~1]{Soule1999}, part of an argument that Soul\'e credits to Gabber; see also \cite[Lemma~3.1]{Sauer2016}.
 \item\label{F:geo} $G$ is torsion-free and word-hyperbolic \cite[Theorem~2.1, Lemma~2.3]{OAI252} (\lean{presentation_torsionFree}, \lean{presentation_wordHyperbolic}).
 \end{enumerate}
@@ -135,6 +158,7 @@ If $u=u'$ or $v=v'$ the word cancels freely, so the term is exactly $D$; there a
 \[
  \rank_\R Y_i\ \ge\ \frac{r^2D}{2r-1+(r-1)^2\eta}\ \ge\ \frac{rD}{2}\qquad\text{when }(r-1)^2\eta\le1.
 \]
+This is the bound of \cite[Theorem~6]{AHKPY2011} for the $0/1$ matrix $Y_i$, whose rows and columns each contain $r$ ones: four-cycles in its bipartite graph are counted by fixed points of rectangular words, their number $\square$ satisfying $4\square=D\sum\fix\sigma(w)$ over the $r^2(r-1)^2$ index choices with $u\ne u'$ and $v\ne v'$ in Step~1. The inequality $\rank A\ge(\tr A)^2/\tr A^2$ is classical; see \cite[Section~3]{AHKPY2011} and the proof of \cite[Lemma~2.2]{Alon2009}.
 
 \emph{Step 3: rank over $\F_q$.} The rows of $Y_i$ have norm $\sqrt r$ and $q>r$, so \ref{F:red} gives $\rank_{\F_q}Y_i\ge rD/4$.
 
@@ -177,7 +201,7 @@ Let $d(\alpha,\beta)=\mov(\alpha^{-1}\beta)$ be the normalized Hamming distance 
 \[
  d\bigl(\varphi(gh),\varphi(g)\varphi(h)\bigr)\le\eps\quad(g,h\in F),\qquad d\bigl(\varphi(g),1\bigr)\ge1-\eps\quad(g\in F\setminus\{1\}).
 \]
-This form, with separation close to $1$, is equivalent to the other common forms \cite{ElekSzabo2005}; see also \cite[Section~3]{Pestov2008}. Equivalently, for a presentation $H=F/K$, soficity says that finitely many words in $K$ can be made to fix almost every point while finitely many words outside $K$ fix almost none, by permutations assigned to the generators; Lemma~\ref{lem:models} is the instance we need, with explicit constants.
+This is \cite[Definition~1.2]{ElekSzabo2005}, up to the normalization $\varphi(1)=1$ made there. It is equivalent to the forms with separation only bounded away from $0$: the proof of \cite[Theorem~1]{ElekSzabo2005} amplifies separation by tensor powers; see also \cite[Theorem~3.5 and its proof]{Pestov2008}. Equivalently, for a presentation $H=F/K$, soficity says that finitely many words in $K$ can be made to fix almost every point while finitely many words outside $K$ fix almost none, by permutations assigned to the generators; Lemma~\ref{lem:models} is the instance we need, with explicit constants.
 
 \begin{lemma}\label{lem:models}
 Let $\pi:G\to H$ be a homomorphism to a sofic group such that $\pi(w)\ne1$ for every $w\in\cR$. Then for every $\eps>0$ there is a model with every $\delta_t\le5\eps$ and $\eta\le8\eps$.
@@ -198,16 +222,237 @@ If $G$ were sofic, Lemma~\ref{lem:models} with $H=G$, $\pi=\mathrm{id}$ and \ref
 \end{proof}
 
 \begin{proof}[Proof of Corollary~\ref{cor:residual}]
-Suppose each $w\in\cR$ survives under some homomorphism $\pi_w$ to a sofic group $H_w$. Finite direct products and subgroups of sofic groups are sofic \cite{Pestov2008}, so the image $H$ of $G$ in $\prod_{w\in\cR}H_w$ is sofic, and every $w\in\cR$ survives in $H$. Lemma~\ref{lem:models} and Theorem~\ref{thm:quant} give a contradiction. So some $w_0\in\cR$ dies under every homomorphism to a sofic group, and $w_0\ne1$ by \ref{F:rect}. LEF, residually amenable and initially subamenable groups are sofic \cite{Pestov2008}, so $G$ is none of these.
+Suppose each $w\in\cR$ survives under some homomorphism $\pi_w$ to a sofic group $H_w$. Finite direct products and subgroups of sofic groups are sofic \cite[Theorem~1(1)]{ElekSzabo2006}, so the image $H$ of $G$ in $\prod_{w\in\cR}H_w$ is sofic, and every $w\in\cR$ survives in $H$. Lemma~\ref{lem:models} and Theorem~\ref{thm:quant} give a contradiction. So some $w_0\in\cR$ dies under every homomorphism to a sofic group, and $w_0\ne1$ by \ref{F:rect}. LEF, residually amenable and initially subamenable groups are sofic \cite[Example~4.5 and the paragraph before it]{Pestov2008}, so $G$ is none of these.
 \end{proof}
 
 \section{What does not transfer}\label{sec:remarks}
 
-\paragraph{Hyperlinearity.} The argument does not show that $G$ fails to be hyperlinear, and it breaks in three places. The rank reduction \ref{F:red} needs integer matrices; the certificate \ref{F:cert} needs a finite field; and in unitary models a relator that holds approximately in normalized Hilbert--Schmidt norm need not hold off a low-rank error, so Step~4 fails. The present argument does not determine whether $G$ is hyperlinear. If it is, $G$ separates soficity from hyperlinearity.
+\subsection{Hyperlinearity}\label{sec:hyperlinear}
 
-\paragraph{Linear soficity.} In models by invertible matrices over $\F_q$ with the rank metric, Steps 4 and 5 survive but Steps 1--3 do not: there are no $0/1$ entries and no real traces. So the argument says nothing about linear or weak soficity.
+Countable sofic groups are hyperlinear \cite[Theorem~2]{ElekSzabo2005}, so if $G$ is hyperlinear, it separates soficity from hyperlinearity. The present argument does not determine whether $G$ is hyperlinear, and it breaks in three places. The rank reduction \ref{F:red} needs integer matrices; the certificate \ref{F:cert} needs a finite field; and in unitary models a relator that holds approximately in normalized Hilbert--Schmidt norm need not hold off a low-rank error, so Step~4 fails. The three results below locate these breaks. With bounded denominators every step survives (Proposition~\ref{prop:height}). In the group von Neumann algebra of $G$ the trace and factorization steps hold exactly, while the analogue of the certificate is false (Proposition~\ref{prop:tracial}). And a hyperlinear quotient of $G$ that is not sofic exists as soon as unitary approximations keep every rectangular word away from the identity (Proposition~\ref{prop:criterion}). None of them decides whether $G$ is hyperlinear.
 
-\paragraph{Where approximation is needed.} The argument needs the rectangle defect $\eta$ below $1/(r-1)^2$. A sofic approximation with separation bounded away from $1$ but not close to $1$ would not suffice directly; the standard definition, with separation $1-\eps$, is what Lemma~\ref{lem:models} uses.
+A \emph{unitary model} assigns a unitary matrix $U(s)$ of some size $d$ to every generator $s$, and extends to words as in Section~\ref{sec:transfer}. Write $\tau_d=\frac1d\tr$ and $\|A\|_2=\tau_d(A^*A)^{1/2}$ for the normalized trace and Hilbert--Schmidt norm. For a permutation $\pi$, $\tau_d(P(\pi))=\fix(\pi)$ and $\|P(\pi)-I\|_2^2=2\mov(\pi)$.
+
+\begin{proposition}[Bounded denominators]\label{prop:height}
+Let $\nu$ be a positive integer with $\nu^2r<q$, and let $U$ be a unitary model all of whose matrix entries lie in $\nu^{-1}\Z[i]$. If $\operatorname{Re}\tau_d(U(w))\le1/(r-1)^2$ for every rectangular word $w$, then
+\[
+ \frac{\nu^3}{2}\sum_t\|U(\theta_t)-I\|_2^2\ \ge\ \frac{Nr}{4}-2m-(r-2)|E|\ \ge\ \frac\Gamma4.
+\]
+\end{proposition}
+
+\begin{proof}
+We follow the proof of Theorem~\ref{thm:ineq}, with $Y_i=(U(x_{iuv}))_{u,v\in[r]}$, a matrix of size $rd$.
+
+\emph{Steps 1 and 2.} As there, $\tr(Y_iY_i^*)=r^2d$, and
+\[
+ \tr\bigl((Y_iY_i^*)^2\bigr)=\sum_{u,u',v,v'}\tr U\bigl(x_{iuv}x_{iu'v}^{-1}x_{iu'v'}x_{iuv'}^{-1}\bigr)
+\]
+is real. The $2r^3-r^2$ terms with $u=u'$ or $v=v'$ equal $d$, and the real parts of the other $r^2(r-1)^2$ terms are at most $d/(r-1)^2$. So $\tr\bigl((Y_iY_i^*)^2\bigr)\le2r^3d$ and $\rank_\C Y_i\ge(r^2d)^2/(2r^3d)=rd/2$.
+
+\emph{Step 3.} Let $\rho(M)=\left(\begin{smallmatrix}\operatorname{Re}M&-\operatorname{Im}M\\ \operatorname{Im}M&\operatorname{Re}M\end{smallmatrix}\right)$ be the realification of a complex matrix; it is additive and multiplicative, and $\rank_\R\rho(M)=2\rank_\C M$. The integer matrix $\rho(\nu Y_i)$ has real rank at least $rd$, and each of its rows has norm $\nu\sqrt r$, since a row of $Y_i$ consists of $r$ rows of unitary matrices. By \ref{F:red} with $\nu^2r$ in place of $r$, its reduction $\widehat Y_i$ modulo $q$ has rank at least $rd/2$ over $\F_q$.
+
+\emph{Step 4.} For a triangle $t=(b,i,u,v)$ with sides $L,x,R$ as in Step~4 of Theorem~\ref{thm:ineq}, put $\Delta_t=U(x)-U(L)^*U(R)=U(L)^*\bigl(U(\theta_t)-I\bigr)U(R)$. Its entries lie in $\nu^{-2}\Z[i]$, and the factorization of Step~4 reads
+\[
+ \nu^2\sum_{i\in I_b}Y_i=\Bigl(\nu\sum_jU(L_{b,u,j})^*\Bigr)_{u\in[r]}\Bigl(\nu\sum_kU(R_{b,v,k})\Bigr)_{v\in[r]}+\nu^2\Delta_b
+\]
+over $\Z[i]$, where the $(u,v)$ block of $\Delta_b$ is $\sum_{i\in I_b}\Delta_{(b,i,u,v)}$. Apply $\rho$ and reduce modulo $q$. Since $\nu$ is invertible modulo $q$ and reduction does not increase the rank of an integer matrix, $\rank\sum_{i\in I_b}\widehat Y_i\le2d+2\sum_{t\in b}\rank\Delta_t$. A nonzero column of $\Delta_t$ is $a-a'$ with unit vectors $a\in(\nu^{-1}\Z[i])^d$ and $a'\in(\nu^{-2}\Z[i])^d$. Then $\operatorname{Re}\langle a,a'\rangle$ lies in $\nu^{-3}\Z$ and is less than $1$, so $\|a-a'\|^2=2-2\operatorname{Re}\langle a,a'\rangle\ge2\nu^{-3}$. Hence
+\[
+ \rank\Delta_t\le\frac{\nu^3}{2}\tr(\Delta_t^*\Delta_t)=\frac{\nu^3d}{2}\|U(\theta_t)-I\|_2^2.
+\]
+
+\emph{Step 5.} By \ref{F:cert} over $\F_q$, with $\widehat Z(z)=\sum_{i\in I(z)}\widehat Y_i$ of size $2rd$,
+\[
+ \frac{Nrd}{2}\le\sum_z\rank\widehat Z(z)\le4d(m-|E|)+2rd|E|+\nu^3d\sum_t\|U(\theta_t)-I\|_2^2.
+\]
+Divide by $2d$.
+\end{proof}
+
+For a permutation model, which has $\nu=1$, Proposition~\ref{prop:height} is Theorem~\ref{thm:ineq} with $r|E|$ improved to $(r-2)|E|$. Since $\Gamma\ge1$ and there are $T\le r^2N(q-1)$ triangle relators, some triangle relator has $\|U(\theta_t)-I\|_2^2\ge1/(2\nu^3r^2N(q-1))$, whatever the dimension. So unitary models with denominators bounded by a fixed $\nu<(q/r)^{1/2}$ cannot make every triangle defect small while every rectangular word has $\operatorname{Re}\tau_d\le1/(r-1)^2$. This is a barrier for bounded denominators only, and it says nothing about hyperlinearity: approximating arbitrary unitary matrices needs unbounded denominators.
+
+A \emph{tracial von Neumann algebra} is a von Neumann algebra with a faithful normal tracial state; it need not be finite-dimensional. Let $\lambda$ be the left regular representation of $G$ on $\ell^2(G)$, let $L(G)$ be the von Neumann algebra it generates, with trace $\tau(a)=\langle a\delta_1,\delta_1\rangle$, and put $\tau_r=\Tr_r\otimes\tau$ on $M_r(L(G))$. Assign $\lambda(s)$ to every generator $s$, and let $Y_i=(\lambda(x_{iuv}))_{u,v\in[r]}$ and $Z(z)=\sum_{i\in I(z)}Y_i$ in $M_r(L(G))$.
+
+\begin{proposition}[The group von Neumann algebra]\label{prop:tracial}
+\begin{enumerate}[label=(\alph*)]
+\item Every defining relator of $G$ maps to $1$, and $\tau(\lambda(w))=0$ for every rectangular word $w$.
+\item For $Y\in M_r(L(G))$ let $\rank_\tau Y=\tau_r(p)$, where $p$ is the projection onto the closure of the range of $Y$ in $\ell^2(G)^r$. Then $\rank_\tau Y_i\ge r^2/(2r-1)$ for every label $i$, while $\rank_\tau Z(z)\le2$ for $z\notin E$ and $\rank_\tau Z(z)\le r$ for $z\in E$. Hence
+\[
+ \sum_i\rank_\tau Y_i\ \ge\ \frac{Nr^2}{2r-1}\ >\ \frac{Nr}{4}\ >\ 2m+r|E|\ \ge\ \sum_z\rank_\tau Z(z),
+\]
+so the analogue of the certificate \ref{F:cert} for $\rank_\tau$ is false.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) holds because $\lambda$ is a representation of $G$, and $w\ne1$ by \ref{F:rect}.
+
+(b) Put $A=Y_iY_i^*$. Its range is dense in that of $Y_i$, so $p$ is also the range projection of $A$, and $pA=A$. Expanding as in Step~1 of Theorem~\ref{thm:ineq} and using (a) gives $\tau_r(A)=r^2$ and $\tau_r(A^2)=2r^3-r^2$. The Cauchy--Schwarz inequality for the positive form $(a,b)\mapsto\tau_r(b^*a)$ gives $\tau_r(A)^2=\tau_r(pA)^2\le\tau_r(p)\,\tau_r(A^2)$, so $\rank_\tau Y_i\ge r^4/(2r^3-r^2)$. The factorization of Step~4 holds exactly in $M_r(L(G))$, so for $z\notin E$ we have $Z(z)=\Phi_z\Psi_z$ with $\Phi_z$ an $r\times2$ matrix over $L(G)$. The range projection of $Z(z)$ is at most that of $\Phi_z$, which has the same trace as the range projection of $\Phi_z^*$, by polar decomposition; the latter is a projection in $M_2(L(G))$, so its trace is at most $2$. For $z\in E$ the bound $\tau_r(1)=r$ is trivial. The chain of inequalities follows from~\eqref{eq:budget}.
+\end{proof}
+
+Part (a) makes $L(G)$ a countermodel: every statement about unitary tuples that holds in all tracial von Neumann algebras, whatever further elements, traces or projections it involves, holds in $L(G)$, where all defining relators hold exactly and every rectangular word has trace $0$. So no such statement implies that exact defining relators force $\max_w\operatorname{Re}\tau(w)>0$. In a matrix algebra they do: an assignment of unitary matrices satisfying all defining relators exactly is a representation of $G$, and some rectangular word lies in its kernel by Corollary~\ref{cor:residual}, since finitely generated linear groups are sofic. A proof that $G$ is not hyperlinear must therefore use a property of matrix algebras, or of their ultraproducts, that fails in $L(G)$; Proposition~\ref{prop:height} uses one, bounded denominators. Part (b) locates the failure in the argument of Theorem~\ref{thm:ineq}: Steps 1, 2 and 4 hold exactly in $L(G)$, and the certificate is the step without a tracial analogue.
+
+We use the characterization of hyperlinearity in \cite[Theorem~3.6]{Pestov2008}: a group $H$ is hyperlinear if and only if for every finite $F\subset H$ and $\eps>0$ there is a map $\vartheta$ from $F$ to the unitary group of some size with $\|\vartheta(g)\vartheta(h)-\vartheta(gh)\|_2<\eps$ whenever $g,h,gh\in F$, $\|\vartheta(1)-I\|_2<\eps$ if $1\in F$, and $\|\vartheta(g)-\vartheta(h)\|_2\ge1/4$ for distinct $g,h\in F$.
+
+\begin{proposition}[A criterion]\label{prop:criterion}
+The following are equivalent.
+\begin{enumerate}[label=(\roman*)]
+\item There are unitary models $U_n$, of sizes $d_n$, such that $\|U_n(\theta)-I\|_2\to0$ for every defining relator $\theta$ and $\liminf_n\|U_n(w)-I\|_2>0$ for every rectangular word $w$.
+\item $G$ has a hyperlinear quotient in which every rectangular word survives.
+\end{enumerate}
+A quotient as in (ii) is a hyperlinear group that is not sofic, by Corollary~\ref{cor:residual}, and in (i) necessarily $d_n\to\infty$.
+\end{proposition}
+
+\begin{proof}
+(i)$\Rightarrow$(ii). Fix a free ultrafilter $\omega$ on $\N$, and for $g\in G$ choose a word $w_g$ representing it. Two words representing the same element differ by a product of conjugates of relators, so by unitary invariance of $\|\cdot\|_2$ their values under $U_n$ have distance tending to $0$. Hence $\tau_\omega(g)=\lim_\omega\tau_{d_n}(U_n(w_g))$ is well defined, and $\mathcal N=\{g:\lim_\omega\|U_n(w_g)-I\|_2=0\}$ is a normal subgroup of $G$. Let $\bar G=G/\mathcal N$; every rectangular word survives in $\bar G$. For $g\notin\mathcal N$ we have $\operatorname{Re}\tau_\omega(g)<1$ and $|\tau_\omega(g)|\le1$, so $|(1+\tau_\omega(g))/2|<1$.
+
+Let $V_{n,k}(s)=(U_n(s)\oplus I_{d_n})^{\otimes k}$, a unitary model of size $e=(2d_n)^k$. For every word $w$, $\tau_e(V_{n,k}(w))=\bigl((1+\tau_{d_n}(U_n(w)))/2\bigr)^k$ and $\|V_{n,k}(w)-I\|_2\le k\|U_n(w)-I\|_2$. Given a finite $F\subset\bar G$ and $\eps>0$, choose a preimage $g$ of each $\bar g\in F$ and put $\vartheta(\bar g)=V_{n,k}(w_g)$. If $\bar g,\bar h,\bar g\bar h\in F$, then $\|\vartheta(\bar g)\vartheta(\bar h)-\vartheta(\bar g\bar h)\|_2\le k\|U_n(w_gw_hw_{gh}^{-1})-I\|_2$, whose $\omega$-limit is $0$, and similarly for $\vartheta(1)$. For distinct $\bar g,\bar h\in F$, $\|\vartheta(\bar g)-\vartheta(\bar h)\|_2^2=2-2\operatorname{Re}\tau_e(V_{n,k}(w_h^{-1}w_g))$, and since $h^{-1}g\notin\mathcal N$, the $\omega$-limit of $|\tau_e(V_{n,k}(w_h^{-1}w_g))|$ is $|(1+\tau_\omega(h^{-1}g))/2|^k$, which is below $1/2$ for large $k$. Choosing $k$ first and then $n$ in a set belonging to $\omega$ gives the maps required by \cite[Theorem~3.6]{Pestov2008}, so $\bar G$ is hyperlinear.
+
+(ii)$\Rightarrow$(i). Let $\pi\colon G\to\bar G$ be such a quotient. Apply \cite[Theorem~3.6]{Pestov2008} with $\eps=1/n$ to the finite set consisting of $1$, the images of the generators and their inverses, and the images of all prefixes of the defining relators and of the rectangular words, and put $U_n(s)=\vartheta(\pi(s))$. The argument of Lemma~\ref{lem:models}, with $\|\cdot\|_2$ in place of the Hamming distance, bounds $\|U_n(w)-\vartheta(\pi(w))\|_2$ by a constant times $1/n$ for these words. So the relator defects tend to $0$, and every rectangular word stays at distance at least $1/4-O(1/n)$ from $I$.
+
+Finally, if $d_n=d$ for infinitely many $n$ in (i), compactness of the unitary group gives a limit model that satisfies all defining relators exactly, that is, a representation of $G$ by $d\times d$ unitary matrices, in which no rectangular word maps to $I$. This contradicts Corollary~\ref{cor:residual}, since finitely generated linear groups are sofic.
+\end{proof}
+
+\subsection{Linear soficity}
+
+ In models by invertible matrices over $\F_q$ with the rank metric, Steps 4 and 5 survive but Steps 1--3 do not: there are no $0/1$ entries and no real traces. So the argument says nothing about linear or weak soficity.
+
+\subsection{Where approximation is needed}
+
+The argument needs the rectangle defect $\eta$ below $1/(r-1)^2$. A sofic approximation with separation bounded away from $1$ but not close to $1$ would not suffice directly; the standard definition, with separation $1-\eps$, is what Lemma~\ref{lem:models} uses.
+
+\section{Division rings}\label{sec:linnell}
+
+Throughout this section $K$ is a division ring of characteristic $q$. Its prime field $\F_q$ is central in $K$, and hence in every group ring $K[\Lambda]$. For a label $i$ put
+\[
+ Y_i=(x_{iuv})_{u,v\in[r]}\in M_r(K[G]);
+\]
+the matrices of Section~\ref{sec:transfer} are its images under permutation models.
+
+Let $\phi\colon K[\Lambda]\to D$ be a ring homomorphism to a division ring. For a subgroup $C\le\Lambda$ let $D_C$ be the division closure of $\phi(K[C])$ in $D$, the smallest subring of $D$ that contains $\phi(K[C])$ and the inverse of each of its nonzero elements; it is a division ring. For subgroups $C\le C'$, $D$ is \emph{$(C,C')$-free} if $\sum_jd_j\phi(g_j)\ne0$ whenever $g_1,\dots,g_n\in C'$ lie in distinct right cosets of $C$ and $d_1,\dots,d_n\in D_C$ are nonzero; it is then $(C,C'')$-free for every $C''$ with $C\le C''\le C'$. Following \cite[Section~2.3]{JZL2025} and \cite[Definition~2.2]{FSP2026}, $D$ is \emph{epic} if $D_\Lambda=D$. An epic $D$ is \emph{Linnell} if it is $(C,\Lambda)$-free for every subgroup $C$, and \emph{strongly Hughes-free} if it is $(C,C')$-free whenever $C$ is normal in $C'$. Condition (HF) asks that whenever $C'\le\Lambda$ is finitely generated, $C$ is normal in $C'$ and $C'/C$ is infinite cyclic, generated by $tC$, the powers $\phi(t)^k$, $k\in\Z$, be left linearly independent over $D_C$. In \cite[Definition~2.2(1)]{FSP2026} a Hughes-free division ring is an injective epic one satisfying (HF), and the notion is defined only for locally indicable groups.
+
+\subsection{Rank collapse}
+
+A \emph{Sylvester matrix rank function} on a ring $R$ assigns to every matrix $M$ over $R$ a real number $\rk(M)\ge0$, with $\rk(M)=0$ for zero matrices, $\rk(1)=1$, $\rk(M_1M_2)\le\min\{\rk M_1,\rk M_2\}$, $\rk(M_1\oplus M_2)=\rk M_1+\rk M_2$, and $\rk\left(\begin{smallmatrix}M_1&M_3\\0&M_2\end{smallmatrix}\right)\ge\rk M_1+\rk M_2$ \cite[Section~2.5]{FSP2026}. A ring homomorphism $\phi$ from $R$ to a division ring $D$ gives one, $\rk(M)=\rank_D\phi(M)$.
+
+\begin{theorem}\label{thm:collapse}
+Every Sylvester matrix rank function on $K[G]$ satisfies
+\[
+ \sum_{i\in I}\rk(Y_i)\ \le\ 2(m-|E|)+r|E|\ <\ \frac{Nr}{4}.
+\]
+\end{theorem}
+
+\begin{proof}
+The axioms give $\rk(M_1+M_2)\le\rk M_1+\rk M_2$, since $M_1+M_2=\begin{pmatrix}I&I\end{pmatrix}(M_1\oplus M_2)\begin{pmatrix}I\\I\end{pmatrix}$; $\rk(M)\le k$ for a matrix $M$ with $k$ columns, since $M=MI_k$ and $\rk(I_k)=k$; and $\rk(-M)=\rk(M)$.
+
+\emph{Local factorization.} The triangle relators give $x_{iuv}=L_{b,u,\alpha_b(i)+v}^{-1}R_{b,v,\beta_b(i)+u}$ in $G$. As in Step~4 of Theorem~\ref{thm:ineq}, for each block $b$ and fixed $u,v$, the pair $(\alpha_b(i)+v,\beta_b(i)+u)$ runs over $\Z/s_b\times\Z/t_b$ exactly once as $i$ runs over $I_b$, so
+\[
+ \sum_{i\in I_b}Y_i=\Bigl(\sum_jL_{b,u,j}^{-1}\Bigr)_{u\in[r]}\Bigl(\sum_kR_{b,v,k}\Bigr)_{v\in[r]},
+\]
+a column times a row. At a regular point $z$ the two blocks give $Z(z)=\sum_{i\in I(z)}Y_i=\Phi_z\Psi_z$ with $\Phi_z$ of size $r\times2$, so $\rk Z(z)\le2$. For $z\in E$, $\rk Z(z)\le r$.
+
+\emph{Certificate.} In \ref{F:cert}, $H(z)=f(z)f(z)^{\mathsf T}$ for a column $f(z)\in\F_q^N$ \cite[Section~2.5]{OAI252}, and the identity $-\bigoplus_iY_i=\sum_zH(z)\otimes Z(z)$ uses only that the Kronecker product is $\F_q$-bilinear; so it holds over $K[G]$. Since $H(z)\otimes Z(z)=(f(z)\otimes I_r)\,Z(z)\,(f(z)^{\mathsf T}\otimes I_r)$,
+\[
+ \sum_i\rk(Y_i)=\rk\Bigl(-\bigoplus_iY_i\Bigr)\le\sum_{z\in P}\rk Z(z)\le2(m-|E|)+r|E|,
+\]
+which is less than $Nr/4$ by~\eqref{eq:budget}.
+\end{proof}
+
+\subsection{Freeness and full rank}
+
+Fix a label $i$, and put $y_{uv}=x_{iuv}x_{i00}^{-1}$ and $A_i=\langle y_{uv}:u,v\in[r]\rangle\le G$; note that $y_{00}=1$. We call $A_i$ a \emph{line subgroup}.
+
+\begin{lemma}\label{lem:free}
+$A_i$ is free on $\{y_{uv}:(u,v)\ne(0,0)\}$.
+\end{lemma}
+
+\begin{proof}
+Let $X$ be the triangle complex of \cite[Section~2.3]{OAI252}, with vertices $O,V,W$, edges $L_{b,u,j}\colon O\to V$, $x_{iuv}\colon V\to W$ and $R_{b,v,k}\colon O\to W$, and one triangle for each triangle relator. The presentation of Section~\ref{sec:group} identifies $G$ with $\pi_1(X,O)$: if $\gamma_V,\gamma_W$ are the paths from $O$ in the spanning tree, the generator $x_{iuv}$ is the class of $\gamma_Vx_{iuv}\bar\gamma_W$. So $y_{uv}$ is the class of $\gamma_V\,x_{iuv}\bar x_{i00}\,\bar\gamma_V$. Let $\Theta_i\subset X$ be the graph with vertices $V,W$ and the $r^2$ edges $x_{iuv}$. Its fundamental group $\pi_1(\Theta_i,V)$ is free on the loops $x_{iuv}\bar x_{i00}$ with $(u,v)\ne(0,0)$, so it suffices that $\pi_1(\Theta_i,V)\to\pi_1(X,V)$ is injective.
+
+A nontrivial element of $\pi_1(\Theta_i,V)$ is freely homotopic in $\Theta_i$ to a nonempty cyclically reduced closed edge path. Each of its turns is at $V$ or $W$ and compares the directions of two distinct edges $x_{iuv}$ and $x_{iu'v'}$ with the same label $i$. By \cite[Lemma~2.3]{OAI252} their link distance is at least $14\pi/5$ or infinite, so by the closed-path assertion of \cite[Theorem~2.1]{OAI252}, proved as \cite[Proposition~3.3]{OAI252}, the path is not nullhomotopic in $X$. This is the argument that gives \ref{F:rect} in \cite[(2.6)]{OAI252}, applied to all closed paths in $\Theta_i$.
+\end{proof}
+
+Let $\delta_i\colon A_i\to\Z$ be the homomorphism with $\delta_i(y_{uv})=-1$ for $u\ne v$ and $\delta_i(y_{uu})=0$, let $A_i^0=\ker\delta_i$, and let $t_i=y_{01}^{-1}$, so that $\delta_i(t_i)=1$.
+
+\begin{lemma}\label{lem:fullrank}
+Let $A\le\Lambda$ be groups, $\delta\colon A\to\Z$ a homomorphism, $A^0=\ker\delta$, and $t\in A$ with $\delta(t)=1$. Let $\phi\colon K[\Lambda]\to D$ be a ring homomorphism to a division ring such that the powers $\phi(t)^k$, $k\in\Z$, are left linearly independent over $D_{A^0}$. If $\widetilde Y\in M_r(K[\Lambda])$ has all entries in $A$, and $\delta(\widetilde Y_{vv})>\delta(\widetilde Y_{uv})$ whenever $u\ne v$, then $\phi(\widetilde Y)$ is invertible in $M_r(D)$.
+\end{lemma}
+
+\begin{proof}
+Write $\hat t=\phi(t)$ and $D_0=D_{A^0}$. Conjugation by $\hat t$ is an automorphism of $D$ that maps $\phi(K[A^0])$ onto itself, because $A^0$ is normal in $A$; hence it maps $D_0$ onto itself. Call its restriction $\gamma$. By hypothesis the sum $R=\sum_{k\in\Z}D_0\hat t^k$ is direct, and $\hat td=\gamma(d)\hat t$ for $d\in D_0$, so $R$ is a subring of $D$, a skew Laurent polynomial ring over $D_0$. For $f=\sum_ka_k\hat t^k\ne0$ let $\deg f$ be the largest $k$ with $a_k\ne0$. The coefficient of $\hat t^{\deg f+\deg g}$ in $fg$ is $a_{\deg f}\gamma^{\deg f}(b_{\deg g})\ne0$, so $\deg(fg)=\deg f+\deg g$.
+
+The ring $R$ satisfies the left Ore condition: nonzero $a,b\in R$ have nonzero $f,g\in R$ with $fa=gb$. Indeed, multiplying $a$ and $b$ on the left by powers of the unit $\hat t$, we may assume that their lowest exponents are $0$; let their degrees be $\alpha$ and $\beta$, and let $R_n=\bigoplus_{k=0}^nD_0\hat t^k$, a left $D_0$-space of dimension $n+1$. For $n\ge\alpha+\beta$ the left $D_0$-linear maps $f\mapsto fa$ on $R_{n-\alpha}$ and $g\mapsto gb$ on $R_{n-\beta}$ are injective with values in $R_n$, and $(n-\alpha+1)+(n-\beta+1)>n+1$, so their images meet nontrivially. Consequently the elements $s^{-1}f$ of $D$ with $s,f\in R$ and $s\ne0$ form a division subring $D'$, in which finitely many elements have a common left denominator. (For products, $fs^{-1}=s_1^{-1}f_1$ whenever $s_1f=f_1s$ with $s_1\ne0$; for sums, use a common left multiple of the denominators.)
+
+Each entry of $\widetilde Y$ is $\widetilde Y_{uv}=n_{uv}t^{\delta(\widetilde Y_{uv})}$ with $n_{uv}\in A^0$, so $\phi(\widetilde Y_{uv})=\phi(n_{uv})\hat t^{\delta(\widetilde Y_{uv})}$ lies in $R$, with a unit of $D_0$ as its only coefficient. Suppose that $c\,\phi(\widetilde Y)=0$ for a nonzero row $c$ over $D'$. Clearing a common left denominator, we may take $c$ over $R$. Let $M$ be the largest degree of a nonzero entry of $c$, attained at $c_{u^*}$, and consider entry $u^*$ of $c\,\phi(\widetilde Y)$, namely $\sum_uc_u\phi(\widetilde Y_{uu^*})$. The term $u=u^*$ has degree $M+\delta(\widetilde Y_{u^*u^*})$, and every other nonzero term has degree at most $M+\delta(\widetilde Y_{uu^*})<M+\delta(\widetilde Y_{u^*u^*})$. So this entry is nonzero, a contradiction. The rows of $\phi(\widetilde Y)$ are therefore left linearly independent over the division ring $D'$, so $\phi(\widetilde Y)$ is invertible over $D'$, hence over $D$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:linnell}]
+Let $\phi\colon K[\Lambda]\to D$ be a ring homomorphism to a division ring. For each label $i$, the matrix $\widetilde Y=(y_{uv})=Y_i\,x_{i00}^{-1}$ has entries in $A_i$, and $\delta_i(y_{vv})=0>-1=\delta_i(y_{uv})$ for $u\ne v$. If the powers of $\phi(t_i)$ were left linearly independent over $D_{A_i^0}$ for every $i$, Lemma~\ref{lem:fullrank} would make every $\phi(Y_i)$ invertible, so that $\sum_i\rank_D\phi(Y_i)=Nr$. Restricting $\phi$ to $K[G]$ and applying Theorem~\ref{thm:collapse} gives $\sum_i\rank_D\phi(Y_i)<Nr/4$. So for some $i$ the powers of $\phi(t_i)$ are left linearly dependent over $D_{A_i^0}$.
+
+The elements $t_i^k$ lie in distinct right cosets of $A_i^0$. So this dependence contradicts $(A_i^0,\Lambda)$-freeness, which every Linnell division ring has; $(A_i^0,A_i)$-freeness, which every strongly Hughes-free division ring has, as $A_i^0$ is normal in $A_i$; and condition (HF) for the finitely generated subgroup $A_i$, as $A_i/A_i^0$ is infinite cyclic, generated by $t_iA_i^0$.
+\end{proof}
+
+\subsection{The free factor and further consequences}\label{sec:structure}
+
+Let $X^\sharp$ be obtained from $X$ by splitting $O$ into one vertex $O_b$ for each block $b$, $V$ into $V_u$ and $W$ into $W_v$ for $u,v\in[r]$, with edges $L_{b,u,j}\colon O_b\to V_u$, $x_{iuv}\colon V_u\to W_v$ and $R_{b,v,k}\colon O_b\to W_v$. The triangle of $\theta_{b,i,u,v}$ runs from $O_b$ to $V_u$ to $W_v$ and back to $O_b$, so every triangle of $X$ closes in $X^\sharp$, and identifying all $O_b$, all $V_u$ and all $W_v$ recovers $X$. Let $B=2(m-|E|)$ be the number of blocks.
+
+\begin{proposition}\label{prop:split}
+$X^\sharp$ is connected, and $G^\sharp=\pi_1(X^\sharp)$ is finitely presented, torsion-free and word-hyperbolic. The quotient map $X^\sharp\to X$ induces an isomorphism of $G^\sharp$ onto a free factor of $G$, and $G\cong G^\sharp*F_{B+2r-3}$. Both $X$ and $X^\sharp$ are aspherical.
+\end{proposition}
+
+\begin{proof}
+By~\eqref{eq:budget}, $r|E|<Nr/4$, and $N\le m$ because the marks are distinct points of $S^h$; so $m-|E|>3N/4$ and $B\ge2$. Every $O_b$ is joined to every $V_u$ and every $W_v$, so $X^\sharp$ is connected.
+
+Every corner of a triangle at $O$ lies in one block, every corner at $V$ joins some $L_{b,u,j}$ to some $x_{iuv}$ with the same $u$, and every corner at $W$ joins some $R_{b,v,k}$ to some $x_{iuv}$ with the same $v$. Hence the link of $X$ at $O$ is the disjoint union of the links of $X^\sharp$ at the vertices $O_b$, with the same angles, and similarly at $V$ and $W$. So every link of $X^\sharp$ is a union of connected components of a link of $X$, and \cite[Lemma~2.3]{OAI252} holds verbatim for $X^\sharp$, including the bound on link distances between $x$-directions with the same label. By \cite[Theorem~2.1]{OAI252}, $G^\sharp$ is torsion-free and word-hyperbolic, and it is finitely presented because $X^\sharp$ is finite.
+
+Add to $X^\sharp$ a forest $T$ of $B+2r-3$ edges joining one $O_b$ to all the others, $V_0$ to every $V_u$ and $W_0$ to every $W_v$. Collapsing each tree of $T$ to a point is a homotopy equivalence from $X^\sharp\cup T$ to $X$, and since $X^\sharp$ is connected, $X^\sharp\cup T$ is homotopy equivalent to $X^\sharp$ with $B+2r-3$ circles attached at one point. This gives $G\cong G^\sharp*F_{B+2r-3}$, with $G^\sharp$ included by the map induced by $X^\sharp\to X$.
+
+Finally, $X$ and $X^\sharp$ are finite piecewise Euclidean complexes, hence complete geodesic spaces \cite[Theorem~I.7.50]{BH1999}, and every injective loop in one of their vertex links has length at least $12\pi/5$ \cite[Lemma~2.3]{OAI252}. So they are nonpositively curved \cite[Theorem~II.5.2 and Lemma~II.5.6]{BH1999}, their universal covers are CAT(0) \cite[Theorem~II.4.1(2)]{BH1999}, and CAT(0) spaces are contractible \cite[Corollary~II.1.5]{BH1999}.
+\end{proof}
+
+\begin{corollary}\label{cor:split-linnell}
+Theorem~\ref{thm:linnell} holds with $G^\sharp$ in place of $G$: if a group $\Lambda$ contains $G^\sharp$, then $K[\Lambda]$ has no Linnell division ring, no strongly Hughes-free division ring, and no epic division ring satisfying (HF).
+\end{corollary}
+
+\begin{proof}
+Choose paths in $X^\sharp$ from the base vertex to every vertex, and for an edge $e$ let $g_e\in G^\sharp$ be the class of the loop that runs along the path to the start of $e$, along $e$, and back along the path from its end. The triangles give $g_{x_{iuv}}=g_L^{-1}g_R$ for the sides $L,R$ of the triangle $(b,i,u,v)$, as in~\eqref{eq:triangle}, so Theorem~\ref{thm:collapse} holds for the matrices $Y_i^\sharp=(g_{x_{iuv}})_{u,v\in[r]}$ over $K[G^\sharp]$, with the same proof.
+
+For a label $i$, the $x$-edges of label $i$ form a complete bipartite graph $\Theta_i^\sharp\subset X^\sharp$ between the $V_u$ and the $W_v$. As in Lemma~\ref{lem:free}, using the link-distance bound for $X^\sharp$ from Proposition~\ref{prop:split}, $\pi_1(\Theta_i^\sharp,V_0)$ injects into $\pi_1(X^\sharp,V_0)$; let $A_i^\sharp\le G^\sharp$ be its image, moved to the base point along the chosen path to $V_0$. Note that $r>8$ by~\eqref{eq:budget}, since $N\le m$. For $u\ne0$ fix $v(u)\in[r]\setminus\{0,u\}$ and let $p_u=x_{i0v(u)}\bar x_{iuv(u)}$, a path from $V_0$ to $V_u$; let $p_0$ be the empty path. Let $c$ be the $1$-cochain on $\Theta_i^\sharp$ with $c(x_{iuv})=0$ if $u=v$ and $c(x_{iuv})=-1$ if $u\ne v$, and let $\delta\colon A_i^\sharp\to\Z$ be the homomorphism it induces. Then $c(p_u)=0$ for every $u$. The loops $p_u\,x_{iuv}\,\bar x_{i0v}$ give elements $\widetilde Y_{uv}\in A_i^\sharp$ with $\widetilde Y=\operatorname{diag}(a_u)\,Y_i^\sharp\,\operatorname{diag}(b_v)$ for some $a_u,b_v\in G^\sharp$, and
+\[
+ \delta(\widetilde Y_{uv})=c(x_{iuv})-c(x_{i0v})=[v\ne0]-[u\ne v].
+\]
+So $\delta(\widetilde Y_{vv})>\delta(\widetilde Y_{uv})$ for $u\ne v$. The loop $x_{i01}\bar x_{i21}x_{i20}\bar x_{i00}$ has $\delta=-1$; let $t_i$ be the inverse of its class. The proof of Theorem~\ref{thm:linnell} now applies verbatim, with Lemma~\ref{lem:fullrank} applied to $\widetilde Y$.
+\end{proof}
+
+If $G$ or $G^\sharp$ is locally indicable, then for every field $K$ of characteristic $q$ the Hughes-free division ring of $K[G]$, respectively of $K[G^\sharp]$, does not exist. Indeed, by a theorem of Gr\"ater, as stated in \cite[Theorem~2.5]{JZL2025}, the Hughes-free division ring of the group algebra of a locally indicable group, if it exists, is a Linnell division ring. Whether $G$ or $G^\sharp$ is locally indicable is open.
+
+\begin{corollary}\label{cor:biorder}
+No group containing $G^\sharp$, and in particular no group containing $G$, is bi-orderable.
+\end{corollary}
+
+\begin{proof}
+Suppose that $\Lambda\supseteq G^\sharp$ has a total order invariant under left and right multiplication, and let $K=\F_q$. The Malcev--Neumann series $\sum_{g\in\Lambda}k_gg$ with well-ordered support form a division ring $K((\Lambda))$ containing $K[\Lambda]$, and for a subgroup $C\le\Lambda$ those supported in $C$ form a division subring $K((C))$ \cite[Section~1.3]{Sanchez2011}. Let $D$ be the division closure of $K[\Lambda]$ in $K((\Lambda))$; it is epic, and $D_C\subseteq K((C))$ for every subgroup $C$. If $g_1,\dots,g_n$ lie in distinct right cosets of $C$ and $d_1,\dots,d_n\in D_C$ are nonzero, then $d_jg_j\ne0$ is supported in $Cg_j$, and these sets are disjoint, so $\sum_jd_jg_j\ne0$. Thus $D$ is a Linnell division ring for $K[\Lambda]$, contradicting Corollary~\ref{cor:split-linnell}.
+\end{proof}
+
+\begin{proposition}\label{prop:euler}
+The Euler characteristics satisfy
+\[
+ \chi(G)=3-Nr^2-r\sum_b(s_b+t_b)+T\ >\ 3+Nr^2(3r^2-7),\qquad \chi(G^\sharp)=\chi(G)+B+2r-3.
+\]
+Neither $G$ nor $G^\sharp$, nor any subgroup of finite index in either, is isomorphic to a subgroup of the fundamental group of a two-complex with nonpositive immersions.
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:split}, $\chi(G)=\chi(X)$ and $\chi(G^\sharp)=\chi(X^\sharp)$. The complex $X$ has $3$ vertices, $Nr^2+r\sum_b(s_b+t_b)$ edges and $T$ triangles, which gives the formula; $X^\sharp$ has $B+2r$ vertices and the same edges and triangles. Since $s_b,t_b\ge r$, we have $r(s_b+t_b)\le2s_bt_b=2|I_b|$, so $r\sum_b(s_b+t_b)\le2T/r^2$ and $\chi(G)\ge3-Nr^2+(r^2-2)T/r^2$. By the degree condition of Section~\ref{sec:group}, $T/r^2=\sum_{z\notin E}|I(z)|\ge4r^2(m-|E|)>3Nr^2$, using $m-|E|>3N/4$ from the proof of Proposition~\ref{prop:split}. Hence $\chi(G)>3-Nr^2+3Nr^2(r^2-2)$.
+
+Let $G'$ be a subgroup of index $d$ in $G$ or in $G^\sharp$. It is infinite, and it is the fundamental group of a finite aspherical two-complex, a $d$-sheeted cover of $X$ or $X^\sharp$, with positive Euler characteristic $d\chi(G)$ or $d\chi(G^\sharp)$. The Euler--Poincar\'e formula for its universal cover and the vanishing of the zeroth $L^2$-Betti number of an infinite group \cite[Theorem~2.7(ix),(x)]{Lueck2003} give $b_2^{(2)}(G')-b_1^{(2)}(G')>0$. If $G'$ were isomorphic to a subgroup of the fundamental group of a two-complex with nonpositive immersions, it would satisfy $b_2^{(2)}(G')\le b_1^{(2)}(G')$, since it is finitely generated \cite[Proposition~2.9]{JZL2025}.
+\end{proof}
+
+\section{Open questions}\label{sec:questions}
+
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item Is $G$ hyperlinear? If it is, it is a hyperlinear group that is not sofic. Proposition~\ref{prop:height} excludes approximations with bounded denominators, Proposition~\ref{prop:tracial} shows that the tracial structure of $L(G)$ alone cannot decide the question, and by Proposition~\ref{prop:criterion} it would suffice, for a hyperlinear quotient that is not sofic, to find unitary approximations that keep every rectangular word away from the identity.
+\item Does $K[G]$ embed in a division ring when $K$ has characteristic $q$? A positive answer would give a group ring that embeds in a division ring but has no Linnell division ring; a negative answer would make $G$ a counterexample to \cite[Conjecture~1.1]{FSP2026}.
+\item Is $G$, or $G^\sharp$, locally indicable? If so, the Hughes-free division ring of its group algebra in characteristic $q$ does not exist (Section~\ref{sec:structure}). Is $G$ left-orderable? If $G$ has a right-invariant order, then by \cite[Proposition~2.4]{JZL2025} and Theorem~\ref{thm:linnell} the Dubrovin ring of $K[G]$, for a field $K$ of characteristic $q$, is not a division ring, contrary to a conjecture of Dubrovin recalled in \cite[Section~2.3]{JZL2025}.
+\end{enumerate}
 
 \section{Verification}\label{sec:verification}
 
@@ -227,11 +472,54 @@ with OpenAI's definitions of the first two properties. Mathlib has no definition
 
 What is machine-checked is therefore the headline statement, not every statement of this note. The sharper constants of Theorem~\ref{thm:quant}, Corollary~\ref{cor:residual} and its consequences, and the equivalence of this definition of soficity with other common forms~\cite{ElekSzabo2005} are proved here in writing only.
 
-\paragraph{Use of AI.} The group and all inputs are AI-generated work of OpenAI \cite{OAI252}. AI systems also assisted us with the transfer, the checks, the Lean builds and the manuscript. The authors take responsibility for the content.
+\paragraph{Division rings and the further results.} Theorem~\ref{thm:linnell} and the results of Sections~\ref{sec:hyperlinear} and~\ref{sec:linnell} are proved here in writing only; none of them is formalized in Lean. Besides \ref{F:cert} and \ref{F:geo}, Theorem~\ref{thm:linnell} uses the freeness of the line subgroups (Lemma~\ref{lem:free}), which rests on the written proofs of \cite[Theorem~2.1, Proposition~3.3 and Lemma~2.3]{OAI252}; it is not formalized. Theorem~\ref{thm:linnell} was proved twice, independently and by different routes: by the skew Laurent argument of Lemma~\ref{lem:fullrank}, and by an induction on Schur complements.
 
-\paragraph{Acknowledgments.} We thank Andreas Thom and Harjas Sandhu. The note \cite{SandhuThom26} drew our attention to \cite{ChapmanPeled25}, \cite{Sauer2016} and \cite{Soule1999}, which version~1.0.0 of this note did not cite.
+\section*{How this work was done}
+
+This note is the work of its two authors together with AI models from more than one developer. The authors set the direction throughout: they chose the questions, decided which lines to pursue and which to drop, judged and selected the results, and take full responsibility for every claim. The group and every input to the non-soficity argument are AI-generated work of OpenAI \cite{OAI252}. For the rest, the models did most of the exploration, derivation, computation, formalization and drafting.
+
+Results were checked by independent derivation, and the results new in this version were also given to reviewers who had not seen our proofs and were asked to prove or refute them. The approximate rank argument of Sections~\ref{sec:transfer} and~\ref{sec:sofic} was derived twice independently, and its conclusion was formalized in Lean (Section~\ref{sec:verification}). For Theorem~\ref{thm:linnell}, an instance that had not seen our proof found the proof given here, and a refutation-first review proved the theorem again by a different route; neither found an error in the argument. A priority search then found the characteristic-two refutations \cite{OAI196,OAI197}, which our first statement of the result had missed, and the reviews led to the scoped wording about Hughes-free division rings. The results of Sections~\ref{sec:hyperlinear} and~\ref{sec:structure} were first obtained in separate model sessions and then proved again by instances that had not seen those proofs; those checks corrected four of the seven statements, and the text gives the corrected versions. The numbered citations added in this version were checked against the cited texts; where only a preprint version could be opened, the reference says which. The proofs are given in full: the checks support them but do not replace them.
+
+\section*{Acknowledgments}
+
+We thank Andreas Thom and Harjas Sandhu. Their note \cite{SandhuThom26} drew our attention to \cite{ChapmanPeled25}, \cite{Sauer2016} and \cite{Soule1999}, which version~1.0.0 of this note did not cite.
+
+\appendix
+
+\section{Sources of the inputs}\label{app:sources}
+
+For each input that this note takes from \cite{OAI252}, the list gives where it appears there and earlier sources that we checked, with result numbers. Items 1 and 7, and Theorem~II.5.2 and Lemma~II.5.6 of \cite{BH1999} in item 2, are cited in \cite{OAI252}; the other sources are not. An earlier source is not a claim of priority, and a missing citation is not evidence of copying.
+
+{\small
+\begin{enumerate}[label=\arabic*.,leftmargin=*,itemsep=2pt]
+\item \emph{Random marked lines, then deletion of the labels on short cycles} \cite[Lemma~2.2]{OAI252}. The alteration method of Erd\H{o}s \cite[proof of (4), pp.~35--37]{Erdos1959}, where every edge on a short circuit of a random graph is deleted. The marked lines and the exceptional set are not in \cite{Erdos1959}.
+\item \emph{Link criterion for curvature} \cite[Theorem~2.1, Lemma~2.3]{OAI252}. \cite[Theorem~II.5.2, Theorem~II.5.4 and Lemma~II.5.6]{BH1999}. \cite{OAI252} proves the form it uses.
+\item \emph{Closed paths with large turns are essential; torsion-freeness} \cite[Propositions~3.3 and~3.4]{OAI252}. For the CAT(0) universal cover, \cite[Proposition~II.1.4(2) and Corollary~II.2.8(1)]{BH1999}; \cite{OAI252} argues directly with reduced diagrams and shortest loops.
+\item \emph{Reduced disc diagrams} \cite[Lemma~3.2]{OAI252}. \cite[Lemmas~2.16 and~2.17]{McCammondWise2002}.
+\item \emph{Combinatorial Gauss--Bonnet formula} \cite[(3.1)]{OAI252}. \cite[Definition~4.4 and Theorem~4.6]{McCammondWise2002}.
+\item \emph{Hyperbolicity from strict angle excess} \cite[Lemma~4.1, Proposition~4.3]{OAI252}. Standard routes: \cite[Theorem~III.H.1.5]{BH1999} for the CAT(0) universal cover, or \cite[Proposition~III.H.1.2]{BH1999} for a piecewise hyperbolic metric, with \cite[Proposition~I.8.19 and Theorem~III.H.1.9]{BH1999}. \cite{OAI252} gives a direct diagram argument.
+\item \emph{Stability of quasi-geodesics} \cite[Lemma~4.2]{OAI252}. \cite[Theorem~III.H.1.7]{BH1999}.
+\item \emph{$\rank A\ge(\tr A)^2/\tr A^2$ for symmetric $A$} \cite[Section~2.4]{OAI252}. Classical; the proof of \cite[Lemma~2.2]{Alon2009}, and \cite[Section~3]{AHKPY2011}.
+\item \emph{Real rank of a $0/1$ matrix from its degrees and four-cycles} \cite[(2.8)--(2.10)]{OAI252}. \cite[Theorem~6]{AHKPY2011}; see Step~2 of Theorem~\ref{thm:ineq}.
+\item \emph{Rank of a bounded integer matrix modulo a large prime} \cite[Lemma~2.4]{OAI252}. \cite[Lemma~1]{Soule1999}, in an argument credited there to Gabber, and \cite[Lemma~3.1]{Sauer2016}. Lemma~2.4 of \cite{OAI252} follows from Soul\'e's lemma; the two statements differ.
+\item \emph{Product Lagrange interpolation on $S^h$} \cite[Section~2.5]{OAI252}. \cite[Lemma~1.3 and Theorem~2.3]{Schauz2008}.
+\item \emph{A polynomial of degree below $q-1$ sums to zero over $\F_q$} \cite[(2.13)]{OAI252}. \cite[Chapter~I, \S2.1, Lemma]{Serre1973}, whose proof \cite{OAI252} repeats with the root bound in place of the cyclicity of $\F_q^\times$; \cite[Theorem~3.3(i)]{Schauz2008}.
+\item \emph{Block coordinates, coupled cyclic shifts and the block factorization} \cite[(2.3)--(2.5), (2.11)]{OAI252}. Not traced to an earlier source.
+\item \emph{Interpolation turned into a rank certificate} \cite[(2.13)--(2.14)]{OAI252}. The ingredients are in items 9--12; the assembly was not traced to an earlier source.
+\end{enumerate}
+}
 
 \begin{thebibliography}{99}
+
+\bibitem{Alon2009}
+N.~Alon,
+Perturbed identity matrices have high rank: proof and applications,
+\emph{Combin. Probab. Comput.} \textbf{18} (2009), 3--15.
+
+\bibitem{AHKPY2011}
+N.~Alon, H.~T.~Hall, C.~Knauer, R.~Pinchasi and R.~Yuster,
+On graphs and algebraic graphs that do not contain cycles of length~4,
+\emph{J. Graph Theory} \textbf{68} (2011), no.~2, 91--102. Result numbers as in the authors' versions of 5~February 2009 and 28~August 2011.
 
 \bibitem{Arzhantseva2014}
 G.~Arzhantseva,
@@ -243,15 +531,41 @@ G.~Arzhantseva and P.-A.~Cherix,
 Quantifying metric approximations of discrete groups,
 \emph{Ann. Fac. Sci. Toulouse Math. (6)} \textbf{33} (2024), no.~3, 831--877.
 
+\bibitem{BH1999}
+M.~R.~Bridson and A.~Haefliger,
+\emph{Metric Spaces of Non-Positive Curvature},
+Grundlehren der mathematischen Wissenschaften 319, Springer, 1999.
+
 \bibitem{ChapmanPeled25}
 M.~Chapman and Y.~Peled,
 Cocycle stability in permutations of random simplicial complexes,
 preprint, 2025, arXiv:2509.21566.
 
+% TODO-DOI: add at deposit
+\bibitem{DMzd}
+S.~Douglas and N.~Mghirbi,
+Torsion-free hyperbolic groups with zero divisors in every positive characteristic,
+2026.
+
 \bibitem{ElekSzabo2005}
 G.~Elek and E.~Szab\'o,
 Hyperlinearity, essentially free actions and $L^2$-invariants. The sofic property,
-\emph{Math. Ann.} \textbf{332} (2005), 421--441.
+\emph{Math. Ann.} \textbf{332} (2005), 421--441. Result numbers as in arXiv:math/0408400v2.
+
+\bibitem{ElekSzabo2006}
+G.~Elek and E.~Szab\'o,
+On sofic groups,
+\emph{J. Group Theory} \textbf{9} (2006), no.~2, 161--171. Result numbers as in arXiv:math/0305352v1.
+
+\bibitem{Erdos1959}
+P.~Erd\H{o}s,
+Graph theory and probability,
+\emph{Canad. J. Math.} \textbf{11} (1959), 34--38.
+
+\bibitem{FSP2026}
+S.~P.~Fisher and P.~S\'anchez-Peralta,
+Division rings for group algebras of virtually compact special groups and $3$-manifold groups,
+\emph{J. Comb. Algebra} \textbf{10} (2026), no.~1/2, 153--193, doi:10.4171/jca/89; arXiv:2303.08165.
 
 \bibitem{FournierFacio26}
 F.~Fournier-Facio,
@@ -263,6 +577,11 @@ M.~Gromov,
 Endomorphisms of symbolic algebraic varieties,
 \emph{J. Eur. Math. Soc.} \textbf{1} (1999), 109--197.
 
+\bibitem{JZL2025}
+A.~Jaikin-Zapirain and M.~Linton,
+On the coherence of one-relator groups and their group algebras,
+\emph{Ann. of Math.} \textbf{201} (2025), no.~3, 909--959, doi:10.4007/annals.2025.201.3.4. Result numbers as in arXiv:2303.05976v4, the accepted version.
+
 \bibitem{KapovichWise2000}
 I.~Kapovich and D.~T.~Wise,
 The equivalence of some residual properties of word-hyperbolic groups,
@@ -273,15 +592,40 @@ G.~Kun and A.~Thom,
 Nonsofic wreath products of residually finite groups,
 arXiv:2608.06222v3 (2026).
 
+\bibitem{Lueck2003}
+W.~L\"uck,
+$L^2$-invariants from the algebraic point of view,
+arXiv:math/0310489 (2003).
+
 \bibitem{Malcev1940}
 A.~I.~Mal'cev,
 On isomorphic matrix representations of infinite groups,
 \emph{Mat. Sb.} \textbf{8(50)} (1940), 405--422.
 
+\bibitem{McCammondWise2002}
+J.~P.~McCammond and D.~T.~Wise,
+Fans and ladders in small cancellation theory,
+\emph{Proc. London Math. Soc.} \textbf{84} (2002), no.~3, 599--644. Result numbers as in the authors' preprint of 6~December 2001.
+
+\bibitem{Nica2013}
+B.~Nica,
+Linear groups -- Malcev's theorem and Selberg's lemma,
+arXiv:1306.2385 (2013).
+
 \bibitem{OAI252}
 OpenAI,
 A torsion-free hyperbolic group that is not residually finite,
 OpenAI Math Release preprint, 23 September 2026, \url{https://github.com/openai/math/tree/main/preprints/a-torsion-free-hyperbolic-group-that-is-not-residually-finite-September-23-2026}.
+
+\bibitem{OAI196}
+OpenAI,
+A torsion-free group algebra with zero divisors,
+OpenAI Math Release preprint, 23 September 2026, \url{https://github.com/openai/math/blob/main/preprints/A-Torsion-Free-Group-Algebra-with-Zero-Divisors-September-23-2026/paper.pdf}.
+
+\bibitem{OAI197}
+OpenAI,
+A torsion-free group algebra that is not directly finite,
+OpenAI Math Release preprint, 4 October 2026, \url{https://github.com/openai/math/blob/main/preprints/A-Torsion-Free-Group-Algebra-That-Is-Not-Directly-Finite-October-4-2026/direct-finiteness.pdf}.
 
 \bibitem{OAImath}
 OpenAI,
@@ -295,16 +639,32 @@ Chapter~3 of \emph{Ten Advances in Mathematics and Theoretical Computer Science}
 \bibitem{Pestov2008}
 V.~G.~Pestov,
 Hyperlinear and sofic groups: a brief guide,
-\emph{Bull. Symbolic Logic} \textbf{14} (2008), 449--480.
+\emph{Bull. Symbolic Logic} \textbf{14} (2008), 449--480. Result numbers as in arXiv:0804.3968v8.
+
+\bibitem{Sanchez2011}
+J.~S\'anchez,
+Free group algebras in Malcev--Neumann skew fields of fractions,
+arXiv:1107.2429 (2011).
 
 \bibitem{SandhuThom26}
+H.~Sandhu and A.~Thom,
 An example of a non-sofic hyperbolic group,
-note circulated by A.~Thom (TU Dresden), 13 October 2026, based on an AI-generated construction obtained by H.~Sandhu (University of Queensland) on 7 October 2026.
+preprint, October 2026, \url{https://andreasthom.github.io/pdf/hyperbolicnonsofic.pdf}.
 
 \bibitem{Sauer2016}
 R.~Sauer,
 Volume and homology growth of aspherical manifolds,
 \emph{Geom. Topol.} \textbf{20} (2016), no.~2, 1035--1059.
+
+\bibitem{Schauz2008}
+U.~Schauz,
+Algebraically solvable problems: describing polynomials as equivalent to explicit solutions,
+\emph{Electron. J. Combin.} \textbf{15} (2008), \#R10.
+
+\bibitem{Serre1973}
+J.-P.~Serre,
+\emph{A Course in Arithmetic},
+Graduate Texts in Mathematics~7, Springer, 1973.
 
 \bibitem{Soule1999}
 C.~Soul\'e,
