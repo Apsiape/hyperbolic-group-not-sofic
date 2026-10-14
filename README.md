@@ -21,8 +21,8 @@ any group containing G, has no Linnell division ring. Freeness of certain line s
 the certificate forces the rank to collapse; no zero divisor is exhibited. In characteristic two, OpenAI's
 torsion-free groups with zero divisors, or with a group algebra that is not directly finite, already show that Linnell
 division rings need not exist; the new result concerns G itself. The note also splits G as a free product of a free
-group and a torsion-free hyperbolic group to which the same applies, shows that G is not bi-orderable, and records
-what the argument says about hyperlinearity.
+group and a torsion-free hyperbolic group that again has no Linnell division ring in characteristic q, shows that G
+is not bi-orderable, and records what the argument says about hyperlinearity.
 
 ## Contents
 
@@ -59,7 +59,7 @@ OpenAI's development and the formalization; every step exits 0
   satisfying condition (HF); every Sylvester matrix rank function makes the line matrices collapse. OpenAI's
   characteristic-two refutations and the authors' companion note on zero divisors are credited up front.
 - New structural results: G is the free product of a free group and a finitely presented torsion-free hyperbolic
-  group G♯ to which the same applies; no group containing G is bi-orderable; G and G♯ embed in no fundamental group of
+  group G♯ such that no group containing G♯ has a Linnell division ring in characteristic q; no group containing G is bi-orderable; G and G♯ embed in no fundamental group of
   a two-complex with nonpositive immersions.
 - The hyperlinearity discussion is upgraded to three results: a barrier for unitary models with bounded denominators,
   the group von Neumann algebra as a countermodel for tracial arguments, and a criterion for a hyperlinear quotient
