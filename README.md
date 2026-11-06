@@ -81,5 +81,5 @@ residually finite" (OpenAI Math Release, 23 September 2026) and its Lean develop
 The paper and documentation are licensed CC BY 4.0, the scripts MIT, and the Lean files Apache 2.0, since they
 adapt parts of OpenAI's Apache-2.0 development; see [RIGHTS.md](RIGHTS.md) and [NOTICE](NOTICE). To cite this work, use
 the concept DOI [10.5281/zenodo.23202474](https://doi.org/10.5281/zenodo.23202474), which covers all versions
-(version 1.1.0: [10.5281/zenodo.23374284](https://doi.org/10.5281/zenodo.23374284); version 1.0.1: [10.5281/zenodo.23345877](https://doi.org/10.5281/zenodo.23345877); version 1.0.0: [10.5281/zenodo.23202475](https://doi.org/10.5281/zenodo.23202475)),
+(version 1.2.0: [10.5281/zenodo.24023063](https://doi.org/10.5281/zenodo.24023063); version 1.1.0: [10.5281/zenodo.23374284](https://doi.org/10.5281/zenodo.23374284); version 1.0.1: [10.5281/zenodo.23345877](https://doi.org/10.5281/zenodo.23345877); version 1.0.0: [10.5281/zenodo.23202475](https://doi.org/10.5281/zenodo.23202475)),
 or see [CITATION.cff](CITATION.cff).

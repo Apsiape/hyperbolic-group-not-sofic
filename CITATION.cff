@@ -3,7 +3,7 @@ message: "Please cite the note; this repository supplies its source, reproductio
 type: software
 title: "Non-soficity of OpenAI's torsion-free hyperbolic group"
 version: 1.2.0
-doi: 10.5281/zenodo.23202474
+doi: 10.5281/zenodo.24023063
 license:
   - CC-BY-4.0
   - MIT
@@ -41,6 +41,6 @@ preferred-citation:
       given-names: Nidhal
   year: 2026
   version: 1.2.0
-  doi: 10.5281/zenodo.23202474
-  notes: "Version 1.2.0, November 2026. Preprint with a source-only Lean core and explicitly scoped statement map; not peer reviewed. The DOI is the all-versions DOI; a version DOI is recorded after minting. Version 1.1.0 and its older Lean package remain at 10.5281/zenodo.23374284. See RIGHTS.md for licence scope."
-  url: "https://doi.org/10.5281/zenodo.23202474"
+  doi: 10.5281/zenodo.24023063
+  notes: "Version 1.2.0, November 2026. Preprint with a source-only Lean core and explicitly scoped statement map; not peer reviewed. Version 1.2.0 is 10.5281/zenodo.24023063; 10.5281/zenodo.23202474 is the concept DOI of all versions. Version 1.1.0 and its older Lean package remain at 10.5281/zenodo.23374284. See RIGHTS.md for licence scope."
+  url: "https://doi.org/10.5281/zenodo.24023063"
