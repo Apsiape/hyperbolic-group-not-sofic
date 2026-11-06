@@ -1,0 +1,16 @@
+Non-soficity of OpenAI's torsion-free hyperbolic group
+Copyright 2026 Seth Douglas and Nidhal Mghirbi
+
+This repository redistributes the required FiniteLean group-theory source subset,
+including OpenAI's Lean development for "A torsion-free hyperbolic group that is not
+residually finite" (item 252), from https://github.com/openai/math at commit
+adc7f1241b42e322a6451854ab7e4b4c146bf78a, under the Apache License, Version 2.0.
+The original licence and the changes for the Lean 4.35.0 / pinned Mathlib port are in
+vendor/finite-lean/FiniteLean/GroupTheory/OAI/LICENSE-openai-math and VENDOR.md.
+
+Approx252/NonSofic.lean follows the structure of OpenAI's main theorem.
+FiniteLean/GroupTheory/Sofic/PermModel.lean adapts the finite-quotient rank obstruction
+from finite regular representations to approximate permutation models.
+Approx252/Check.lean compares the torsion-free and word-hyperbolic definitions.
+The shared rank, soficity and division-ring sources retain the authors' Apache-2.0 terms.
+The group, its construction and OpenAI's imported results remain OpenAI's work.

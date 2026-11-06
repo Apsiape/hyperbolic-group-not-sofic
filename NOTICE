@@ -1,17 +1,16 @@
 Non-soficity of OpenAI's torsion-free hyperbolic group
 Copyright 2026 Seth Douglas and Nidhal Mghirbi
 
-This repository contains Lean files (lean/Check252.lean and lean/ext/Approx252/) that import, reuse and adapt
-parts of OpenAI's Lean development for "A torsion-free hyperbolic group that is not residually finite" (item 252
-of OpenAI's mathematics release), in https://github.com/openai/math at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a, licensed under the
-Apache License, Version 2.0. In particular:
+This repository redistributes the required FiniteLean group-theory source subset,
+including OpenAI's Lean development for "A torsion-free hyperbolic group that is not
+residually finite" (item 252), from https://github.com/openai/math at commit
+adc7f1241b42e322a6451854ab7e4b4c146bf78a, under the Apache License, Version 2.0.
+The original licence and the changes for the Lean 4.35.0 / pinned Mathlib port are in
+lean/vendor/finite-lean/FiniteLean/GroupTheory/OAI/LICENSE-openai-math and VENDOR.md.
 
-- lean/Check252.lean re-enters the definitions of TorsionFree and WordHyperbolic from OpenAI's comparator challenge
-  file (lean/ComparatorChallenges/TorsionFreeHyperbolic.lean) in order to compare them with the development's own;
-- lean/ext/Approx252/PermModel.lean adapts the structure of OpenAI's finite-quotient rank obstruction
-  (OAI.Release075.finite_quotient_rank_obstruction and not_residuallyFinite_of_line_blocks) from the regular
-  representation of a finite group to approximate permutation models;
-- lean/ext/Approx252/NonSofic.lean follows the structure of OpenAI's main theorem (OAI.Release075.main).
-
-The group, its construction and all imported theorems are OpenAI's work. OpenAI's sources are not redistributed
-in this repository; they are referenced by commit and must be obtained from the repository above.
+Approx252/NonSofic.lean follows the structure of OpenAI's main theorem.
+FiniteLean/GroupTheory/Sofic/PermModel.lean adapts the finite-quotient rank obstruction
+from finite regular representations to approximate permutation models.
+Approx252/Check.lean compares the torsion-free and word-hyperbolic definitions.
+The shared rank, soficity and division-ring sources retain the authors' Apache-2.0 terms.
+The group, its construction and OpenAI's imported results remain OpenAI's work.

@@ -23,33 +23,28 @@ division rings need not exist; the new result concerns G itself. The note also s
 group and a torsion-free hyperbolic group that again has no Linnell division ring in characteristic q, shows that G
 is not bi-orderable, and records what the argument says about hyperlinearity.
 
-## Contents
+## Version 1.2.0
 
-- [`paper/paper.pdf`](paper/paper.pdf) and [`paper/paper.tex`](paper/paper.tex): the note. Build with
+November 2026. A preprint; it has not been peer reviewed.
+
+This version replaces the earlier Lean 4.34.1 package by a source-only Lean core, which proves the printed sharp rank inequality, the general quantitative
+obstruction, both residual-word conclusions, line-subgroup freeness and rank collapse, with existential forms of
+Theorem 1.1 and of the 1/(6rq) result, using only Lean's three standard axioms and passing the leanchecker and
+nanoda kernel checkers. [lean/README.md](lean/README.md) and Appendix B of the paper give the exact scope, what
+is not formalized and the build commands. The mathematical statements, equations and existing section numbers
+are unchanged.
+
+## Contents and reproduction
+
+- [Manuscript](paper/paper.pdf) and [LaTeX source](paper/paper.tex). Build with
   `python paper/build.py` and an existing LaTeX installation.
-- [`lean/ext/`](lean/ext/README.md): the Lean formalization of the note's argument, on top of OpenAI's development.
-- [`lean/`](lean/): an audit file for the imported theorems (`Check252.lean`), build and kernel-check scripts
-  (PowerShell 7), the module order, and the evidence logs.
-- [`REPRODUCE.md`](REPRODUCE.md): pinned sources, reproduction commands, and what each log records.
+- [Lean core](lean/README.md): what is checked, trust base and build commands.
+- [Reproduction](REPRODUCE.md): requirements and commands.
+- [Release notes](RELEASE-NOTES-v1.2.0.md), [rights](RIGHTS.md) and [notice](NOTICE).
 
-## What is machine-checked
-
-The Lean theorem `Approx252.exists_torsionFree_wordHyperbolic_not_sofic` states
-
-```lean
-∃ (G : Type) (_ : Group G), TorsionFree G ∧ WordHyperbolic G ∧ ¬ IsSofic G
-```
-
-with OpenAI's definitions of torsion-free and word-hyperbolic and the standard definition of soficity (normalized
-Hamming distance, separation `1 - ε`), which is defined in `lean/ext/` because Mathlib has none. It uses only the
-axioms `propext`, `Classical.choice` and `Quot.sound`. The note's sharper constants, its corollaries (for example,
-that one fixed element dies in every sofic quotient), and the equivalence of this definition of soficity with other
-common forms are proved in writing only. So are all results added in version 1.1.0: the division-ring theorem, the
-splitting and the other structural consequences, and the hyperlinearity results.
-
-A complete rebuild from scratch with the scripts in this repository compiled and kernel-checked all 29 modules of
-OpenAI's development and the formalization; every step exits 0
-([`lean/evidence/rebuild-2026-10-06/`](lean/evidence/rebuild-2026-10-06/)).
+The previous Lean 4.34.1 package and its 6 October 2026 rebuild evidence remain in the
+[version 1.1.0 archive](https://doi.org/10.5281/zenodo.23374284); they are not shipped again.
+The new core vendors the required OpenAI-derived and shared-library sources.
 
 ## Version 1.1.0
 
@@ -81,7 +76,7 @@ which gives an explicit non-sofic hyperbolic group and a torsion-free hyperbolic
 
 The group, its construction and all imported theorems are OpenAI's: "A torsion-free hyperbolic group that is not
 residually finite" (OpenAI Math Release, 23 September 2026) and its Lean development at commit
-`adc7f1241b42e322a6451854ab7e4b4c146bf78a`. Their sources are not redistributed here.
+`adc7f1241b42e322a6451854ab7e4b4c146bf78a`. The core now redistributes the required sources, ported to Lean 4.35.0; the changes and original licence are retained under `lean/vendor/finite-lean/FiniteLean/GroupTheory/OAI/`.
 
 The paper and documentation are licensed CC BY 4.0, the scripts MIT, and the Lean files Apache 2.0, since they
 adapt parts of OpenAI's Apache-2.0 development; see [RIGHTS.md](RIGHTS.md) and [NOTICE](NOTICE). To cite this work, use

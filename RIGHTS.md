@@ -2,17 +2,14 @@
 
 Copyright 2026 Seth Douglas and Nidhal Mghirbi.
 
-- **Paper and documentation.** Unless separately credited, the authors' material in this repository is licensed
-  under the **Creative Commons Attribution 4.0 International License (CC BY 4.0)**: the note (`paper/paper.pdf`),
-  its LaTeX source, and the documentation (`README.md`, `REPRODUCE.md`, `lean/ext/README.md`). See
-  [the full license](LICENSE-CC-BY-4.0.txt).
-- **Scripts.** The authors' build and check scripts (`paper/build.py`, the PowerShell scripts in `lean/` and
-  `lean/ext/`) are licensed under the **MIT License**. See [the full license](LICENSE-MIT.txt).
-- **Lean files.** `lean/Check252.lean` and the files in `lean/ext/Approx252/` build on, import and adapt parts of
-  OpenAI's Lean development in https://github.com/openai/math, which is licensed under the Apache License 2.0. These
-  files are therefore licensed under the **Apache License 2.0**. See [the full license](LICENSE-APACHE-2.0.txt) and
-  [NOTICE](NOTICE).
+- **Paper and documentation:** CC BY 4.0, unless separately credited. This includes the
+  manuscript, README files, reproduction instructions, release notes and evidence records.
+- **Scripts:** the authors' build and check scripts are MIT.
+- **Lean files:** the authors' Lean files, the retained FiniteLean group-theory sources
+  and the OpenAI-derived development in `lean/vendor/finite-lean/FiniteLean/GroupTheory/OAI/`
+  are Apache License 2.0. The original OpenAI licence and port record are retained there
+  as `LICENSE-openai-math` and `VENDOR.md`.
 
-The evidence logs in `lean/evidence/` and `lean/ext/evidence/` are records of tool output, provided under CC BY 4.0
-as documentation. These grants do not alter the rights in third-party material or cited work, including OpenAI's
-repository, which is not redistributed here.
+The full CC BY 4.0, MIT and Apache 2.0 licences are provided as `LICENSE-CC-BY-4.0.txt`,
+`LICENSE-MIT.txt` and `LICENSE-APACHE-2.0.txt`. These grants do not alter third-party rights.
+The group, its construction and the imported theorems are OpenAI's work; see `NOTICE`.

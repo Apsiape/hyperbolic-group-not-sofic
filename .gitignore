@@ -4,3 +4,4 @@ __pycache__/
 *.aux
 *.log
 !lean/evidence/*.log
+lean/.lake/

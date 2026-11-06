@@ -1,0 +1,24 @@
+-- Root module of `NonSofic` (all modules).
+import NonSofic.Collapse
+import NonSofic.DataBounds
+import NonSofic.Headline
+import FiniteLean.GroupTheory.RankCertificate
+import FiniteLean.GroupTheory.DivisionRing.Adapter
+import FiniteLean.GroupTheory.DivisionRing.Assembly
+import FiniteLean.GroupTheory.DivisionRing.Freeness
+import FiniteLean.GroupTheory.DivisionRing.FullRank
+import FiniteLean.GroupTheory.DivisionRing.LineData
+import FiniteLean.GroupTheory.DivisionRing.RankD
+import FiniteLean.GroupTheory.DivisionRing.Sanity
+import FiniteLean.GroupTheory.DivisionRing.SplitLinnell
+import FiniteLean.GroupTheory.DivisionRing.Sylvester
+import NonSofic.Lemma22Data
+import NonSofic.Lemma22Quant
+import NonSofic.LineFree
+import NonSofic.LineFreeWord
+import NonSofic.Linnell
+import NonSofic.Residual
+import NonSofic.SharpConstants
+import NonSofic.SharpCount
+import NonSofic.SharpQuant
+import FiniteLean.GroupTheory.Sofic.Closure

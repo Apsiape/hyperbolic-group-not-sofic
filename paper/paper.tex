@@ -1,3 +1,4 @@
+\newcommand{\DoNotLoadEpstopdf}{}
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern,amsmath,amssymb,amsthm,mathtools}
@@ -6,7 +7,7 @@
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \hypersetup{pdftitle={Non-soficity of OpenAI's torsion-free hyperbolic group},
  pdfauthor={Seth Douglas and Nidhal Mghirbi},
- pdfsubject={An obstruction to approximate permutation models and to Linnell division rings. October 2026 (version 1.1.0)}}
+ pdfsubject={An obstruction to approximate permutation models and to Linnell division rings. November 2026 (version 1.2.0)}}
 \setlength{\emergencystretch}{1em}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -36,7 +37,7 @@
 
 \title{Non-soficity of OpenAI's torsion-free hyperbolic group}
 \author{Seth Douglas \and Nidhal Mghirbi}
-\date{October 2026 (version 1.1.0)}
+\date{November 2026 (version 1.2.0)}
 
 \begin{document}
 \maketitle
@@ -89,7 +90,7 @@ Section~\ref{sec:structure} shows that $G$ is the free product of a free group a
 
 \paragraph{Independent work.} Sandhu and Thom \cite{SandhuThom26}, based on an AI-generated construction obtained by H.~Sandhu, give an explicit torsion-free word-hyperbolic group that is not sofic; their argument and ours were found independently. They take from \cite{OAI252} the marked lines, the triangle relations built from Cartesian products, the interpolation identity, and the comparison of real and finite-field ranks. Their real-rank bound is the one in Step~2 of Theorem~\ref{thm:ineq}, from \cite[Theorem~6]{AHKPY2011}, and \cite[Lemma~2.4]{OAI252} passes it to $\F_q$ \cite[Lemmas~3.2 and~3.3]{SandhuThom26}. In place of the random incidence graph they use the explicit graph $D(5,q)$ of Lazebnik and Ustimenko, of girth at least ten, with one block at each point, and they give the complex a locally CAT($-1$) metric \cite[Theorem~A]{SandhuThom26}. Their approximate rank inequality for permutation assignments \cite[Theorem~3.1]{SandhuThom26} and their passage from soficity \cite[Section~5]{SandhuThom26} follow the same mechanism as Sections~\ref{sec:transfer} and~\ref{sec:sofic}. Through a theorem of Kapovich and Wise \cite{KapovichWise2000}, they also obtain a nontrivial torsion-free word-hyperbolic group with no nontrivial sofic quotient \cite[Corollary~B]{SandhuThom26}, which goes further than Corollary~\ref{cor:residual}.
 
-\paragraph{What is ours.} The group, its construction, its hyperbolicity and torsion-freeness, the nontriviality of the rectangular words, the trace bound on the real rank, the block factorization, the interpolation certificate, the rank-reduction lemma and the exact rank comparison against finite quotients are all from \cite{OAI252}, and all are theorems of the Lean development \cite{OAImath}. We contribute the approximate version of the rank comparison (Section~\ref{sec:transfer}), the passage from soficity (Section~\ref{sec:sofic}), the explicit constants, and a Lean formalization of the headline statement; Sandhu and Thom found the approximate rank comparison and the passage from soficity independently, for their own group \cite[Theorem~3.1 and Section~5]{SandhuThom26}. We also contribute Theorem~\ref{thm:linnell} and the other results of Sections~\ref{sec:hyperlinear} and~\ref{sec:linnell}. The freeness of the line subgroups follows from \cite[Theorem~2.1 and Lemma~2.3]{OAI252} by the argument that gives the nontriviality of the rectangular words there. Appendix~\ref{app:sources} lists earlier sources for the inputs taken from \cite{OAI252}. Section~\ref{sec:verification} records exactly what was checked, and how.
+\paragraph{What is ours.} The group, its construction, its hyperbolicity and torsion-freeness, the nontriviality of the rectangular words, the trace bound on the real rank, the block factorization, the interpolation certificate, the rank-reduction lemma and the exact rank comparison against finite quotients are all from \cite{OAI252}, and all are theorems of the Lean development \cite{OAImath}. We contribute the approximate version of the rank comparison (Section~\ref{sec:transfer}), the passage from soficity (Section~\ref{sec:sofic}), the explicit constants, and the Lean core scoped in Appendix~\ref{app:lean-core}; Sandhu and Thom found the approximate rank comparison and the passage from soficity independently, for their own group \cite[Theorem~3.1 and Section~5]{SandhuThom26}. We also contribute Theorem~\ref{thm:linnell} and the other results of Sections~\ref{sec:hyperlinear} and~\ref{sec:linnell}. The freeness of the line subgroups follows from \cite[Theorem~2.1 and Lemma~2.3]{OAI252} by the argument that gives the nontriviality of the rectangular words there. Appendix~\ref{app:sources} lists earlier sources for the inputs taken from \cite{OAI252}. Section~\ref{sec:verification} records exactly what was checked, and how.
 
 \section{The group and the facts we use}\label{sec:group}
 
@@ -458,29 +459,30 @@ Let $G'$ be a subgroup of index $d$ in $G$ or in $G^\sharp$. It is infinite, and
 
 \section{Verification}\label{sec:verification}
 
-\paragraph{The inputs.} We rebuilt OpenAI's Lean development \url{https://github.com/openai/math} at commit
+\paragraph{The inputs.} The inputs are OpenAI's Lean development \url{https://github.com/openai/math} at commit
 \[
- \texttt{adc7f1241b42e322a6451854ab7e4b4c146bf78a},
+ \texttt{adc7f1241b42e322a6451854ab7e4b4c146bf78a}.
 \]
-with Lean~4.34.1 and Mathlib at tag \texttt{v4.34.1} (commit \texttt{d13f23b}). All 29 modules of \lean{OAI/GroupTheory/Hyperbolic} compile without errors, warnings or \lean{sorry}, and all 29 passed Lean's kernel checker. (The first build did not capture the exit code of \lean{Model}; a later recompile of that module exits $0$ with no output.) A second, complete rebuild from scratch with the repository's scripts repeated every compilation and kernel check, including those of the formalization described below; all $66$ steps exit $0$. The main theorem \lean{OAI.Release075.main} and each declaration cited in \ref{F:rect}--\ref{F:geo}, together with \lean{BlockPresentation.triangle_relation} and the budget field of \lean{MarkedLineData}, depend only on the axioms \lean{propext}, \lean{Classical.choice} and \lean{Quot.sound}. The definitions of torsion-free and word-hyperbolic (the latter by thin geodesic triangles in a Cayley graph) agree with the repository's challenge statement by definitional equality. The Lean group is the presented group of Section~\ref{sec:group}; the identification with $\pi_1$ of the triangle complex and the general criterion \cite[Theorem~2.1]{OAI252} are not formalized, and neither is \cite[Corollary~1.2]{OAI252}. None of these is used here. Build instructions are in the accompanying repository.
+With Lean~4.34.1 and Mathlib at tag \texttt{v4.34.1} (commit \texttt{d13f23b}), all 29 modules of \lean{OAI/GroupTheory/Hyperbolic} compile without errors, warnings or \lean{sorry}, and all 29 pass Lean's kernel checker. The main theorem \lean{OAI.Release075.main} and each declaration cited in \ref{F:rect}--\ref{F:geo}, together with \lean{BlockPresentation.triangle_relation} and the budget field of \lean{MarkedLineData}, depend only on the axioms \lean{propext}, \lean{Classical.choice} and \lean{Quot.sound}. The definitions of torsion-free and word-hyperbolic (the latter by thin geodesic triangles in a Cayley graph) agree with the repository's challenge statement by definitional equality. The Lean group is the presented group of Section~\ref{sec:group}; the identification with $\pi_1$ of the triangle complex and the general criterion \cite[Theorem~2.1]{OAI252} are not formalized, and neither is \cite[Corollary~1.2]{OAI252}. None of these is used here. The Lean~4.34.1 package for this check is in the version~1.1.0 archive, DOI \url{https://doi.org/10.5281/zenodo.23374284}.
 
-\paragraph{The transfer.} Sections~\ref{sec:transfer} and~\ref{sec:sofic} give complete written proofs. They were derived twice, independently: once from the paper and the Lean source, and once by a separate derivation that had no access to the first. Both reach Theorem~\ref{thm:main} by the same mechanism.
+\paragraph{The transfer.} Sections~\ref{sec:transfer} and~\ref{sec:sofic} give complete written proofs. They were derived twice independently (see How this work was done), and the Lean core checks Theorem~\ref{thm:ineq} and both constants of Theorem~\ref{thm:quant} in the forms of Appendix~\ref{app:lean-core}; the estimates of Lemma~\ref{lem:models} are present there without a numbered wrapper.
 
-\paragraph{The formalized headline.} The transfer is also formalized in Lean on top of OpenAI's development, in the folder \lean{lean/ext} of the accompanying repository. The formal theorem is
-\begin{center}
-\lean{exists_torsionFree_wordHyperbolic_not_sofic} :\quad $\exists\,G$,\ \ \lean{TorsionFree}\,$G$ $\wedge$ \lean{WordHyperbolic}\,$G$ $\wedge$ $\neg$\,\lean{IsSofic}\,$G$,
-\end{center}
-with OpenAI's definitions of the first two properties. Mathlib has no definition of soficity, so \lean{IsSofic} is defined there exactly as in Section~\ref{sec:sofic}: maps to permutations of $\{0,\dots,n-1\}$, normalized Hamming distance, multiplicativity error at most $\eps$ and separation at least $1-\eps$. The theorem depends only on the axioms \lean{propext}, \lean{Classical.choice} and \lean{Quot.sound}, and Lean's kernel checker re-checked the three new modules. The formal proof follows Sections~\ref{sec:transfer} and~\ref{sec:sofic}: it proves Lemma~\ref{lem:models} with the same constants $5$ and $8$, and an obstruction of the form of Theorem~\ref{thm:ineq} with cruder constants, a rectangle fraction of $1/r^2$ and a single threshold $1/(8r^2Nq)$.
-
-What is machine-checked is therefore the headline statement, not every statement of this note. The sharper constants of Theorem~\ref{thm:quant}, and Corollary~\ref{cor:residual} and its consequences, are proved here in writing only; the equivalence of this definition of soficity with other common forms is taken from the literature \cite[Theorem~1 and its proof]{ElekSzabo2005}, \cite[Theorem~3.5]{Pestov2008}.
-
-\paragraph{Division rings and the further results.} Theorem~\ref{thm:linnell} and the results of Sections~\ref{sec:hyperlinear} and~\ref{sec:linnell} are proved here in writing only; none of them is formalized in Lean. Besides \ref{F:cert}, Theorem~\ref{thm:linnell} uses the freeness of the line subgroups (Lemma~\ref{lem:free}), which rests on the written proofs of \cite[Theorem~2.1, Proposition~3.3 and Lemma~2.3]{OAI252} and is not formalized; its consequence for the conjectures also uses the torsion-freeness in \ref{F:geo}. Theorem~\ref{thm:linnell} was proved twice, independently and by different routes: by the skew Laurent argument of Lemma~\ref{lem:fullrank}, and by an induction on Schur complements that also gives the strongly Hughes-free and (HF) assertions.
+\paragraph{The Lean core.} Version 1.2.0 replaces the earlier Lean~4.34.1 package by a source-only Lean core, using
+Lean~4.35.0 and pinned Mathlib, which vendors OpenAI's development ported to
+that version. Appendix~\ref{app:lean-core} states exactly which results it
+checks and in which form, its trust base and how to rerun it. Its
+Theorem~\ref{thm:main} wrapper is existential: it states only that some
+torsion-free word-hyperbolic group is nonsofic. Its $1/(6rq)$ result chooses
+one prime and datum existentially. It is a Lean core of the paper, not a
+formalization of the whole paper. On 6 November 2026 a rebuild of all 61 modules, the exact-type comparisons of
+\lean{Audit.lean} and a kernel replay by \lean{leanchecker} and \lean{nanoda} passed. Proof checking alone does not show that the formal statements match this manuscript;
+Appendix~\ref{app:lean-core} states the checked forms.
 
 \section*{How this work was done}
 
 This note is the work of its two authors together with AI models from more than one developer. The authors set the direction throughout: they chose the questions, decided which lines to pursue and which to drop, judged and selected the results, and take full responsibility for every claim. The group and every input to the non-soficity argument are AI-generated work of OpenAI \cite{OAI252}. For the rest, the models did most of the exploration, derivation, computation, formalization and drafting.
 
-Results were checked by independent derivation, and the results new in this version were also given to reviewers who had not seen our proofs and were asked to prove or refute them. The approximate rank argument of Sections~\ref{sec:transfer} and~\ref{sec:sofic} was derived twice independently, and its conclusion was formalized in Lean (Section~\ref{sec:verification}). For Theorem~\ref{thm:linnell}, an instance that had not seen our proof found the proof given here, and a refutation-first review proved the theorem again by a different route; neither found an error in the argument. A priority search then found the characteristic-two refutations \cite{OAI196,OAI197}, which our first statement of the result had missed, and the reviews led to the scoped wording about Hughes-free division rings. The results of Sections~\ref{sec:hyperlinear} and~\ref{sec:structure} were first obtained in separate model sessions and then proved again by instances that had not seen those proofs; those checks corrected four of the seven statements, and the text gives the corrected versions. The numbered citations added in this version were checked against the cited texts; where only a preprint version could be opened, the reference says which. The proofs are given in full: the checks support them but do not replace them.
+Results were checked by independent derivation, and the results added in version~1.1.0 were also given to reviewers asked to prove or refute them. The approximate rank argument of Sections~\ref{sec:transfer} and~\ref{sec:sofic} was derived twice independently, and a Lean core now checks the forms listed in Appendix~\ref{app:lean-core} (Section~\ref{sec:verification}). For Theorem~\ref{thm:linnell}, an independent instance found the proof given here, and a refutation-first review proved the theorem again by a different route; neither found an error in the argument. A priority search then found the characteristic-two refutations \cite{OAI196,OAI197}, which our first statement of the result had missed, and the reviews led to the scoped wording about Hughes-free division rings. The results of Sections~\ref{sec:hyperlinear} and~\ref{sec:structure} were first obtained in separate model sessions and then proved again independently; those checks corrected four of the seven statements, and the text gives the corrected versions. The numbered citations added in that version were checked against the cited texts; where only a preprint version could be opened, the reference says which. The proofs are given in full: the checks support them but do not replace them.
 
 \section*{Acknowledgments}
 
@@ -513,7 +515,122 @@ For each input that this note takes from \cite{OAI252}, the list gives where it 
 \emph{Sources proposed in discussion.} For item 13, three references were suggested. A Cartesian decomposition of a finite set \cite[Definition~2.1, Theorem~3.3]{BPS2003} and the rectangles of species theory \cite[Definitions~2.1 and~2.2]{MaiaMendez2008} give the language of a product structure on a finite set, but not the construction; \cite[Theorem~4]{Pinto2014}, on biclique covers and partitions, is not a source for this step. The labelling itself is elementary, since a set of $st$ elements is in bijection with $\Z/s\times\Z/t$. For items 12 and 14, Dvir's bound for Kakeya sets in finite fields \cite[Theorem~3]{Dvir2009} uses a related polynomial argument on lines, but contains neither the identity of item 12 nor the certificate.
 }
 
+\clearpage
+\section{Lean core: statements and limits}\label{app:lean-core}
+The source package \lean{lean/} proves selected results of this note in
+Lean~4. It is a Lean core of the paper, not a formalization of the whole
+paper. \lean{Statements.lean} freezes the selected propositions,
+\lean{Proofs.lean} proves them and \lean{Audit.lean} checks that they match
+the original declarations below. A row credits only the form stated in it.
+The references are the printed numbers. The generic results
+\lean{presentation_ineq}, \lean{presentation_quant}, \lean{linnell} and the
+residual-word results are universal over their displayed
+\lean{MarkedLineData} inputs.
+
+\subsection*{What is checked}
+\begin{center}\footnotesize
+\begin{minipage}{\linewidth}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.16\linewidth}>{\raggedright\arraybackslash}p{.30\linewidth}>{\raggedright\arraybackslash}p{.48\linewidth}@{}}
+\toprule Printed result & Lean name & Checked form\\\midrule
+Theorem 1.1 & \lean{Approx252.exists_torsionFree_wordHyperbolic_not_sofic} & Existential: some torsion-free word-hyperbolic group is nonsofic; the type does not identify the paper's particular group or data.\\[4pt]
+Theorem 3.1 & \lean{NonSofic.presentation_ineq} & The printed sharp inequality, in counts: $(r-1)^2e\le D$ and $\sum_t\delta_t\ge\Gamma/4$.\\[4pt]
+Theorem 1.2, general constant & \lean{NonSofic.presentation_quant} & The printed $\eps_0=1/(4r^2N(q-1))$, for every displayed admissible datum, in counts: fixed-point counts $e$ with $(r-1)^2e\le D$ and moved-point counts $k$ with $4r^2N(q-1)k<D$, where $D=|\Omega|$.\\[4pt]
+Theorem 1.2, constant $1/(6rq)$ & \lean{NonSofic.quant_lemma22} & Existential: for one choice of prime $q$, $r=200\cdot200^{20}$ and rerun construction data; not for every sufficiently large prime or every admissible datum. The rerun uses $c=200^{-20}$ instead of $100^{-20}$; since $cr=200\ge100$, $\eps_0=1/(6rq)$ is unchanged.\\[4pt]
+Corollary 1.3, word & \lean{NonSofic.exists_rect_word_killed_by_sofic_univ} & The printed universal-word conclusion, with the witness fixed as \lean{residualWitness}.\\[4pt]
+Corollary 1.3, quotient & \lean{NonSofic.quotient_not_sofic} & A stronger form: every homomorphism preserving all rectangular words has nonsofic target; surjectivity is not needed.\\[4pt]
+Lemma 6.2 & \lean{NonSofic.LineFree.lineSubgroup_free} & The printed free basis: injectivity of the free-group lift of $x_{iuv}x_{i00}^{-1}$ for $(u,v)\ne(0,0)$.\\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\end{center}
+\begin{center}\footnotesize
+\begin{minipage}{\linewidth}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.16\linewidth}>{\raggedright\arraybackslash}p{.30\linewidth}>{\raggedright\arraybackslash}p{.48\linewidth}@{}}
+\toprule Printed result & Lean name & Checked form\\\midrule
+Theorem 6.1, ring form & \lean{NonSofic.collapse} & The printed rank-collapse estimate in abstract ring form; the library supplies the Sylvester-rank adapter.\\[4pt]
+Theorem 6.1, group-ring form & \lean{NonSofic.collapse_groupRing} & The printed estimate for every rank function on $K[G]$, with $K$ a characteristic-$q$ division ring.\\[4pt]
+Lemma 6.3 & \lean{NonSofic.isUnit_map_of_zQuotientData} & An algebraic generalization: \lean{ZQuotientData} and \lean{PowersLeftIndep} imply invertibility of the normalized matrix, by a finite-dimensional proof; the degree is multiplicative-valued, so Lean's \lean{1} means degree zero; $\varphi(Y_i)=\varphi(Y')\varphi(x_{i00})$ gives the printed conclusion.\\[4pt]
+Theorem 1.4 & \lean{NonSofic.linnell} & Stronger negations: every characteristic-$q$ division ring and embedding $G\to\Lambda$; \lean{IsLinnell} and \lean{IsStronglyHughesFree} omit injectivity and \lean{SatisfiesHF} omits epicness of the target map. \lean{DivisionRing/Sanity.lean} (\lean{unit_isLinnell}, \lean{int_hf_premises}) shows these notions and the (HF) premises are satisfiable, so the negations are not vacuous.\\[4pt]
+Corollary 6.5 & \lean{NonSofic.not_isLinnell_of_split} & Partial, algebraic only: free normalized entries and a rank-sum premise obstruct \lean{IsLinnell}; no splitting or asphericity.\\[4pt]
+Combined data statement & \lean{NonSofic.headline_data} & Existential, not a numbered result: for one datum, torsion-freeness, word-hyperbolicity, nonsoficity, the characteristic-$q$ division-ring obstructions and the $1/(6rq)$ model obstruction.\\[4pt]
+Combined group statement & \lean{NonSofic.headline} & Existential, not a numbered result: one group with geometry, nonsoficity and the division-ring obstructions; not the quantitative, residual-word, free-subgroup or rank clauses.\\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\end{center}
+
+In table order, the numbered wrappers are \lean{PaperProofs.} and the frozen
+types \lean{PaperStatements.} followed by the suffixes
+\begin{quote}\small\raggedright
+\lean{theorem_1_1}, \lean{theorem_3_1}, \lean{theorem_1_2_general},
+\lean{theorem_1_2_lemma22}, \lean{corollary_1_3_word},
+\lean{corollary_1_3_quotient}, \lean{lemma_6_2}, \lean{theorem_6_1},
+\lean{theorem_6_1_groupRing}, \lean{lemma_6_3}, \lean{theorem_1_4},
+\lean{corollary_6_5_algebraic}, \lean{headline_data}, \lean{headline}.
+\end{quote}
+The data-specific theorem \lean{Approx252.presentation_not_sofic} proves
+nonsoficity of the presented group for \verb|d : MarkedLineData q r| with
+$0<r<q$ and $200\le q$; it is not identified with a particular external
+witness.
+
+\noindent\textbf{Conventions:} the formal \lean{IsSofic} uses normalized
+Hamming distance, multiplicativity error at most $\eps$ and separation at least
+$1-\eps$. No named literature hypothesis is assumed.
+
+\noindent\textbf{Not formalized:} the identification of the selected
+Theorem~1.1 wrapper with the paper's particular group; the universal prime and
+original-data quantifiers of the $1/(6rq)$ result; Section~5, including
+Propositions~5.1--5.3; Proposition~6.4 (free-product splitting and
+asphericity); the topological part of Corollary~6.5; Corollary~6.6
+(bi-orderability); Proposition~6.7 (Euler characteristic and nonpositive
+immersions); Lemma~4.1 as a numbered statement (its transfer and constants $5$
+and $8$ are present as \lean{Approx252.relator_support_le} and
+\lean{Approx252.rectangle_fixCount_le}); the identification of the presented
+group with the triangle complex's fundamental group; the Elek--Szab\'o
+equivalence of definitions of soficity.
+
+\subsection*{OpenAI's development}
+The core vendors OpenAI's 29-module development at commit
+\begin{quote}\small\nolinkurl{adc7f1241b42e322a6451854ab7e4b4c146bf78a},\end{quote}
+with its Apache-2.0 licence, ported to Lean~4.35.0. Its \lean{VENDOR.md}
+records the port: \lean{Model.lean} replaces \verb|import Mathlib| by 184
+explicit imports; \lean{WordPaths.lean} and \lean{BasedWords.lean} adapt
+\lean{CategoryTheory.End} through \lean{End.of}, \lean{.asHom} and
+\lean{End.ext}; \lean{CyclicAction.lean} uses \lean{.norm.asHom.hom}. No theorem
+or definition statement was changed in the port.
+
+\subsection*{Trust base}
+The core uses Lean~4.35.0 and the Mathlib commit
+\begin{quote}\small
+\nolinkurl{56a005855ea17e0b0958f73ec801ae140b0a1679};
+\end{quote}
+all pins are in \lean{lean/}. Every declaration in the table, every numbered
+wrapper and the supporting roots listed in \lean{lean/AXIOMS.txt} depend only
+on Lean's three standard axioms \lean{propext}, \lean{Classical.choice} and
+\lean{Quot.sound}; \lean{lean/AXIOMS.txt} is the exact axiom output.
+The 28 table declarations and numbered wrappers, with their dependencies,
+pass two independent kernel checkers, \lean{leanchecker} and \lean{nanoda}.
+\lean{lean/evidence/KERNEL-REPLAY.json} records the kernel replay (export digest,
+checker binaries, exits) and the run of the reproduce commands on 6 November 2026.
+
+\subsection*{Reproduce}
+With the pinned toolchain on the path, Git available for fetching the pinned
+dependencies, one compiler job at a time and at least 4 GiB of free memory,
+run from \lean{lean/}:
+\begin{verbatim}
+export LEAN_NUM_THREADS=1
+lake exe cache get
+lake build
+lake env lean -j1 -M6144 Audit.lean
+\end{verbatim}
+In PowerShell the first line is \verb|$env:LEAN_NUM_THREADS = '1'|.
+\lean{Audit.lean} prints the type of each checked declaration followed by its
+axioms; the axiom lines match \lean{lean/AXIOMS.txt}.
+
 \begin{thebibliography}{99}
+\raggedright
 
 \bibitem{ALT26}
 V.~Alekseev, J.~Liu and A.~Thom,

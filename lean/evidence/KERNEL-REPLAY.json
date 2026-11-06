@@ -1,0 +1,973 @@
+{
+  "record": "Independent certification, CERTIFY.md, final verification 2026-11-06T08:26:00.339188+00:00",
+  "certification_sha256": "cc78cb5d518cbe2f2c99963085a33c4f314daa693458daaf58656a658f245a39",
+  "date_utc": "2026-11-06",
+  "proof_checks": "PASS",
+  "source_build": {
+    "modules": 61,
+    "elapsed_seconds": 703.595,
+    "compiler_seconds": 702.595,
+    "exact_type_checks": 14
+  },
+  "certification_proof_checks": "PASS (source build, independent axiom audit, leanchecker, nanoda)",
+  "certification_documentation_findings": "scope disclosures; corrected in this release, see the scope table in lean/README.md",
+  "export": {
+    "sha256": "11ed2f97da0c394fd0bf21f285feb91bc45cfa75bdffc860b79f1a6ae77e382e",
+    "bytes": 295459894,
+    "metadata": {
+      "meta": {
+        "exporter": {
+          "name": "lean4export",
+          "version": "3.1.0"
+        },
+        "format": {
+          "version": "3.1.0"
+        },
+        "lean": {
+          "githash": "eb6cafb7290e8bd5f2937522d8d804f58f02bafc",
+          "version": "4.35.0"
+        }
+      }
+    },
+    "roots": [
+      "Approx252.exists_torsionFree_wordHyperbolic_not_sofic",
+      "NonSofic.presentation_ineq",
+      "NonSofic.presentation_quant",
+      "NonSofic.quant_lemma22",
+      "NonSofic.exists_rect_word_killed_by_sofic_univ",
+      "NonSofic.quotient_not_sofic",
+      "NonSofic.LineFree.lineSubgroup_free",
+      "NonSofic.collapse",
+      "NonSofic.collapse_groupRing",
+      "NonSofic.isUnit_map_of_zQuotientData",
+      "NonSofic.linnell",
+      "NonSofic.not_isLinnell_of_split",
+      "NonSofic.headline_data",
+      "NonSofic.headline",
+      "PaperProofs.theorem_1_1",
+      "PaperProofs.theorem_3_1",
+      "PaperProofs.theorem_1_2_general",
+      "PaperProofs.theorem_1_2_lemma22",
+      "PaperProofs.corollary_1_3_word",
+      "PaperProofs.corollary_1_3_quotient",
+      "PaperProofs.lemma_6_2",
+      "PaperProofs.theorem_6_1",
+      "PaperProofs.theorem_6_1_groupRing",
+      "PaperProofs.lemma_6_3",
+      "PaperProofs.theorem_1_4",
+      "PaperProofs.corollary_6_5_algebraic",
+      "PaperProofs.headline_data",
+      "PaperProofs.headline"
+    ],
+    "missing_roots": [],
+    "axioms": [
+      "propext",
+      "Quot.sound",
+      "Classical.choice"
+    ]
+  },
+  "stages": {
+    "independent-audit": {
+      "exit": 0,
+      "started_utc": "2026-11-06T08:19:04.873542+00:00",
+      "finished_utc": "2026-11-06T08:19:30.306218+00:00",
+      "seconds": 25.432,
+      "free_physical_before_bytes": 14626000896,
+      "peak_tree_RSS_bytes": 2410360832,
+      "peak_tree_private_bytes": 5003747328,
+      "peak_job_commit_bytes": 5007192064,
+      "memory_stop": null,
+      "job_cap_bytes": 10000000000,
+      "stop_bytes": 9000000000,
+      "threads": 1,
+      "log_sha256": "b09b8adf3d20444d0a21151902e83993adb3b531a83b0a99acfe7e1bc8266593"
+    },
+    "export": {
+      "exit": 0,
+      "started_utc": "2026-11-06T07:53:01.052807+00:00",
+      "finished_utc": "2026-11-06T07:53:19.048476+00:00",
+      "seconds": 17.995,
+      "free_physical_before_bytes": 14776360960,
+      "peak_tree_RSS_bytes": 2442518528,
+      "peak_tree_private_bytes": 5340295168,
+      "peak_job_commit_bytes": 5340426240,
+      "memory_stop": null,
+      "job_cap_bytes": 10000000000,
+      "stop_bytes": 9000000000,
+      "threads": 1,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "output_bytes": 295459894,
+      "output_sha256": "11ed2f97da0c394fd0bf21f285feb91bc45cfa75bdffc860b79f1a6ae77e382e"
+    },
+    "leanchecker": {
+      "exit": 0,
+      "started_utc": "2026-11-06T07:53:28.946583+00:00",
+      "finished_utc": "2026-11-06T07:54:12.660445+00:00",
+      "seconds": 43.713,
+      "free_physical_before_bytes": 14583488512,
+      "peak_tree_RSS_bytes": 515166208,
+      "peak_tree_private_bytes": 481751040,
+      "peak_job_commit_bytes": 481751040,
+      "memory_stop": null,
+      "job_cap_bytes": 10000000000,
+      "stop_bytes": 9000000000,
+      "threads": 1,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "nanoda": {
+      "exit": 0,
+      "started_utc": "2026-11-06T07:54:13.015880+00:00",
+      "finished_utc": "2026-11-06T07:54:41.136456+00:00",
+      "seconds": 28.12,
+      "free_physical_before_bytes": 14187446272,
+      "peak_tree_RSS_bytes": 340385792,
+      "peak_tree_private_bytes": 426381312,
+      "peak_job_commit_bytes": 537919488,
+      "memory_stop": null,
+      "job_cap_bytes": 10000000000,
+      "stop_bytes": 9000000000,
+      "threads": 1,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "binaries": {
+    "lean.exe": {
+      "bytes": 83456,
+      "sha256": "ec7a472d1c12a09b0c0c718f7427c2be527b3f5f07810fdbe076c2507c7a91ea"
+    },
+    "lake.exe": {
+      "bytes": 87040,
+      "sha256": "023feb24d3e7244fe671dba79f1cd1affc6c7a7cacfe497bf3675febb506578c"
+    },
+    "leanexport.exe": {
+      "bytes": 307712,
+      "sha256": "bda24bb3fafaf299ba472f944942d6293294b76559fafc9f166badd7c0f981b3"
+    },
+    "leanchecker.exe": {
+      "bytes": 120832,
+      "sha256": "9ef6baeb28d5e28897d5ed6dddd60ff81e511d97374013ece435dff38e9e0137"
+    },
+    "libc++.dll": {
+      "bytes": 1659392,
+      "sha256": "8a9deaac6d2f4d2de468a544d1f35cd0dd4bcde03cda3cfb76fb9674749828d4"
+    },
+    "libclang-cpp.dll": {
+      "bytes": 73929216,
+      "sha256": "5c775e6e1d3f9ebdf729ce9b6c896e4517209a48fb57b7711c52ee11c4c4421f"
+    },
+    "libInit_shared.dll": {
+      "bytes": 28150272,
+      "sha256": "da779e21c05a2dc4518eb03e62b7319cc03e813a5abe9aa56607b8f974f8c6b7"
+    },
+    "libLake_shared.dll": {
+      "bytes": 12519936,
+      "sha256": "4f4647a626bb75f117d98802b2539498843d6664a4f0ae14dedfd4005660bc18"
+    },
+    "libleanshared.dll": {
+      "bytes": 69481472,
+      "sha256": "1175ac09966d023c2584c3cf2692f25cbb62c9f59f4e0244eb6d61f66c4e07f5"
+    },
+    "libleanshared_1.dll": {
+      "bytes": 52057600,
+      "sha256": "67d53556c84cb01969704e704a5179867bc7763745d424eb8f8ad3d967c90564"
+    },
+    "libleanshared_2.dll": {
+      "bytes": 58718720,
+      "sha256": "60d88ed08f3f60eab5003f213c512873b8cb54f04f3fa27565ade6c97695e05b"
+    },
+    "libLLVM-23.dll": {
+      "bytes": 91667456,
+      "sha256": "55fec27e1f2808a2f8268aa589fc9cdac0065234edd21b0b384e43ae080f6340"
+    },
+    "zlib1.dll": {
+      "bytes": 131072,
+      "sha256": "94dd0a72d4da79e25294a91d1edf902d76eade7512d9218609a5fe43e3a7397a"
+    },
+    "nanoda_bin.exe": {
+      "bytes": 1141248,
+      "sha256": "de57d9dd7f647eb57398bc3dab4dcaa1d64f961f3f49964d5455fbddc73b35a8"
+    },
+    "nanoda-stack128.exe": {
+      "bytes": 1141248,
+      "sha256": "82c9dcf4f8df8ef2b9849bfc8198d0edd01e910913bd221f0c960c3332ab5e51"
+    }
+  },
+  "nanoda_stack_adjustment": {
+    "reserve_before_bytes": 1048576,
+    "reserve_after_bytes": 134217728,
+    "commit_bytes": 4096,
+    "offset": 336,
+    "all_other_bytes_unchanged": true
+  },
+  "certified_source_files": {
+    "Approx252/Check.lean": {
+      "sha256": "435b274a2855862972bda77ec38de71777e47cdc8f2e229c2868988e6812fdf1",
+      "bytes": 882
+    },
+    "Approx252/NonSofic.lean": {
+      "sha256": "7e4ee8f1c8786dbcd37b50e45f1113c4df33bf060771960da2b4213a7cfea9fc",
+      "bytes": 10215
+    },
+    "Approx252.lean": {
+      "sha256": "3a5e598bdc46bc8bbb024b373dc3e781ddbcad4d33901c425b2f9d2aa80ba99e",
+      "bytes": 182
+    },
+    "Audit.lean": {
+      "sha256": "f9f9964d5c988e2fe3c187a7df7c4f5ae2b76d1b2d334f8dc90f5fb458a6258f",
+      "bytes": 18997
+    },
+    "lake-manifest.json": {
+      "sha256": "977324b62973245fb98d098ca6ee1390c8d4d2e161dbeb048f4d01521a9d17c0",
+      "bytes": 3253
+    },
+    "lakefile.lean": {
+      "sha256": "203a98f04c7a8a543c4173e57ecd74f413d8c8760584fdebe87ba2f26a374382",
+      "bytes": 532
+    },
+    "lean-toolchain": {
+      "sha256": "27e73059e3a4d568450f74e39c2f79676c4f8d41373fff15170690f124e3bacd",
+      "bytes": 26
+    },
+    "NonSofic/Collapse.lean": {
+      "sha256": "924082c6988b1d255cf5771c96926b38b2adc7ca6c73594fe7dfe33d3e90ca23",
+      "bytes": 4453
+    },
+    "NonSofic/DataBounds.lean": {
+      "sha256": "b1bd01d1309386fdb65bee199e23cec36a01adcb22339ef5c4aee1c95dbeb2b7",
+      "bytes": 1333
+    },
+    "NonSofic/Headline.lean": {
+      "sha256": "cbd7f02317aa3787baf87b558cceed8f8d05b740afcbc7e0fbf0fbc5a78719f1",
+      "bytes": 3022
+    },
+    "NonSofic/Lemma22Data.lean": {
+      "sha256": "06f9a063bfd2641bf59f366f45cb505d9b3f6f03aa60c0d6bc26040f53964c15",
+      "bytes": 9630
+    },
+    "NonSofic/Lemma22Quant.lean": {
+      "sha256": "d434553733ffda513e0c58db4f2262e29506e9e2f291c5d7aebf5eebc16460cd",
+      "bytes": 1793
+    },
+    "NonSofic/LineFree.lean": {
+      "sha256": "ee96d982ea76eb1aba8419c11f27595bf12bc6f46190d601ffa0ea5f1069c0b1",
+      "bytes": 12013
+    },
+    "NonSofic/LineFreeWord.lean": {
+      "sha256": "6331eda2866a9539cfffecd3d1e0de4857693032cd1e084da95b7b9423958b46",
+      "bytes": 8916
+    },
+    "NonSofic/Linnell.lean": {
+      "sha256": "bfb62c1101bd81e1b313c6331f5207d098938c02ad69bf5feebd5c3c11de65e0",
+      "bytes": 2810
+    },
+    "NonSofic/Residual.lean": {
+      "sha256": "49b936d8aae230d7c75f513b57c24030fd01d792e92f1ccd27142bf782dda7b7",
+      "bytes": 15172
+    },
+    "NonSofic/SharpConstants.lean": {
+      "sha256": "8b4353f6ee2ba651d0b3823013e044e4881ea3e1951a24eccb2bb5cf50d72c9c",
+      "bytes": 15218
+    },
+    "NonSofic/SharpCount.lean": {
+      "sha256": "9d33ac2a0c91ada47cd69cfd53c8842427ba1716b2a9a0e342b58c30e9f5c15f",
+      "bytes": 5203
+    },
+    "NonSofic/SharpQuant.lean": {
+      "sha256": "fa09eeafa8f6a770c6c3b21f5a5175ece4fc27f21491d6ca2024d0b3956d9ff4",
+      "bytes": 7104
+    },
+    "NonSofic.lean": {
+      "sha256": "97c711fc14bca95d9292c2a7addd1127ac10ed6494f6b9540444363b60d5c4aa",
+      "bytes": 923
+    },
+    "Proofs.lean": {
+      "sha256": "f1a669525dcf5133a4de8f8a8304675315aa74d6661495d81dc0232ff3b10f30",
+      "bytes": 2356
+    },
+    "Statements.lean": {
+      "sha256": "5eae3930362234f207d984ce59e7168555442310c63215c559cf934245fc6555",
+      "bytes": 185132
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/DivisionRing/Adapter.lean": {
+      "sha256": "0b2151340710ba0244d6e8d99396c663cb7343d1b57dee103b9c0f45a393856a",
+      "bytes": 1555
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/DivisionRing/Assembly.lean": {
+      "sha256": "6c5e3bc9cd819013a2b725b556fbe2dc2d04f967378cced3f207b255efcb6454",
+      "bytes": 7925
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/DivisionRing/Freeness.lean": {
+      "sha256": "ebcf65f4cba24e850eb620d85d6620c8253540395a7695564d97169c12c9d1f5",
+      "bytes": 17510
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/DivisionRing/FullRank.lean": {
+      "sha256": "7d51d9da612743797953b5e31d80c56f1cc5abba3a73bb36220453f84646e399",
+      "bytes": 13265
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/DivisionRing/LineData.lean": {
+      "sha256": "2a2f9101b6eee28bdc32010c9c96ba7b4f18149e06f48402cdab735824287c8c",
+      "bytes": 6301
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/DivisionRing/RankD.lean": {
+      "sha256": "ae0324725b5f3f96f1919ecff65d920eda01d946f9ac3e8ebcedde66e628f01c",
+      "bytes": 15524
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/DivisionRing/Sanity.lean": {
+      "sha256": "194d714640fe9cd6fcc684abf8da5867614f7c2d9cef4ac2281711d834a9dff2",
+      "bytes": 3271
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/DivisionRing/SplitLinnell.lean": {
+      "sha256": "a30b9a47523fe3f7db95e34bdf4cf5bf5830c7a2a501ff9fbed1f5d33fe2a43e",
+      "bytes": 17312
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/DivisionRing/Sylvester.lean": {
+      "sha256": "810d8afc4c15ef0fcb62bd5174148a2ca40547d8e1cf163666c33ddaabfa04df",
+      "bytes": 26141
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/BasedWords.lean": {
+      "sha256": "4ec40cf584c23599283e915abb49f0b2275e298b1f7497eec1ac88aed7d83633",
+      "bytes": 15604
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/CayleyMetric.lean": {
+      "sha256": "78d7002dbeca07b715087d444c169873d7a362f3d868220b7fdcc4c6d3bdcafe",
+      "bytes": 5580
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/CayleyPaths.lean": {
+      "sha256": "f708e0d9068e7a21bcd3a3557a65c8d4b47a9dc6147c70b25157f905a10860b6",
+      "bytes": 5415
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Chains.lean": {
+      "sha256": "6e83110a9851f65602c4b724679a23ca8f2839d71d769160d8b65306e18f0307",
+      "bytes": 13442
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/CyclicAction.lean": {
+      "sha256": "1b357669eb8b33b55c75f77e27ffe416f5c75cfc5572a663a9a515fc7fab82f0",
+      "bytes": 9630
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Dipoles.lean": {
+      "sha256": "e4cacb176aecaf5dbc8739e15e12c84b07431c772b4ede051cc83bdfdd398353",
+      "bytes": 14562
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/DiscreteMetric.lean": {
+      "sha256": "f0a67e00a010ce69c05834694127ed509e0358717bd3885cfa1eb72ac2705a30",
+      "bytes": 19131
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/FullChains.lean": {
+      "sha256": "df58e4d9f2dfcf8b01251d18f2e161f4200d8e4c9215d0f39cc9797c982e56e8",
+      "bytes": 8676
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/FullFilling.lean": {
+      "sha256": "bd58e7453ec558b5d2583f1a784eb336df3d523ed640e20d96c824663771f974",
+      "bytes": 14090
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/FullGluing.lean": {
+      "sha256": "03c6f71d3d97477a8d66aa89df39d61070af5ae5b7a6c81017ffdc60c03e13d6",
+      "bytes": 17026
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Hyperbolicity.lean": {
+      "sha256": "e3b92b9e0e03ec82a5232b61c318939b6fd5f38d241805343b92ffae576e6067",
+      "bytes": 2383
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Incidence.lean": {
+      "sha256": "e18ecd67258834d3498b9cbc48881ba7fa8e5311ce62ebea9a4a88cfdbe98a90",
+      "bytes": 46486
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/LiftedFilling.lean": {
+      "sha256": "38885e15707468a341d145157f2efa3449b7beebe136e32b425ed3a4f4600772",
+      "bytes": 15468
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Links.lean": {
+      "sha256": "5eec758307ef11670d088b6a48b86d4090b778e3435e86353f49f2a5a828a6ec",
+      "bytes": 9805
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Main.lean": {
+      "sha256": "02dbba5532e963c5b14cd43093c73393861de0671a88726ad0bd0f08d0cd3fcd",
+      "bytes": 633
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/MatrixRank.lean": {
+      "sha256": "58b980085331267788c01166ba017a94ee30364879f5e733ff4e1bfb44532e86",
+      "bytes": 46203
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Model.lean": {
+      "sha256": "c201e9ee835eec80a5e1816913703c64dca17b6668be43012481d30a813e3394",
+      "bytes": 8900
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/PermutationCycles.lean": {
+      "sha256": "3332eaca0bd12de8396fba1d5f3210be92efb0d76f61499f88a84340d7d7de65",
+      "bytes": 23039
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Planarity.lean": {
+      "sha256": "98dedc83308a5fdfc4d579e3ac7f18a064baaae012891f497a0045d34daa851a",
+      "bytes": 22848
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Presentation.lean": {
+      "sha256": "d2c3cd3ec1efdd89989301b1351f792781949715cfeaa1948a72aa3840e01501",
+      "bytes": 23900
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Rectangles.lean": {
+      "sha256": "0717110b071487513177cbeaf1572b4282718f0b6f0fe7d1e57022517fc05fcb",
+      "bytes": 8483
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/RePairing.lean": {
+      "sha256": "73895c533cb8075be4be052d5788ba87ef937846981e06635893507314608f14",
+      "bytes": 23562
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Ribbons.lean": {
+      "sha256": "bbbea73940fecd31ad22277897fd062f8bf4093e749540ec94fecd10730df59c",
+      "bytes": 31192
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Spheres.lean": {
+      "sha256": "9a8ca5353266670e45ee0eedc351d6340573ef66192d328ffef772a040e48df1",
+      "bytes": 21574
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/ThinTriangles.lean": {
+      "sha256": "1c398cd29b709b007ebaf0eca7558365976f8c98ee06cefe0905964a7659925a",
+      "bytes": 16066
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Torsion.lean": {
+      "sha256": "414edef38e1977aa99746dc5c8459f5ffdb8369dd1e80ae45225b881e121e00d",
+      "bytes": 2402
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/TriangleFilling.lean": {
+      "sha256": "063b570f08fce6cb00c7600c028767c172148b6d2a3333e98cdabe59197e1125",
+      "bytes": 30714
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/WordPaths.lean": {
+      "sha256": "c78edbe8fb11bed5a224fa3a3ca7adf11eba1a4ee3af0c961cdf1158136a1336",
+      "bytes": 14586
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/OAI/GroupTheory/Hyperbolic/Words.lean": {
+      "sha256": "8462b7edbf48e507d79496f03da8c8e347989e237edd376c482568e73447ca14",
+      "bytes": 19094
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/RankCertificate.lean": {
+      "sha256": "cadc9ba1303e3b1a2d5b6fb02e09743b8060c64fa03a70b5e1d8cad8cb9860d6",
+      "bytes": 10640
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/Sofic/Basic.lean": {
+      "sha256": "2c2160f3a5f074f99507a28168b02501e72d1f8f77c9a8dd475ac8c295799472",
+      "bytes": 11188
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/Sofic/Closure.lean": {
+      "sha256": "6759f1af1a21096cbc492adde000220573c7e5ed9d2a87a30ec10ef14889f72b",
+      "bytes": 10981
+    },
+    "vendor/finite-lean/FiniteLean/GroupTheory/Sofic/PermModel.lean": {
+      "sha256": "a8387c5a99f4b2cc667972c3e0e5a90d79c09a548fc6b6c591955c9ae3101070",
+      "bytes": 30921
+    }
+  },
+  "release_source_comparison": "Every listed proof source and build pin is byte-identical; documentation and checksum manifests were updated. No new compilation or export.",
+  "certified_snapshot_manifest_sha256": "48a92ccd1c1915a6d8a6bf3aab280a91870957deafe8b9e3bcbd7c252c2be8d1",
+  "certified_snapshot_file_count": 77,
+  "upstream_pins_sha256": "9b03f4e65dc21a8dca5e6e830b2276d6703363e024a9cc8d6b93a91176b0e3b0",
+  "readme_receipt": {
+    "paper": "nonsofic",
+    "status": "PASS",
+    "status_note": "All three commands exited 0 and every pinned revision matched. The axiom lines of the audit output equal AXIOMS.txt; the full output also prints the checked types, so it is not byte-equal to AXIOMS.txt.",
+    "date_utc": "2026-11-06",
+    "environment_assignment": "$env:LEAN_NUM_THREADS = \"1\"",
+    "toolchain": {
+      "lean": {
+        "version": "Lean (version 4.35.0, x86_64-w64-windows-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)",
+        "sha256": "ec7a472d1c12a09b0c0c718f7427c2be527b3f5f07810fdbe076c2507c7a91ea"
+      },
+      "lake": {
+        "version": "Lake version 5.0.0-src+eb6cafb (Lean version 4.35.0)",
+        "sha256": "023feb24d3e7244fe671dba79f1cd1affc6c7a7cacfe497bf3675febb506578c"
+      }
+    },
+    "commands": [
+      {
+        "label": "nonsofic-cache-get",
+        "command": [
+          "lake.exe",
+          "exe",
+          "cache",
+          "get"
+        ],
+        "exit": 0,
+        "started_utc": "2026-11-06T16:13:01.781800+00:00",
+        "finished_utc": "2026-11-06T16:16:56.636688+00:00",
+        "seconds": 234.849,
+        "free_physical_before_bytes": 15193481216,
+        "peak_tree_RSS_bytes": 1153445888,
+        "peak_tree_private_bytes": 1905922048,
+        "peak_job_commit_bytes": 1929846784,
+        "process_ids_seen": [
+          372,
+          480,
+          1972,
+          2660,
+          2864,
+          3024,
+          3344,
+          3844,
+          4624,
+          5024,
+          5912,
+          6024,
+          7852,
+          7868,
+          7936,
+          8144,
+          8188,
+          9008,
+          9040,
+          9548,
+          9864,
+          10128,
+          10336,
+          10400,
+          11040,
+          11096,
+          11108,
+          11332,
+          11592,
+          11668,
+          11844,
+          12084,
+          12564,
+          12604,
+          13212,
+          13788,
+          14212,
+          14372,
+          14824,
+          14836,
+          16084,
+          16512,
+          17100,
+          18204,
+          18232,
+          18264,
+          19104,
+          20064,
+          20876,
+          20924,
+          21348,
+          21376,
+          21448,
+          21512,
+          21528,
+          23352,
+          23688,
+          23692,
+          23880,
+          23924,
+          24120,
+          24300,
+          24320,
+          24636,
+          24740,
+          24760,
+          25044,
+          25080,
+          25208,
+          25216,
+          25624,
+          25952,
+          26012,
+          26180,
+          26232,
+          26436,
+          26552,
+          26728,
+          26808,
+          26860,
+          26880,
+          27064,
+          27108,
+          27120,
+          27408,
+          27712,
+          27764,
+          27796,
+          27952,
+          28292,
+          28296,
+          28412,
+          28432,
+          28436,
+          28664,
+          28804,
+          29080,
+          29136,
+          29184,
+          29268,
+          29284,
+          29384,
+          29412,
+          29652,
+          29712,
+          29720,
+          29844,
+          29956,
+          30076,
+          30152,
+          30376,
+          30432,
+          30528,
+          30572,
+          30604,
+          30620,
+          30756,
+          31100,
+          31192,
+          31212,
+          31324,
+          31360,
+          31464,
+          31644,
+          31740,
+          32020,
+          32320,
+          32336,
+          32388,
+          32464,
+          32868,
+          32952,
+          33000,
+          33072,
+          33436,
+          33460,
+          33480,
+          33544,
+          33756,
+          33868,
+          33912,
+          33996,
+          34064,
+          34424,
+          34640,
+          35040,
+          35120,
+          35168,
+          35232,
+          35248,
+          35384,
+          35416,
+          35472,
+          35660,
+          35664,
+          35704,
+          35760,
+          35812,
+          35880,
+          35940,
+          36100,
+          36568,
+          36604,
+          36612,
+          36620,
+          36776,
+          36792,
+          36968,
+          37008,
+          37072,
+          37080,
+          37152,
+          37172,
+          37324,
+          37596,
+          37772,
+          38092,
+          38116,
+          38184,
+          38356,
+          38396,
+          38432,
+          38452,
+          38944,
+          39020,
+          39052,
+          39096,
+          39136,
+          39332,
+          39352,
+          39420,
+          39548,
+          39880,
+          40108,
+          40228,
+          40476,
+          40492,
+          40520,
+          40924,
+          40932,
+          41252,
+          41344,
+          41388,
+          41488,
+          41536,
+          41724,
+          41788,
+          41864,
+          41872,
+          41960,
+          42000,
+          42056,
+          42112,
+          42140,
+          42164,
+          42168,
+          42184,
+          42268,
+          42416,
+          42424,
+          42576,
+          42752,
+          42776,
+          42784,
+          42804,
+          42848,
+          43064,
+          43084,
+          43092,
+          43164,
+          43232,
+          43436,
+          43456,
+          43564,
+          43644,
+          43700,
+          44196,
+          44228,
+          44296,
+          44372,
+          44388,
+          44464,
+          44572,
+          44596,
+          44696,
+          44700,
+          44760,
+          44864,
+          44988
+        ],
+        "memory_stop": null,
+        "job_cap_bytes": 10000000000,
+        "stop_bytes": 9000000000,
+        "threads": 1,
+        "log": "nonsofic-cache-get.log",
+        "log_sha256": "85c457e56b021d6839618a7d9c1e0ef9189bd10ca16a2a163ef6d8b08c6c5e5f",
+        "readme_command": "lake exe cache get"
+      },
+      {
+        "label": "nonsofic-build",
+        "command": [
+          "lake.exe",
+          "build"
+        ],
+        "exit": 0,
+        "started_utc": "2026-11-06T16:16:56.656949+00:00",
+        "finished_utc": "2026-11-06T16:28:37.990434+00:00",
+        "seconds": 701.316,
+        "free_physical_before_bytes": 13866254336,
+        "peak_tree_RSS_bytes": 2641252352,
+        "peak_tree_private_bytes": 5728972800,
+        "peak_job_commit_bytes": 5731127296,
+        "process_ids_seen": [
+          524,
+          592,
+          1912,
+          2044,
+          2760,
+          4312,
+          4624,
+          5032,
+          5124,
+          6260,
+          6872,
+          9080,
+          10104,
+          12540,
+          17108,
+          18272,
+          18580,
+          19448,
+          20008,
+          24644,
+          25708,
+          25884,
+          26456,
+          27096,
+          27608,
+          27756,
+          28232,
+          28440,
+          29236,
+          29652,
+          29724,
+          30004,
+          30604,
+          30620,
+          30624,
+          30668,
+          30840,
+          30944,
+          32320,
+          32340,
+          33028,
+          33104,
+          34848,
+          36304,
+          36484,
+          36640,
+          36648,
+          36748,
+          37096,
+          37340,
+          37620,
+          37860,
+          37984,
+          38704,
+          38880,
+          39648,
+          39680,
+          39804,
+          39864,
+          39960,
+          40272,
+          40396,
+          40416,
+          40580,
+          40872,
+          41148,
+          41700,
+          42164,
+          42708,
+          42732,
+          43012,
+          43472,
+          43920,
+          44260,
+          44776
+        ],
+        "memory_stop": null,
+        "job_cap_bytes": 10000000000,
+        "stop_bytes": 9000000000,
+        "threads": 1,
+        "log": "nonsofic-build.log",
+        "log_sha256": "2e24c16dc5d68ca4aafea0273318cbda9ed301d9c430a5f0bf8f9a1171f71782",
+        "readme_command": "lake build"
+      },
+      {
+        "label": "nonsofic-audit",
+        "command": [
+          "lake.exe",
+          "env",
+          "lean",
+          "-j1",
+          "-M6144",
+          "Audit.lean"
+        ],
+        "exit": 0,
+        "started_utc": "2026-11-06T16:28:38.006527+00:00",
+        "finished_utc": "2026-11-06T16:28:50.780867+00:00",
+        "seconds": 12.774,
+        "free_physical_before_bytes": 14556041216,
+        "peak_tree_RSS_bytes": 2378018816,
+        "peak_tree_private_bytes": 5385134080,
+        "peak_job_commit_bytes": 5385355264,
+        "process_ids_seen": [
+          8984,
+          10544,
+          21700,
+          27248,
+          27888,
+          28956,
+          29496,
+          30376,
+          33912,
+          35588,
+          36304,
+          38600,
+          39960,
+          42660,
+          42932,
+          44404
+        ],
+        "memory_stop": null,
+        "job_cap_bytes": 10000000000,
+        "stop_bytes": 9000000000,
+        "threads": 1,
+        "log": "nonsofic-audit.log",
+        "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output": "nonsofic-audit-stdout.txt",
+        "output_bytes": 12367,
+        "output_sha256": "8e31b042c84e59d327c48e86dc287dec3b04dab493a733e5630620c4913807db",
+        "readme_command": "lake env lean -j1 -M6144 Audit.lean"
+      }
+    ],
+    "dependency_revisions": [
+      {
+        "name": "mathlib",
+        "expected": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+        "actual": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+        "matches": true
+      },
+      {
+        "name": "plausible",
+        "expected": "dfa4f38190d07c37e315953e08b90fe2d95b3c24",
+        "actual": "dfa4f38190d07c37e315953e08b90fe2d95b3c24",
+        "matches": true
+      },
+      {
+        "name": "LeanSearchClient",
+        "expected": "d6b4c7be5be75ec4917c873ac50c756dc1436372",
+        "actual": "d6b4c7be5be75ec4917c873ac50c756dc1436372",
+        "matches": true
+      },
+      {
+        "name": "importGraph",
+        "expected": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93",
+        "actual": "a41f0e9a4dea23188ea9cc1c41ac9f8bbafe0b93",
+        "matches": true
+      },
+      {
+        "name": "proofwidgets",
+        "expected": "df72b022e558978a1c50264cfc4d7fec86fa8e04",
+        "actual": "df72b022e558978a1c50264cfc4d7fec86fa8e04",
+        "matches": true
+      },
+      {
+        "name": "aesop",
+        "expected": "4a174c490d8707121c4a9290800489f105d85e07",
+        "actual": "4a174c490d8707121c4a9290800489f105d85e07",
+        "matches": true
+      },
+      {
+        "name": "Qq",
+        "expected": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
+        "actual": "dce0ad79c486cb1fb504af04f953c3466b0c6db8",
+        "matches": true
+      },
+      {
+        "name": "batteries",
+        "expected": "66e469188fe07963e5cf666c7d4433f45b8131c5",
+        "actual": "66e469188fe07963e5cf666c7d4433f45b8131c5",
+        "matches": true
+      },
+      {
+        "name": "Cli",
+        "expected": "c24fe6078c630e89b489bffe59b3e20ac30d12c8",
+        "actual": "c24fe6078c630e89b489bffe59b3e20ac30d12c8",
+        "matches": true
+      }
+    ],
+    "audit_normalization": "CRLF -> LF only; no trimming or other normalization",
+    "crlf_note": "Original CRLF bytes in lean-toolchain and lake-manifest.json retained.",
+    "audit_stdout_sha256": "8e31b042c84e59d327c48e86dc287dec3b04dab493a733e5630620c4913807db",
+    "axioms_sha256": "071bff69dcfad235cc03037227190d48d9311f4e29f9f046825796ae677610d4",
+    "original_files_unchanged": true,
+    "axiom_line_comparison": {
+      "full_output_equals_axioms": false,
+      "expected_lines": 34,
+      "actual_lines": 180,
+      "selected_axiom_lines": 34,
+      "selected_axiom_lines_equal_axioms": true,
+      "rule": "Select only full lines matching ^'[^']+' depends on axioms: ; CRLF -> LF."
+    }
+  }
+}
